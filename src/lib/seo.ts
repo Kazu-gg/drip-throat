@@ -9,7 +9,7 @@ export const SITE_URL =
 export const CONTACT_EMAIL = "hello@chevelle.fashion";
 
 export const SOCIAL = {
-  instagram: "https://instagram.com/chevelle.fashion",
+  instagram: "https://www.instagram.com/chevelleindia",
   twitter: "https://twitter.com/chevellefashion",
 };
 

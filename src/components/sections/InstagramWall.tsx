@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { instagramPosts } from "@/lib/data";
+import { SOCIAL } from "@/lib/seo";
 import { SectionHeading, fadeUp, staggerContainer } from "@/components/ui/SectionHeading";
 
 export function InstagramWall() {
   return (
     <section className="section-padding relative luxury-gradient">
       <SectionHeading
-        label="@chevelle.fashion"
+        label="@chevelleindia"
         title="Follow Our Journey"
         subtitle="A glimpse into the world of Chevellè — style, elegance, and inspiration."
       />
@@ -69,7 +70,7 @@ export function InstagramWall() {
         className="mt-12 text-center"
       >
         <a
-          href="https://instagram.com"
+          href={SOCIAL.instagram}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-3 border border-white/10 px-8 py-3 font-body text-xs tracking-[0.2em] text-white/60 uppercase transition-all duration-500 hover:border-gold/40 hover:text-gold"

@@ -1,170 +1,28 @@
-import {
-  PAGE_TITLES,
-  metaDescription,
-  collectionMetadata,
-  META_DESCRIPTIONS,
-} from "@/lib/seo";
+import { collectionMetadata, META_DESCRIPTIONS, PAGE_TITLES } from "@/lib/seo";
+import type { Collection } from "@/lib/categories";
 
-export const collections = [
-  {
-    id: "sarees",
-    name: "Sarees",
-    subtitle: "Timeless Drapes",
-    image:
-      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80&fm=webp",
-    imageAlt:
-      "Luxury designer saree collection — premium silk ethnic wear by Chevellè",
-    imageFileName: "designer-sarees-collection-chevelle.webp",
-    imageWidth: 800,
-    imageHeight: 1067,
-    seoTitle: PAGE_TITLES.sarees,
-    seoDescription: metaDescription(
-      "Shop designer sarees online at Chevellè. Premium silk, wedding & festive sarees — luxury ethnic wear curated for the modern woman. Fast delivery across India."
-    ),
-    seoKeywords: [
-      "Designer Sarees Online",
-      "Buy Sarees Online India",
-      "Premium Ethnic Wear",
-      "silk sarees",
-      "wedding sarees",
-    ],
-    longDescription:
-      "Explore Chevellè's curated saree collection — from timeless silk drapes to contemporary designer pieces. Each saree is handpicked for premium fabric, exquisite craftsmanship, and effortless elegance.",
-  },
-  {
-    id: "lehengas",
-    name: "Lehengas",
-    subtitle: "Regal Silhouettes",
-    image:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&fm=webp",
-    imageAlt:
-      "Luxury lehenga collection — designer bridal and party lehengas by Chevellè",
-    imageFileName: "luxury-lehengas-collection-chevelle.webp",
-    imageWidth: 800,
-    imageHeight: 1067,
-    seoTitle: PAGE_TITLES.lehengas,
-    seoDescription: metaDescription(
-      "Discover luxury lehengas at Chevellè — designer bridal lehengas, embroidered party wear & festive collections. Premium women's ethnic fashion delivered across India."
-    ),
-    seoKeywords: [
-      "Designer Lehengas",
-      "Luxury Fashion India",
-      "bridal lehenga",
-      "wedding lehenga online",
-    ],
-    longDescription:
-      "Chevellè's lehenga collection embodies regal Indian craftsmanship. From bridal masterpieces to festive party lehengas, every piece features premium fabrics and intricate embroidery.",
-  },
-  {
-    id: "suits",
-    name: "Suits",
-    subtitle: "Tailored Grace",
-    image:
-      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80&fm=webp",
-    imageAlt:
-      "Premium women's ethnic suits — anarkali and designer suits by Chevellè",
-    imageFileName: "premium-womens-suits-chevelle.webp",
-    imageWidth: 800,
-    imageHeight: 1067,
-    seoTitle: PAGE_TITLES.suits,
-    seoDescription: metaDescription(
-      "Shop premium women's suits at Chevellè — anarkali suits, palazzo sets & designer ethnic wear for weddings and festivals. Luxury fashion with India-wide delivery."
-    ),
-    seoKeywords: [
-      "Women's Ethnic Wear Online",
-      "anarkali suits",
-      "premium ethnic wear",
-      "women suits India",
-    ],
-    longDescription:
-      "Discover tailored grace with Chevellè's suit collection. From flowing anarkalis to structured palazzo sets, our designer suits blend traditional artistry with contemporary silhouettes.",
-  },
-  {
-    id: "co-ord",
-    name: "Co-Ord Sets",
-    subtitle: "Effortless Harmony",
-    image:
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80&fm=webp",
-    imageAlt:
-      "Premium co-ord sets for women — luxury matching outfits by Chevellè",
-    imageFileName: "premium-co-ord-sets-chevelle.webp",
-    imageWidth: 800,
-    imageHeight: 1067,
-    seoTitle: PAGE_TITLES["co-ord"],
-    seoDescription: metaDescription(
-      "Shop premium co-ord sets for women at Chevellè. Luxury matching outfits for parties, brunches & everyday elegance. Trendy women's fashion with fast India delivery."
-    ),
-    seoKeywords: [
-      "Luxury Co-Ord Sets",
-      "Trendy Co-Ord Sets",
-      "women co-ord India",
-      "premium matching outfits",
-    ],
-    longDescription:
-      "Chevellè co-ord sets deliver effortless harmony — perfectly matched pieces designed for the modern wardrobe with premium fabrics and refined cuts.",
-  },
-  {
-    id: "kurti",
-    name: "Kurti Collection",
-    subtitle: "Everyday Elegance",
-    image:
-      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80&fm=webp",
-    imageAlt:
-      "Premium designer kurti collection — luxury ethnic kurtis by Chevellè",
-    imageFileName: "premium-kurtis-collection-chevelle.webp",
-    imageWidth: 800,
-    imageHeight: 1067,
-    seoTitle: PAGE_TITLES.kurti,
-    seoDescription: metaDescription(
-      "Buy premium kurtis online at Chevellè. Designer cotton, silk & embroidered kurtis for everyday elegance and festive occasions. Luxury women's clothing India."
-    ),
-    seoKeywords: [
-      "Premium Kurtis",
-      "designer kurtis online",
-      "ethnic kurtis India",
-      "women's clothing India",
-    ],
-    longDescription:
-      "Elevate everyday dressing with Chevellè's kurti collection — from understated cotton elegance to richly embroidered festive pieces curated for quality and style.",
-  },
-  {
-    id: "western",
-    name: "Western Wear",
-    subtitle: "Modern Couture",
-    image:
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80&fm=webp",
-    imageAlt:
-      "Luxury western wear for women — premium dresses and gowns by Chevellè",
-    imageFileName: "luxury-western-wear-chevelle.webp",
-    imageWidth: 800,
-    imageHeight: 1067,
-    seoTitle: PAGE_TITLES.western,
-    seoDescription: metaDescription(
-      "Shop luxury western wear at Chevellè — designer dresses, evening gowns & contemporary fashion for women. Premium clothing with secure checkout & India delivery."
-    ),
-    seoKeywords: [
-      "Luxury Women's Fashion",
-      "western wear women",
-      "designer dresses India",
-      "Women's Fashion Online",
-    ],
-    longDescription:
-      "Chevellè western wear brings modern couture to your wardrobe — designer dresses, evening gowns, and contemporary pieces for women who appreciate global luxury fashion.",
-  },
-] as const;
+export {
+  mainCategories,
+  subcategories,
+  collections,
+  getMainCategory,
+  getSubcategoriesByParent,
+  getCollectionBySlug,
+  getMainCategoryForCollection,
+} from "@/lib/categories";
 
-export type Collection = (typeof collections)[number];
-
-export function getCollectionBySlug(slug: string): Collection | undefined {
-  return collections.find((c) => c.id === slug);
-}
+export type {
+  MainCategoryId,
+  MainCategory,
+  Subcategory,
+  Collection,
+} from "@/lib/categories";
 
 export function getCollectionMetadata(collection: Collection) {
   return collectionMetadata(
     collection.id as keyof typeof PAGE_TITLES,
     collection.seoDescription,
-    [...collection.seoKeywords],
-    collection.image
+    [...collection.seoKeywords]
   );
 }
 
@@ -172,40 +30,28 @@ export { META_DESCRIPTIONS };
 
 export const features = [
   {
-    icon: "diamond",
-    title: "Premium Quality",
-    description:
-      "Handpicked fabrics and meticulous craftsmanship in every piece.",
-  },
-  {
     icon: "sparkle",
-    title: "Curated Collections",
+    title: "Curated Luxury Fashion",
     description:
-      "Expertly selected styles that define contemporary luxury.",
-  },
-  {
-    icon: "truck",
-    title: "Fast Delivery",
-    description:
-      "Express shipping to bring elegance to your doorstep swiftly.",
+      "Premium luxury fashion, curated for weddings, festivals, and everyday elegance.",
   },
   {
     icon: "shield",
-    title: "Secure Payments",
+    title: "Secure Checkout",
     description:
-      "Bank-grade encryption for every transaction you make.",
+      "Pay your way — UPI, cards, or cash on delivery. Powered by Razorpay.",
   },
   {
-    icon: "refresh",
-    title: "Easy Exchange",
+    icon: "truck",
+    title: "Order Tracking",
     description:
-      "Hassle-free exchanges within 7 days — swap for the perfect fit or style, no questions asked.",
+      "Track every order from confirmation to delivery in the Chevellè app.",
   },
   {
-    icon: "headset",
-    title: "Customer Support",
+    icon: "package",
+    title: "Premium Shopping Experience",
     description:
-      "Dedicated concierge service available around the clock.",
+      "Luxury packaging, verified orders, and concierge support at every step.",
   },
 ];
 
@@ -254,7 +100,7 @@ export const instagramPosts = [
     id: 2,
     image:
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80&fm=webp",
-    alt: "Designer lehenga style inspiration by Chevellè",
+    alt: "Lehenga style inspiration by Chevellè",
     likes: "1.8k",
   },
   {
@@ -267,15 +113,15 @@ export const instagramPosts = [
   {
     id: 4,
     image:
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500&q=80&fm=webp",
-    alt: "Luxury western wear fashion inspiration Chevellè",
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&q=80&fm=webp",
+    alt: "Men's kurta fashion inspiration Chevellè",
     likes: "2.7k",
   },
   {
     id: 5,
     image:
-      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500&q=80&fm=webp",
-    alt: "Evening gown luxury fashion by Chevellè",
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&q=80&fm=webp",
+    alt: "Luxury handbag accessory by Chevellè",
     likes: "1.9k",
   },
   {
@@ -288,8 +134,98 @@ export const instagramPosts = [
 ];
 
 export const appBenefits = [
-  { title: "Faster Shopping", description: "One-tap checkout experience" },
-  { title: "Order Tracking", description: "Real-time delivery updates" },
-  { title: "Wishlist", description: "Save your favorites forever" },
-  { title: "Exclusive Launches", description: "Early access to new drops" },
+  { title: "Browse", description: "Women, Men & Accessories — as in the app" },
+  { title: "Product", description: "Curated pieces with premium detail" },
+  { title: "Cart", description: "Save favourites and build your edit" },
+  { title: "Checkout", description: "UPI, cards, or COD — pay your way" },
+  { title: "Track", description: "Real-time updates from order to doorstep" },
 ];
+
+export const curatedEdits = [
+  {
+    id: "new-arrivals" as const,
+    name: "New Arrivals",
+    subtitle: "Fresh from the atelier",
+    href: "/products",
+    icon: "new-arrivals" as const,
+  },
+  {
+    id: "best-sellers" as const,
+    name: "Best Sellers",
+    subtitle: "Most loved pieces",
+    href: "#bestsellers",
+    icon: "best-sellers" as const,
+  },
+  {
+    id: "trending" as const,
+    name: "Trending",
+    subtitle: "What India is wearing now",
+    href: "/collections",
+    icon: "trending" as const,
+  },
+  {
+    id: "wedding-edit" as const,
+    name: "Wedding Edit",
+    subtitle: "Celebration wear",
+    href: "/collections/lehengas",
+    icon: "wedding-edit" as const,
+  },
+  {
+    id: "festive-edit" as const,
+    name: "Festive Edit",
+    subtitle: "Diwali, Navratri & more",
+    href: "/collections/sarees",
+    icon: "festive-edit" as const,
+  },
+];
+
+export const trustItems = [
+  {
+    icon: "razorpay",
+    title: "Secure Payments",
+    description: "Bank-grade encryption via Razorpay — UPI, cards & COD accepted.",
+  },
+  {
+    icon: "verified",
+    title: "Verified Orders",
+    description: "Every order confirmed and tracked from warehouse to your door.",
+  },
+  {
+    icon: "support",
+    title: "Customer Support",
+    description: "Dedicated concierge team ready to assist with orders and styling.",
+  },
+] as const;
+
+export const faqItems = [
+  {
+    question: "What is Chevellè?",
+    answer:
+      "Chevellè is a curated luxury fashion brand in India — shop Women, Men & Accessories with the same category structure as the Chevellè app.",
+  },
+  {
+    question: "Does Chevellè deliver across India?",
+    answer:
+      "Yes. Chevellè offers fast, reliable delivery to cities and towns across India. Track your order in real time through our website or mobile app.",
+  },
+  {
+    question: "Where can I buy designer sarees online in India?",
+    answer:
+      "Shop designer sarees online at Chevellè — India's premium fashion destination for luxury silk sarees, wedding sarees, and festive ethnic wear with secure checkout.",
+  },
+  {
+    question: "What are the best luxury co-ord sets for women?",
+    answer:
+      "Chevellè offers premium co-ord sets crafted in luxury fabrics with perfectly matched silhouettes — ideal for parties, brunches, and modern Indian fashion.",
+  },
+  {
+    question: "Is Chevellè good for wedding ethnic wear?",
+    answer:
+      "Absolutely. Chevellè curates lehengas, sarees, and salwar suits for weddings and celebrations with premium fabrics and craftsmanship.",
+  },
+  {
+    question: "How do I shop at Chevellè?",
+    answer:
+      "Browse chevelle.fashion by Women, Men & Accessories — exactly as in the app — or download the Chevellè Android app for faster shopping.",
+  },
+] as const;

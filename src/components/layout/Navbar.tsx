@@ -20,7 +20,7 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -100, opacity: 0 }}
+        initial={false}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-700 ${
@@ -53,10 +53,10 @@ export function Navbar() {
 
           <div className="hidden items-center gap-4 md:flex">
             <Link
-              href="/collections"
+              href="#app"
               className="border border-gold/30 px-6 py-2.5 font-body text-xs tracking-[0.15em] text-gold uppercase transition-all duration-500 hover:border-gold hover:bg-gold/10"
             >
-              Shop Now
+              Download the App
             </Link>
           </div>
 
@@ -114,11 +114,11 @@ export function Navbar() {
                 transition={{ delay: 0.4 }}
               >
                 <Link
-                  href="/collections"
+                  href="#app"
                   onClick={() => setMenuOpen(false)}
                   className="mt-4 inline-block border border-gold px-8 py-3 font-body text-xs tracking-[0.2em] text-gold uppercase"
                 >
-                  Shop Now
+                  Download the App
                 </Link>
               </motion.div>
             </nav>

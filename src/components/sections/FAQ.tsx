@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { faqItems } from "@/lib/structured-data";
+import { faqItems } from "@/lib/data";
 import { SectionHeading, fadeUp, staggerContainer } from "@/components/ui/SectionHeading";
 
 export function FAQ() {
@@ -19,7 +19,7 @@ export function FAQ() {
 
       <motion.dl
         variants={staggerContainer}
-        initial="hidden"
+        initial={false}
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         className="mx-auto max-w-3xl divide-y divide-white/5"

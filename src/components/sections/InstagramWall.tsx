@@ -17,7 +17,7 @@ export function InstagramWall() {
 
       <motion.div
         variants={staggerContainer}
-        initial="hidden"
+        initial={false}
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         className="mx-auto columns-2 gap-3 sm:columns-3 sm:gap-4 lg:gap-5"

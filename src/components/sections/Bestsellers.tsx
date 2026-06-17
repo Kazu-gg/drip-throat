@@ -3,33 +3,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { bestsellers } from "@/lib/data";
+import { GrabScroll } from "@/components/ui/GrabScroll";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export function Bestsellers() {
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [activeProduct, setActiveProduct] = useState<number | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStart = useRef({ x: 0, scrollLeft: 0 });
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollRef.current) return;
-    setIsDragging(true);
-    dragStart.current = {
-      x: e.pageX,
-      scrollLeft: scrollRef.current.scrollLeft,
-    };
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || !scrollRef.current) return;
-    e.preventDefault();
-    const dx = e.pageX - dragStart.current.x;
-    scrollRef.current.scrollLeft = dragStart.current.scrollLeft - dx;
-  };
-
-  const handleMouseUp = () => setIsDragging(false);
 
   return (
     <section
@@ -43,21 +23,11 @@ export function Bestsellers() {
         subtitle="The pieces our clientele can't stop talking about."
       />
 
-      <div
-        ref={scrollRef}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        className={`hide-scrollbar flex gap-5 overflow-x-auto px-5 pb-4 sm:gap-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 ${
-          isDragging ? "cursor-grabbing" : "cursor-grab"
-        }`}
-        style={{ scrollSnapType: "x mandatory" }}
-      >
+      <GrabScroll className="gap-5 px-5 sm:gap-6 sm:px-8 md:px-12 lg:px-16 xl:px-24">
         {bestsellers.map((product, index) => (
           <motion.article
             key={product.id}
-            initial={{ opacity: 0, y: 40 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
@@ -70,14 +40,14 @@ export function Bestsellers() {
             onMouseEnter={() => setActiveProduct(product.id)}
             onMouseLeave={() => setActiveProduct(null)}
           >
-            <Link href={`/products/${product.slug}`} className="block">
+            <Link href={`/products/${product.slug}`} className="block" draggable={false}>
               <div className="gold-border-glow relative aspect-[3/4] overflow-hidden bg-black-card">
                 <Image
                   src={product.image}
                   alt={product.imageAlt}
                   fill
                   loading="lazy"
-                  className="object-cover transition-transform duration-700 ease-luxury group-hover:scale-105"
+                  className="pointer-events-none object-cover transition-transform duration-700 ease-luxury group-hover:scale-105"
                   sizes="320px"
                   draggable={false}
                 />
@@ -115,7 +85,7 @@ export function Bestsellers() {
             </Link>
           </motion.article>
         ))}
-      </div>
+      </GrabScroll>
 
       <div className="mt-10 text-center">
         <Link

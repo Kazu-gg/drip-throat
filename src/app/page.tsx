@@ -4,6 +4,8 @@ import { Hero } from "@/components/sections/Hero";
 import { FeaturedCollections } from "@/components/sections/FeaturedCollections";
 import { WhyChevelle } from "@/components/sections/WhyChevelle";
 import { Bestsellers } from "@/components/sections/Bestsellers";
+import { CuratedEdits } from "@/components/sections/CuratedEdits";
+import { TrustSection } from "@/components/sections/TrustSection";
 import { AppPromo } from "@/components/sections/AppPromo";
 import { CustomerReviews } from "@/components/sections/CustomerReviews";
 import { InstagramWall } from "@/components/sections/InstagramWall";
@@ -20,9 +22,11 @@ export default function Home() {
       <main id="main-content">
         <Hero />
         <FeaturedCollections />
+        <CuratedEdits />
         <WhyChevelle />
         <Bestsellers />
         <AppPromo />
+        <TrustSection />
         <CustomerReviews />
         <InstagramWall />
         <FAQ />

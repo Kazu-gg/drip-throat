@@ -4,10 +4,9 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { FloatingParticles } from "@/components/effects/FloatingParticles";
-import { useMousePosition } from "@/hooks/useMousePosition";
+import { HeroOrnament } from "@/components/icons/HeroOrnament";
 
 export function Hero() {
-  const { x, y } = useMousePosition();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -33,12 +32,12 @@ export function Hero() {
             alt="Premium luxury women's fashion — sarees, lehengas and ethnic wear by Chevellè"
             fill
             priority
-            className="object-cover opacity-30"
+            className="object-cover opacity-25"
             sizes="100vw"
           />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
       </div>
 
       <FloatingParticles />
@@ -47,83 +46,52 @@ export function Hero() {
         className="pointer-events-none absolute top-1/4 left-1/2 h-[500px] w-[800px] -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
-            "radial-gradient(ellipse, rgba(201,162,74,0.08) 0%, transparent 70%)",
+            "radial-gradient(ellipse, rgba(212,175,55,0.1) 0%, transparent 70%)",
         }}
       />
 
       <div className="relative z-10 mx-auto max-w-5xl px-5 pt-24 text-center sm:px-8">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8"
-        >
-          <p className="font-accent text-5xl tracking-[0.3em] sm:text-6xl md:text-7xl lg:text-8xl" aria-hidden="true">
+        <div className="hero-rise relative mb-8">
+          <HeroOrnament className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60" />
+          <p className="relative font-accent text-5xl tracking-[0.3em] sm:text-6xl md:text-7xl lg:text-8xl" aria-hidden="true">
             <span className="text-shimmer">CHEVELLÈ</span>
           </p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-            className="mt-3 font-body text-xs tracking-[0.5em] text-gold/70 uppercase sm:text-sm"
-          >
+          <p className="hero-rise hero-rise-delay-2 mt-3 font-body text-xs tracking-[0.5em] text-gold/70 uppercase sm:text-sm">
             Curated Elegance
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mb-10 h-px w-24 origin-center bg-gradient-to-r from-transparent via-gold to-transparent"
-        />
+        <div className="hero-line mx-auto mb-10 h-px w-24 origin-center bg-gradient-to-r from-transparent via-gold to-transparent" />
 
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-3xl leading-tight font-light tracking-wide text-white sm:text-4xl md:text-5xl lg:text-6xl"
-        >
-          <span className="sr-only">Chevellè — </span>
-          Curated Elegance
+        <h1 className="hero-rise hero-rise-delay-3 font-display text-3xl leading-tight font-light tracking-wide text-white sm:text-4xl md:text-5xl lg:text-6xl">
+          <span className="sr-only">Chevellè — Premium Luxury Fashion. </span>
+          Premium Luxury Fashion,
           <br />
-          <span className="text-white/70">For The Modern Generation</span>
-        </motion.h1>
+          <span className="text-white/70">Delivered With Care</span>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-6 max-w-lg font-body text-sm leading-relaxed text-white/50 sm:text-base"
-        >
-          Premium fashion, timeless style — shop designer sarees, lehengas,
-          suits &amp; western wear delivered across India.
-        </motion.p>
+        <p className="hero-rise hero-rise-delay-4 mx-auto mt-6 max-w-lg font-body text-sm leading-relaxed text-white/50 sm:text-base">
+          Premium luxury fashion, curated for weddings, festivals, and
+          everyday elegance.
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
-        >
+        <div className="hero-rise hero-rise-delay-5 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
           <MagneticButton
-            href="/collections"
+            href="#app"
             className="border border-gold bg-gold/10 px-10 py-4 font-body text-xs tracking-[0.2em] text-gold uppercase backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:text-black"
           >
-            Shop Collection
+            Download the App
           </MagneticButton>
-          <MagneticButton className="border border-white/20 px-10 py-4 font-body text-xs tracking-[0.2em] text-white/80 uppercase transition-all duration-500 hover:border-gold/50 hover:text-gold">
-            Download App
+          <MagneticButton
+            href="/collections"
+            className="border border-white/20 px-10 py-4 font-body text-xs tracking-[0.2em] text-white/80 uppercase transition-all duration-500 hover:border-gold/50 hover:text-gold"
+          >
+            Shop on Web
           </MagneticButton>
-        </motion.div>
+        </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
+      <div className="hero-rise hero-rise-delay-6 absolute bottom-10 left-1/2 -translate-x-1/2">
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -134,7 +102,7 @@ export function Hero() {
           </span>
           <div className="h-10 w-px bg-gradient-to-b from-gold/50 to-transparent" />
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

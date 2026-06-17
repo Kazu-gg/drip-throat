@@ -15,52 +15,67 @@ export const SOCIAL = {
 
 /** Default social sharing copy */
 export const OG_DEFAULTS = {
-  title: "Chevellè | Curated Elegance",
-  description: "Premium fashion, timeless style, and curated collections.",
+  title: "Chevellè — Premium Luxury Fashion | Curated Elegance",
+  description:
+    "Premium luxury fashion, curated for weddings, festivals, and everyday elegance. Shop Women, Men & Accessories.",
 };
 
 export const PRIMARY_KEYWORDS = [
   "Luxury Fashion India",
-  "Women's Fashion Online",
+  "Chevellè",
   "Premium Ethnic Wear",
-  "Designer Sarees Online",
-  "Luxury Co-Ord Sets",
-  "Premium Kurtis",
-  "Women's Clothing India",
+  "Women's Fashion Online",
+  "Men's Fashion India",
+  "Luxury Accessories India",
 ];
 
 export const SECONDARY_KEYWORDS = [
-  "Buy Sarees Online India",
-  "Designer Lehengas",
-  "Luxury Women's Fashion",
-  "Premium Fashion Store India",
-  "Women's Ethnic Wear Online",
-  "Trendy Co-Ord Sets",
+  "Designer Sarees Online",
+  "Kurti Sets",
+  "Co-ord Sets",
+  "Nehru Jackets",
+  "Premium Handbags India",
+  "Curated Elegance",
 ];
 
 export const TARGET_KEYWORDS = [...PRIMARY_KEYWORDS, ...SECONDARY_KEYWORDS, "Chevellè"];
 
 /** Exact page titles per SEO spec */
 export const PAGE_TITLES = {
-  home: "Chevellè | Luxury Fashion & Premium Women's Wear",
-  collections: "Women's Fashion Collection | Chevellè",
+  home: "Chevellè — Premium Luxury Fashion | Curated Elegance",
+  collections: "Shop Women, Men & Accessories | Chevellè",
   blog: "Luxury Fashion Blog | Chevellè",
-  products: "Premium Women's Fashion | Chevellè",
-  sarees: "Designer Sarees Online | Chevellè",
-  lehengas: "Luxury Lehengas Collection | Chevellè",
-  suits: "Premium Women's Suits Online | Chevellè",
-  "co-ord": "Premium Co-Ord Sets For Women | Chevellè",
-  kurti: "Premium Kurtis Online | Chevellè",
-  western: "Luxury Western Wear For Women | Chevellè",
+  products: "Premium Luxury Fashion | Chevellè",
+  // Women
+  sarees: "Sarees | Women | Chevellè",
+  lehengas: "Lehengas | Women | Chevellè",
+  "kurti-corset": "Kurti / Corset | Women | Chevellè",
+  "co-ord-set": "Co-ord Set | Women | Chevellè",
+  suit: "Suit | Women | Chevellè",
+  "shirts-tshirt": "Shirts / T-Shirt | Women | Chevellè",
+  // Men
+  kurtas: "Kurtas | Men | Chevellè",
+  "men-shirts": "Shirts | Men | Chevellè",
+  "men-tshirts": "T-Shirts | Men | Chevellè",
+  jeans: "Jeans | Men | Chevellè",
+  pants: "Pants | Men | Chevellè",
+  jackets: "Jackets | Men | Chevellè",
+  // Accessories
+  handbags: "Handbags | Accessories | Chevellè",
+  jewellery: "Jewellery | Accessories | Chevellè",
+  watches: "Watches | Accessories | Chevellè",
+  sunglasses: "Sunglasses | Accessories | Chevellè",
+  wallets: "Wallets | Accessories | Chevellè",
+  belts: "Belts | Accessories | Chevellè",
 } as const;
 
 export const META_DESCRIPTIONS = {
-  home: "Discover Chevellè — India's premium luxury fashion destination. Shop designer sarees, lehengas, co-ord sets, kurtis & ethnic wear with fast delivery.",
+  home: "Premium luxury fashion, curated for weddings, festivals, and everyday elegance. Shop Women, Men & Accessories — exactly as in the Chevellè app.",
   collections:
-    "Explore Chevellè women's fashion collections — premium ethnic wear, designer sarees, luxury lehengas, co-ord sets & kurtis curated for modern elegance.",
-  blog: "Expert luxury fashion guides, saree trends, styling tips & ethnic wear inspiration from Chevellè — India's premium women's fashion brand.",
+    "Browse Chevellè categories — Women, Men & Accessories with the same subcategories as the app. Premium Indian luxury fashion.",
+  blog: "Expert luxury fashion guides, styling tips & inspiration from Chevellè — India's curated luxury fashion brand.",
   products:
-    "Shop Chevellè bestsellers — premium designer sarees, luxury lehengas, co-ord sets & kurtis. Curated women's fashion with secure checkout & fast delivery.",
+    "Shop Chevellè bestsellers across Women, Men & Accessories. Curated luxury fashion with secure checkout & order tracking.",
 } as const;
 
 /** Trim descriptions to 150–160 characters for SERP */

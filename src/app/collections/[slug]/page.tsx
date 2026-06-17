@@ -5,6 +5,8 @@ import {
   collections,
   getCollectionBySlug,
   getCollectionMetadata,
+  getMainCategoryForCollection,
+  getSubcategoriesByParent,
 } from "@/lib/data";
 import { getProductsByCollection } from "@/lib/products";
 import {
@@ -13,6 +15,7 @@ import {
 } from "@/lib/structured-data";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { SeoImage } from "@/components/seo/SeoImage";
+import { CategoryIcon } from "@/components/ui/CategoryIcon";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -36,8 +39,11 @@ export default async function CollectionPage({ params }: PageProps) {
   const collection = getCollectionBySlug(slug);
   if (!collection) notFound();
 
+  const parent = getMainCategoryForCollection(collection);
+  const siblingCategories = getSubcategoriesByParent(collection.parentId).filter(
+    (c) => c.id !== collection.id
+  );
   const collectionProducts = getProductsByCollection(collection.id);
-  const otherCollections = collections.filter((c) => c.id !== collection.id);
 
   return (
     <>
@@ -47,12 +53,14 @@ export default async function CollectionPage({ params }: PageProps) {
             id: collection.id,
             name: collection.name,
             seoDescription: collection.seoDescription,
-            image: collection.image,
             keywords: [...collection.seoKeywords],
           }),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "Collections", path: "/collections" },
+            ...(parent
+              ? [{ name: parent.name, path: `/collections#${parent.id}` }]
+              : []),
             { name: collection.name, path: `/collections/${collection.id}` },
           ]),
         ]}
@@ -60,21 +68,22 @@ export default async function CollectionPage({ params }: PageProps) {
       <Navbar />
       <main className="min-h-screen pt-28">
         <article>
-          <header className="relative flex min-h-[50vh] items-end overflow-hidden">
-            <SeoImage
-              src={collection.image}
-              alt={collection.imageAlt}
-              fill
-              priority
-              className="object-cover opacity-40"
-              sizes="100vw"
+          <header className="relative flex min-h-[45vh] items-end overflow-hidden border-b border-white/5">
+            <div className="absolute inset-0 bg-gradient-to-b from-black-charcoal via-black to-black" />
+            <div
+              className="absolute inset-0 opacity-40"
+              style={{
+                background:
+                  "radial-gradient(ellipse at 50% 20%, rgba(212,175,55,0.12) 0%, transparent 60%)",
+              }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/30" />
-            <div className="section-padding relative z-10 w-full">
-              <nav aria-label="Breadcrumb" className="mb-6">
+            <div className="section-padding relative z-10 flex w-full flex-col items-center pb-12 text-center">
+              <nav aria-label="Breadcrumb" className="mb-8 w-full text-left">
                 <ol className="flex flex-wrap items-center gap-2 font-body text-xs tracking-wider text-white/40">
                   <li>
-                    <Link href="/" className="hover:text-gold">Home</Link>
+                    <Link href="/" className="hover:text-gold">
+                      Home
+                    </Link>
                   </li>
                   <li aria-hidden>/</li>
                   <li>
@@ -82,26 +91,37 @@ export default async function CollectionPage({ params }: PageProps) {
                       Collections
                     </Link>
                   </li>
+                  {parent && (
+                    <>
+                      <li aria-hidden>/</li>
+                      <li className="text-white/50">{parent.name}</li>
+                    </>
+                  )}
                   <li aria-hidden>/</li>
                   <li className="text-gold">{collection.name}</li>
                 </ol>
               </nav>
-              <p className="mb-2 font-accent text-xs tracking-[0.35em] text-gold uppercase">
+              <div className="mb-6 text-gold/70">
+                <CategoryIcon id={collection.icon} className="h-20 w-20" />
+              </div>
+              <p className="mb-2 font-body text-xs tracking-[0.35em] text-gold uppercase">
                 {collection.subtitle}
               </p>
               <h1 className="font-display text-4xl font-light tracking-wide text-white sm:text-5xl md:text-6xl">
                 {collection.name}
               </h1>
+              {parent && (
+                <p className="mt-3 font-body text-sm tracking-[0.2em] text-white/35 uppercase">
+                  {parent.name}
+                </p>
+              )}
             </div>
           </header>
 
           <div className="section-padding">
-            <div className="mx-auto max-w-3xl">
+            <div className="mx-auto max-w-3xl text-center">
               <p className="font-body text-base leading-relaxed text-white/55 sm:text-lg">
                 {collection.longDescription}
-              </p>
-              <p className="mt-6 font-body text-sm leading-relaxed text-white/40">
-                {collection.seoDescription}
               </p>
             </div>
 
@@ -109,11 +129,11 @@ export default async function CollectionPage({ params }: PageProps) {
               <section className="mt-20" aria-labelledby="collection-products">
                 <h2
                   id="collection-products"
-                  className="mb-10 font-display text-2xl font-light text-white sm:text-3xl"
+                  className="mb-10 text-center font-display text-2xl font-light text-white sm:text-3xl"
                 >
                   Shop {collection.name}
                 </h2>
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {collectionProducts.map((product) => (
                     <article key={product.slug} className="group">
                       <Link href={`/products/${product.slug}`}>
@@ -139,33 +159,29 @@ export default async function CollectionPage({ params }: PageProps) {
               </section>
             )}
 
-            <section className="mt-20" aria-labelledby="other-collections">
+            <section className="mt-20" aria-labelledby="sibling-categories">
               <h2
-                id="other-collections"
-                className="mb-10 font-display text-2xl font-light text-white"
+                id="sibling-categories"
+                className="mb-10 text-center font-display text-2xl font-light text-white"
               >
-                Explore More Collections
+                More in {parent?.name ?? "Collections"}
               </h2>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-                {otherCollections.map((item) => (
+              <div className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                {siblingCategories.map((item) => (
                   <Link
                     key={item.id}
                     href={`/collections/${item.id}`}
-                    className="group border border-white/5 p-4 text-center transition-colors hover:border-gold/30"
+                    className="group flex flex-col items-center border border-white/5 p-4 transition-colors hover:border-gold/30"
                   >
-                    <span className="font-body text-xs tracking-wider text-white/50 uppercase group-hover:text-gold">
+                    <CategoryIcon
+                      id={item.icon}
+                      className="mb-3 h-8 w-8 text-gold/50 group-hover:text-gold"
+                    />
+                    <span className="text-center font-body text-[10px] tracking-wider text-white/50 uppercase group-hover:text-gold">
                       {item.name}
                     </span>
                   </Link>
                 ))}
-              </div>
-              <div className="mt-10">
-                <Link
-                  href="/blog"
-                  className="font-body text-sm text-white/40 transition-colors hover:text-gold"
-                >
-                  Read our luxury fashion guides →
-                </Link>
               </div>
             </section>
           </div>

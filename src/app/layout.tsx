@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, Cinzel } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { GoogleAnalytics } from "@/components/seo/Analytics";
 import { CursorGlow } from "@/components/effects/CursorGlow";
+import { MotionProvider } from "@/components/providers/MotionProvider";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { homeMetadata, SITE_URL } from "@/lib/seo";
 
 const cormorant = Cormorant_Garamond({
@@ -12,17 +14,10 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const cinzel = Cinzel({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-cinzel",
+  variable: "--font-dm-sans",
   display: "swap",
 });
 
@@ -65,12 +60,15 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-      className={`${cormorant.variable} ${inter.variable} ${cinzel.variable}`}
+      className={`${cormorant.variable} ${dmSans.variable}`}
     >
-      <body className="font-body antialiased">
-        <GoogleAnalytics />
-        <CursorGlow />
-        {children}
+      <body className="min-h-screen bg-black font-body text-white antialiased">
+        <MotionProvider>
+          <SmoothScroll />
+          <GoogleAnalytics />
+          <CursorGlow />
+          {children}
+        </MotionProvider>
       </body>
     </html>
   );

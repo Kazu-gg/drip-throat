@@ -32,7 +32,7 @@ export function CustomerReviews() {
 
       <motion.div
         variants={staggerContainer}
-        initial="hidden"
+        initial={false}
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
         className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2"

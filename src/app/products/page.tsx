@@ -38,11 +38,11 @@ export default function ProductsPage() {
               Bestsellers
             </p>
             <h1 className="font-display text-4xl font-light tracking-wide text-white sm:text-5xl">
-              Premium Women&apos;s Fashion
+              Premium Luxury Fashion
             </h1>
             <p className="mx-auto mt-6 max-w-2xl font-body text-base leading-relaxed text-white/50">
-              Shop Chevellè bestsellers — luxury designer sarees, lehengas,
-              co-ord sets, kurtis and western wear curated for the modern woman.
+              Shop Chevellè bestsellers across Women, Men &amp; Accessories —
+              curated luxury fashion with secure checkout and order tracking.
             </p>
           </header>
 

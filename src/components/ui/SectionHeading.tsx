@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { SectionOrnament } from "@/components/icons/SectionOrnament";
 
 export const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -45,7 +46,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <motion.div
-      initial="hidden"
+      initial={false}
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       className={`mb-14 md:mb-20 ${align === "center" ? "text-center" : "text-left"}`}
@@ -77,13 +78,11 @@ export function SectionHeading({
           {subtitle}
         </motion.p>
       )}
-      <motion.div
-        variants={fadeIn}
-        custom={0.3}
-        className={`mt-6 h-px w-16 bg-gradient-to-r from-transparent via-gold to-transparent ${
-          align === "center" ? "mx-auto" : ""
-        }`}
-      />
+      <motion.div variants={fadeIn} custom={0.3}>
+        <SectionOrnament
+          className={`mt-6 w-48 ${align === "center" ? "mx-auto" : ""}`}
+        />
+      </motion.div>
     </motion.div>
   );
 }

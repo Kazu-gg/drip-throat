@@ -13,7 +13,7 @@ export function FeaturedCollections() {
   return (
     <section
       id="collections"
-      className="section-padding relative luxury-gradient"
+      className="section-padding relative overflow-hidden luxury-gradient"
       aria-labelledby="collections-heading"
     >
       <SectionHeading
@@ -22,8 +22,23 @@ export function FeaturedCollections() {
         subtitle="Shop Women, Men & Accessories — exactly as in the Chevellè app."
       />
 
-      <div className="mx-auto mb-10 flex max-w-7xl justify-center">
+      <div className="mx-auto mb-12 flex max-w-7xl flex-col items-center gap-6">
         <CategoryTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={activeTab}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-md text-center font-display text-lg font-light tracking-wide text-white/55 sm:text-xl"
+          >
+            {activeMain?.description}
+          </motion.p>
+        </AnimatePresence>
+        <p className="font-body text-[10px] tracking-[0.35em] text-white/25 uppercase">
+          Drag or swipe to explore
+        </p>
       </div>
 
       <AnimatePresence mode="wait">
@@ -32,15 +47,11 @@ export function FeaturedCollections() {
           id={`panel-${activeTab}`}
           role="tabpanel"
           aria-labelledby={`tab-${activeTab}`}
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto max-w-7xl"
+          exit={{ opacity: 0, y: -12 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="mb-8 text-center font-body text-sm text-white/40">
-            {activeMain?.description}
-          </p>
           <CategoryGrid parentId={activeTab} />
         </motion.div>
       </AnimatePresence>

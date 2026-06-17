@@ -14,6 +14,8 @@ type GrabScrollProps = {
   children: ReactNode;
   className?: string;
   snap?: boolean;
+  /** Center the row when content is narrower than the viewport */
+  center?: boolean;
 };
 
 /**
@@ -24,6 +26,7 @@ export function GrabScroll({
   children,
   className = "",
   snap = true,
+  center = false,
 }: GrabScrollProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const draggingRef = useRef(false);
@@ -72,6 +75,18 @@ export function GrabScroll({
     }
   };
 
+  const track = (
+    <div
+      className={
+        center
+          ? `mx-auto flex w-max min-w-full justify-center ${className}`
+          : className
+      }
+    >
+      {children}
+    </div>
+  );
+
   return (
     <div
       ref={scrollRef}
@@ -83,14 +98,14 @@ export function GrabScroll({
       onClickCapture={handleClickCapture}
       className={`grab-scroll hide-scrollbar flex overflow-x-auto pb-4 ${
         isGrabbing ? "cursor-grabbing select-none" : "cursor-grab"
-      } ${className}`}
+      } ${center ? "" : className}`}
       style={
         snap
           ? { scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }
           : { WebkitOverflowScrolling: "touch" }
       }
     >
-      {children}
+      {center ? track : children}
     </div>
   );
 }

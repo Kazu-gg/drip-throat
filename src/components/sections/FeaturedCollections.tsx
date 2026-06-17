@@ -37,24 +37,17 @@ export function FeaturedCollections() {
           </motion.p>
         </AnimatePresence>
         <p className="font-body text-[10px] tracking-[0.35em] text-white/25 uppercase">
-          Drag or swipe to explore
+          Drag · Swipe · Scroll wheel
         </p>
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeTab}
-          id={`panel-${activeTab}`}
-          role="tabpanel"
-          aria-labelledby={`tab-${activeTab}`}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <CategoryGrid parentId={activeTab} />
-        </motion.div>
-      </AnimatePresence>
+      <div
+        id={`panel-${activeTab}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${activeTab}`}
+      >
+        <CategoryGrid parentId={activeTab} />
+      </div>
     </section>
   );
 }

@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useScrollY } from "@/hooks/useMousePosition";
 import { useState } from "react";
 import Link from "next/link";
+import { AuthNav } from "@/components/auth/AuthNav";
+import { isAuthEnabled } from "@/lib/auth";
+import { APP_DOWNLOAD_PATH, AUTH_ROUTES } from "@/lib/routes";
 
 const navLinks = [
   { label: "Collections", href: "/collections" },
@@ -52,8 +55,9 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-4 md:flex">
+            <AuthNav />
             <Link
-              href="#app"
+              href={APP_DOWNLOAD_PATH}
               className="border border-gold/30 px-6 py-2.5 font-body text-xs tracking-[0.15em] text-gold uppercase transition-all duration-500 hover:border-gold hover:bg-gold/10"
             >
               Download the App
@@ -112,11 +116,30 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
+                className="mt-4 flex flex-col items-center gap-4"
               >
+                {isAuthEnabled() && (
+                  <>
+                    <Link
+                      href={AUTH_ROUTES.login}
+                      onClick={() => setMenuOpen(false)}
+                      className="font-body text-sm tracking-[0.15em] text-white/50 uppercase hover:text-gold"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href={AUTH_ROUTES.signup}
+                      onClick={() => setMenuOpen(false)}
+                      className="border border-white/15 px-8 py-3 font-body text-xs tracking-[0.2em] text-white/60 uppercase"
+                    >
+                      Sign Up
+                    </Link>
+                  </>
+                )}
                 <Link
-                  href="#app"
+                  href={APP_DOWNLOAD_PATH}
                   onClick={() => setMenuOpen(false)}
-                  className="mt-4 inline-block border border-gold px-8 py-3 font-body text-xs tracking-[0.2em] text-gold uppercase"
+                  className="inline-block border border-gold px-8 py-3 font-body text-xs tracking-[0.2em] text-gold uppercase"
                 >
                   Download the App
                 </Link>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { mainCategories, getSubcategoriesByParent } from "@/lib/categories";
 import { SOCIAL, CONTACT_EMAIL } from "@/lib/seo";
+import { APP_DOWNLOAD_PATH } from "@/lib/routes";
 
 const footerLinks = {
   company: [
@@ -120,12 +121,15 @@ export function Footer() {
                 <p className="font-body text-xs tracking-[0.2em] text-white/40 uppercase">
                   Download the App
                 </p>
-                <button className="flex w-full items-center justify-center gap-2 border border-white/10 px-4 py-3 font-body text-xs tracking-[0.15em] text-white/50 uppercase transition-all duration-300 hover:border-gold/30 hover:text-gold">
+                <Link
+                  href={APP_DOWNLOAD_PATH}
+                  className="flex w-full items-center justify-center gap-2 border border-white/10 px-4 py-3 font-body text-xs tracking-[0.15em] text-white/50 uppercase transition-all duration-300 hover:border-gold/30 hover:text-gold"
+                >
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
                     <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85a.637.637 0 00-.83.22l-1.88 3.24a11.43 11.43 0 00-8.6 0L5.99 5.67a.643.643 0 00-.87-.2.617.617 0 00-.27.82l1.84 3.19C4.14 11.97 2.5 14.94 2.5 18h19c0-3.06-1.64-6.03-3.9-8.52z" />
                   </svg>
                   Android
-                </button>
+                </Link>
                 <p className="text-center font-body text-[10px] tracking-[0.15em] text-white/25 uppercase">
                   iOS — Coming Soon
                 </p>

@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { APP_DOWNLOAD_PATH } from "@/lib/routes";
 import { FloatingParticles } from "@/components/effects/FloatingParticles";
 import { HeroOrnament } from "@/components/icons/HeroOrnament";
 
@@ -77,7 +78,7 @@ export function Hero() {
 
         <div className="hero-rise hero-rise-delay-5 mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
           <MagneticButton
-            href="#app"
+            href={APP_DOWNLOAD_PATH}
             className="border border-gold bg-gold/10 px-10 py-4 font-body text-xs tracking-[0.2em] text-gold uppercase backdrop-blur-sm transition-all duration-500 hover:bg-gold hover:text-black"
           >
             Download the App

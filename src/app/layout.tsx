@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { GoogleAnalytics } from "@/components/seo/Analytics";
-import { CursorGlow } from "@/components/effects/CursorGlow";
-import { MotionProvider } from "@/components/providers/MotionProvider";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { ClientShell } from "@/components/providers/ClientShell";
 import { homeMetadata, SITE_URL } from "@/lib/seo";
 
 const cormorant = Cormorant_Garamond({
@@ -63,12 +60,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${dmSans.variable}`}
     >
       <body className="min-h-screen bg-black font-body text-white antialiased">
-        <MotionProvider>
-          <SmoothScroll />
-          <GoogleAnalytics />
-          <CursorGlow />
-          {children}
-        </MotionProvider>
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );

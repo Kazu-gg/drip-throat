@@ -39,44 +39,34 @@ const CarouselContext = createContext<CarouselContextValue | null>(null);
 /** Parallax + brightness for category card images */
 export function useLuxuryCarouselMotion(index: number) {
   const ctx = useContext(CarouselContext);
-  const fallback = useMotionValue(0);
+  const fallbackTrackX = useMotionValue(0);
 
-  const distance = useTransform(
-    ctx?.trackX ?? fallback,
-    (tx) => {
-      if (!ctx) return 0;
-      const viewportCenter = ctx.containerWidth / 2;
-      const cardCenter =
-        ctx.sidePadding + index * ctx.step + ctx.cardWidth / 2 + tx;
-      return cardCenter - viewportCenter;
-    }
-  );
+  const trackX = ctx?.trackX ?? fallbackTrackX;
+  const containerWidth = ctx?.containerWidth ?? 0;
+  const cardWidth = ctx?.cardWidth ?? 280;
+  const step = ctx?.step ?? cardWidth + GAP;
+  const sidePadding = ctx?.sidePadding ?? 0;
 
-  const imageX = useTransform(
-    distance,
-    ctx ? [-ctx.step * 1.2, 0, ctx.step * 1.2] : [-100, 0, 100],
-    ["7%", "0%", "-7%"]
-  );
+  const distance = useTransform(trackX, (tx) => {
+    if (containerWidth <= 48) return 0;
+    const viewportCenter = containerWidth / 2;
+    const cardCenter = sidePadding + index * step + cardWidth / 2 + tx;
+    return cardCenter - viewportCenter;
+  });
 
-  const imageBrightness = useTransform(
-    distance,
-    ctx ? [-ctx.step * 1.5, 0, ctx.step * 1.5] : [-100, 0, 100],
-    [0.75, 1.1, 0.75]
-  );
+  const imageX = useTransform(distance, (d) => {
+    if (containerWidth <= 48) return "0%";
+    const ratio = Math.max(-1, Math.min(1, d / (step * 1.2)));
+    return `${(-ratio * 7).toFixed(2)}%`;
+  });
 
-  const imageBlur = useTransform(
-    distance,
-    ctx ? [-ctx.step * 2, -ctx.step * 0.5, 0, ctx.step * 0.5, ctx.step * 2] : [-100, -50, 0, 50, 100],
-    [4, 1, 0, 1, 4]
-  );
-
-  const imageFilter = useTransform(
-    [imageBrightness, imageBlur],
-    ([b, bl]) => {
-      if (!ctx || ctx.containerWidth <= 48) return "none";
-      return `brightness(${b}) blur(${bl}px)`;
-    }
-  );
+  const imageFilter = useTransform(distance, (d) => {
+    if (containerWidth <= 48) return "none";
+    const t = Math.min(Math.abs(d) / (step * 2), 1);
+    const blur = t * 4;
+    const brightness = 1.08 - t * 0.36;
+    return `brightness(${brightness.toFixed(3)}) blur(${blur.toFixed(2)}px)`;
+  });
 
   return { distance, imageX, imageFilter };
 }
@@ -183,7 +173,7 @@ export function LuxuryCarousel<T>({
   const contextValue = useMemo<CarouselContextValue>(
     () => ({
       trackX,
-      containerWidth: containerWidth || 1,
+      containerWidth,
       cardWidth,
       step,
       sidePadding,

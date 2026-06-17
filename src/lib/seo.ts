@@ -46,6 +46,11 @@ export const PAGE_TITLES = {
   collections: "Shop Women, Men & Accessories | Chevellè",
   blog: "Luxury Fashion Blog | Chevellè",
   products: "Premium Luxury Fashion | Chevellè",
+  download: "Download the App | Chevellè",
+  login: "Sign In | Chevellè",
+  signup: "Create Account | Chevellè",
+  verifyEmail: "Verify Email | Chevellè",
+  checkout: "Checkout | Chevellè",
   // Women
   sarees: "Sarees | Women | Chevellè",
   lehengas: "Lehengas | Women | Chevellè",
@@ -76,7 +81,17 @@ export const META_DESCRIPTIONS = {
   blog: "Expert luxury fashion guides, styling tips & inspiration from Chevellè — India's curated luxury fashion brand.",
   products:
     "Shop Chevellè bestsellers across Women, Men & Accessories. Curated luxury fashion with secure checkout & order tracking.",
+  download:
+    "The Chevellè app is coming soon. Hang tight — premium luxury fashion on iOS and Android is almost here.",
+  login:
+    "Sign in to your Chevellè account to shop premium luxury fashion and access secure checkout.",
+  signup:
+    "Create a Chevellè account. Verify your email to unlock checkout for curated luxury fashion.",
+  verifyEmail:
+    "Verify your email to complete your Chevellè account and continue to secure checkout.",
 } as const;
+
+export { APP_DOWNLOAD_PATH } from "@/lib/routes";
 
 /** Trim descriptions to 150–160 characters for SERP */
 export function metaDescription(text: string, max = 160): string {

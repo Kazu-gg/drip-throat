@@ -21,6 +21,7 @@ import { SeoImage } from "@/components/seo/SeoImage";
 import { RelatedProducts } from "@/components/seo/RelatedProducts";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { BuyButton } from "@/components/auth/BuyButton";
 import { getCollectionBySlug } from "@/lib/data";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -132,9 +133,7 @@ export default async function ProductPage({ params }: PageProps) {
                   {product.description}
                 </p>
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                  <button className="border border-gold bg-gold/10 px-10 py-4 font-body text-xs tracking-[0.2em] text-gold uppercase transition-colors hover:bg-gold hover:text-black">
-                    Add to Bag
-                  </button>
+                  <BuyButton productSlug={product.slug} />
                   {collection && (
                     <Link
                       href={`/collections/${collection.id}`}

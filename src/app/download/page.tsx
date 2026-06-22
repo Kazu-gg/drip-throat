@@ -28,7 +28,7 @@ export default function DownloadPage() {
         ])}
       />
       <Navbar />
-      <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 pt-28 pb-20">
+      <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-black px-5 pt-28 pb-20">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -61,13 +61,13 @@ export default function DownloadPage() {
           <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
             <Link
               href="/collections"
-              className="border border-gold bg-gold/10 px-10 py-4 font-body text-xs tracking-[0.2em] text-gold uppercase transition-all duration-500 hover:bg-gold hover:text-black"
+              className="inline-block border border-gold bg-gold/10 px-10 py-4 font-body text-xs tracking-[0.2em] text-gold no-underline uppercase transition-all duration-500 hover:bg-gold hover:text-black"
             >
               Shop on Web
             </Link>
             <Link
               href="/"
-              className="border border-white/15 px-10 py-4 font-body text-xs tracking-[0.2em] text-white/50 uppercase transition-all duration-500 hover:border-white/30 hover:text-white/70"
+              className="inline-block border border-white/15 px-10 py-4 font-body text-xs tracking-[0.2em] text-white/50 no-underline uppercase transition-all duration-500 hover:border-white/30 hover:text-white/70"
             >
               Back to Home
             </Link>

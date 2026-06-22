@@ -36,6 +36,7 @@ export function CuratedEdits() {
             <Link
               href={edit.href}
               draggable={false}
+              data-cursor="explore"
               className="gold-border-glow group relative flex aspect-[4/5] flex-col justify-between overflow-hidden border border-gold/20 bg-black-charcoal p-5 transition-all duration-500 hover:border-gold/50 hover:bg-gold-muted sm:p-6"
             >
               <div className="flex flex-1 items-start justify-center pt-2 text-gold/50 transition-colors duration-500 group-hover:text-gold">

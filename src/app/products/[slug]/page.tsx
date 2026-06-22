@@ -17,11 +17,10 @@ import {
   breadcrumbSchema,
 } from "@/lib/structured-data";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { SeoImage } from "@/components/seo/SeoImage";
 import { RelatedProducts } from "@/components/seo/RelatedProducts";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { BuyButton } from "@/components/auth/BuyButton";
+import { ProductExhibit } from "@/components/experience/ProductExhibit";
 import { getCollectionBySlug } from "@/lib/data";
 
 type PageProps = { params: Promise<{ slug: string }> };
@@ -77,10 +76,10 @@ export default async function ProductPage({ params }: PageProps) {
         ]}
       />
       <Navbar />
-      <main className="min-h-screen pt-28">
-        <article className="section-padding !pt-8">
+      <main className="min-h-screen bg-black">
+        <div className="section-padding !pb-0 !pt-28">
           <div className="mx-auto max-w-7xl">
-            <nav aria-label="Breadcrumb" className="mb-8">
+            <nav aria-label="Breadcrumb" className="mb-4">
               <ol className="flex flex-wrap items-center gap-2 font-body text-xs tracking-wider text-white/40">
                 <li>
                   <Link href="/" className="hover:text-gold">Home</Link>
@@ -106,49 +105,21 @@ export default async function ProductPage({ params }: PageProps) {
                 <li className="text-gold">{product.name}</li>
               </ol>
             </nav>
-
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
-              <div className="relative aspect-[3/4] overflow-hidden bg-black-card">
-                <SeoImage
-                  src={product.image.src}
-                  alt={product.image.alt}
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-
-              <div>
-                <p className="mb-2 font-body text-xs tracking-[0.3em] text-gold uppercase">
-                  {product.category}
-                </p>
-                <h1 className="font-display text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
-                  {product.name}
-                </h1>
-                <p className="mt-4 font-body text-2xl text-gold">
-                  {product.priceDisplay}
-                </p>
-                <p className="mt-8 font-body text-base leading-relaxed text-white/55">
-                  {product.description}
-                </p>
-                <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                  <BuyButton productSlug={product.slug} />
-                  {collection && (
-                    <Link
-                      href={`/collections/${collection.id}`}
-                      className="border border-white/15 px-10 py-4 text-center font-body text-xs tracking-[0.2em] text-white/60 uppercase transition-colors hover:border-gold/40 hover:text-gold"
-                    >
-                      View {collection.name}
-                    </Link>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <RelatedProducts products={related} />
           </div>
-        </article>
+        </div>
+
+        <ProductExhibit
+          product={product}
+          collectionName={collection?.name}
+          collectionHref={
+            collection ? `/collections/${collection.id}` : undefined
+          }
+          related={
+            <div className="section-padding border-t border-white/5">
+              <RelatedProducts products={related} />
+            </div>
+          }
+        />
       </main>
       <Footer />
     </>

@@ -2,8 +2,10 @@
 
 import dynamic from "next/dynamic";
 import { GoogleAnalytics } from "@/components/seo/Analytics";
-import { CursorGlow } from "@/components/effects/CursorGlow";
 import { MotionProvider } from "@/components/providers/MotionProvider";
+import { FilmGrain } from "@/components/experience/FilmGrain";
+import { LuxuryPreloader } from "@/components/experience/LuxuryPreloader";
+import { LuxuryCursor } from "@/components/experience/LuxuryCursor";
 
 const SmoothScroll = dynamic(
   () =>
@@ -15,8 +17,10 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
   return (
     <MotionProvider>
       <SmoothScroll />
+      <LuxuryPreloader />
+      <FilmGrain />
+      <LuxuryCursor />
       <GoogleAnalytics />
-      <CursorGlow />
       {children}
     </MotionProvider>
   );

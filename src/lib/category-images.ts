@@ -9,7 +9,7 @@ export const categoryImages: Record<string, { src: string; alt: string }> = {
     alt: "Embroidered lehenga for celebrations",
   },
   "kurti-corset": {
-    src: "https://images.unsplash.com/photo-1583391734529-41e9444d2d02?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80&fm=webp",
     alt: "Women kurti set styling",
   },
   "co-ord-set": {
@@ -61,7 +61,7 @@ export const categoryImages: Record<string, { src: string; alt: string }> = {
     alt: "Luxury wristwatch",
   },
   sunglasses: {
-    src: "https://images.unsplash.com/photo-1572635196233-39b4df4c0a0c?w=800&q=80",
+    src: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=80&fm=webp",
     alt: "Designer sunglasses",
   },
   wallets: {

@@ -19,8 +19,8 @@ export function Bestsellers() {
     >
       <SectionHeading
         label="Most Loved"
-        title="Bestsellers"
-        subtitle="The pieces our clientele can't stop talking about."
+        title="Selected Works"
+        subtitle="Museum-grade pieces from the Chevellè archive."
       />
 
       <GrabScroll className="gap-5 px-5 sm:gap-6 sm:px-8 md:px-12 lg:px-16 xl:px-24">
@@ -40,7 +40,7 @@ export function Bestsellers() {
             onMouseEnter={() => setActiveProduct(product.id)}
             onMouseLeave={() => setActiveProduct(null)}
           >
-            <Link href={`/products/${product.slug}`} className="block" draggable={false}>
+            <Link href={`/products/${product.slug}`} className="block" draggable={false} data-cursor="view">
               <div className="gold-border-glow relative aspect-[3/4] overflow-hidden bg-black-card">
                 <Image
                   src={product.image}

@@ -8,6 +8,12 @@
   --gold-light: #e2c663;
   --gold-muted: rgba(212, 175, 55, 0.12);
   --gold-glow: rgba(212, 175, 55, 0.35);
+  --campaign-bg: #050505;
+  --campaign-accent: #d4af37;
+  --campaign-secondary: #e2c663;
+  --campaign-glow: rgba(212, 175, 55, 0.14);
+  --campaign-particle: #d4af37;
+  --campaign-text: #f5f5f5;
 }
 
 * {
@@ -149,6 +155,11 @@ body {
     animation: hero-line 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
     transform-origin: center;
   }
+
+  .luxury-compass-spin {
+    animation: luxury-compass-spin 60s linear infinite;
+    will-change: transform;
+  }
 }
 
 @keyframes hero-rise {
@@ -189,6 +200,32 @@ body {
   100% {
     background-position: 300% 300%;
   }
+}
+
+@keyframes luxury-compass-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .luxury-compass-spin {
+    animation: none;
+  }
+}
+
+html.luxury-cursor-active,
+html.luxury-cursor-active body,
+html.luxury-cursor-active a,
+html.luxury-cursor-active button {
+  cursor: none !important;
+}
+
+.collection-world-active {
+  transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .sr-only {

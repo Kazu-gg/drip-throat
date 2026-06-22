@@ -9,6 +9,7 @@ type MagneticButtonProps = {
   className?: string;
   href?: string;
   type?: "button" | "submit" | "reset";
+  "data-cursor"?: string;
 };
 
 export function MagneticButton({
@@ -16,6 +17,7 @@ export function MagneticButton({
   className = "",
   href,
   type = "button",
+  "data-cursor": dataCursor,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -32,11 +34,11 @@ export function MagneticButton({
   const handleMouseLeave = () => setPosition({ x: 0, y: 0 });
 
   const content = href ? (
-    <Link href={href} className={`inline-block ${className}`}>
+    <Link href={href} className={`inline-block ${className}`} data-cursor={dataCursor}>
       {children}
     </Link>
   ) : (
-    <button type={type} className={className}>
+    <button type={type} className={className} data-cursor={dataCursor}>
       {children}
     </button>
   );

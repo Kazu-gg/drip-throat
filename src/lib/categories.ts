@@ -259,6 +259,15 @@ export function getMainCategory(id: MainCategoryId): MainCategory | undefined {
   return mainCategories.find((c) => c.id === id);
 }
 
+export const SHOP_CATEGORY_PARAM = "category";
+
+export function parseMainCategoryId(value: string | null): MainCategoryId {
+  if (value === "men" || value === "accessories" || value === "women") {
+    return value;
+  }
+  return "women";
+}
+
 export function getSubcategoriesByParent(parentId: MainCategoryId): Subcategory[] {
   return subcategories.filter((c) => c.parentId === parentId);
 }

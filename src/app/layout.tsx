@@ -55,11 +55,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en-IN"
-      className={`${cormorant.variable} ${dmSans.variable}`}
-    >
-      <body className="min-h-screen bg-black font-body text-white antialiased">
+    <html lang="en-IN" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <body
+        className="min-h-screen bg-black font-body text-white antialiased"
+        style={{ backgroundColor: "#050505", color: "#f5f5f5" }}
+      >
         <ClientShell>{children}</ClientShell>
       </body>
     </html>

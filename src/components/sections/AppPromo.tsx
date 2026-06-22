@@ -1,98 +1,15 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { appBenefits } from "@/lib/data";
-import { appFlowStepDurationMs } from "@/lib/app-lottie";
-import { SectionHeading, fadeUp, staggerContainer } from "@/components/ui/SectionHeading";
+import { fadeUp, staggerContainer } from "@/components/ui/SectionHeading";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { AppLottie } from "@/components/ui/AppLottie";
+import { AppPhoneVideo } from "@/components/ui/AppPhoneVideo";
 import { APP_DOWNLOAD_PATH } from "@/lib/routes";
-import { useCallback, useEffect, useRef, useState } from "react";
-
-const appScreens = [
-  { id: "browse", label: "Browse", step: 0 },
-  { id: "product", label: "Product", step: 1 },
-  { id: "cart", label: "Cart", step: 2 },
-  { id: "checkout", label: "Pay", step: 3 },
-  { id: "track", label: "Track", step: 4 },
-] as const;
-
-const stepLabels = [
-  "Women · Men · Accessories",
-  "Curated product detail",
-  "Your cart",
-  "Secure checkout",
-  "Live order tracking",
-] as const;
-
-function PhoneScreen({ step }: { step: number }) {
-  return (
-    <div className="flex h-full flex-col">
-      <div className="flex flex-1 flex-col items-center justify-center px-4 pt-2">
-        <AppLottie step={step} />
-        <p className="mt-2 text-center font-body text-[9px] tracking-[0.2em] text-gold/70 uppercase">
-          {stepLabels[step]}
-        </p>
-      </div>
-
-      <div className="border-t border-white/5 px-4 pb-3 pt-3">
-        {step === 0 && (
-          <div className="grid grid-cols-3 gap-2">
-            {["Sarees", "Kurtas", "Bags"].map((label) => (
-              <div
-                key={label}
-                className="rounded border border-gold/15 bg-gold/5 py-2 text-center text-[7px] text-white/50"
-              >
-                {label}
-              </div>
-            ))}
-          </div>
-        )}
-        {step === 1 && (
-          <div className="space-y-2">
-            <div className="h-2 w-3/4 rounded bg-white/10" />
-            <div className="h-2 w-1/2 rounded bg-white/5" />
-            <p className="text-[10px] text-gold">₹12,999</p>
-          </div>
-        )}
-        {step === 2 && (
-          <div className="flex justify-between text-[10px]">
-            <span className="text-white/40">2 items</span>
-            <span className="text-gold">₹12,499</span>
-          </div>
-        )}
-        {step === 3 && (
-          <p className="text-center text-[9px] tracking-[0.15em] text-gold/80 uppercase">
-            UPI · Card · COD
-          </p>
-        )}
-        {step === 4 && (
-          <p className="text-center text-[9px] tracking-[0.15em] text-white/40 uppercase">
-            Order #CVL-2847
-          </p>
-        )}
-      </div>
-    </div>
-  );
-}
+import { useState } from "react";
 
 export function AppPromo() {
   const [activeStep, setActiveStep] = useState(0);
-  const pauseUntilRef = useRef(0);
-
-  const goToStep = useCallback((step: number) => {
-    setActiveStep(step);
-    pauseUntilRef.current = Date.now() + appFlowStepDurationMs * 2;
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (Date.now() < pauseUntilRef.current) return;
-      setActiveStep((current) => (current + 1) % appScreens.length);
-    }, appFlowStepDurationMs);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section id="app" className="section-padding relative overflow-hidden border-t border-white/5">
@@ -131,7 +48,7 @@ export function AppPromo() {
               <motion.button
                 key={benefit.title}
                 type="button"
-                onClick={() => goToStep(index)}
+                onClick={() => setActiveStep(index)}
                 variants={fadeUp}
                 custom={index * 0.05}
                 className={`group text-left transition-opacity ${activeStep === index ? "opacity-100" : "opacity-60 hover:opacity-80"}`}
@@ -195,57 +112,9 @@ export function AppPromo() {
             className="relative"
           >
             <div className="relative h-[520px] w-[260px] rounded-[40px] border border-white/10 bg-gradient-to-b from-black-card to-black p-3 shadow-2xl sm:h-[580px] sm:w-[290px]">
-              <div className="absolute top-6 left-1/2 h-1 w-16 -translate-x-1/2 rounded-full bg-white/10" />
+              <div className="absolute top-6 left-1/2 z-10 h-1 w-16 -translate-x-1/2 rounded-full bg-white/10" />
               <div className="relative h-full overflow-hidden rounded-[32px] border border-white/5 bg-black">
-                <div className="flex h-12 items-center justify-center border-b border-white/5">
-                  <span className="font-accent text-xs tracking-[0.3em] text-gold">
-                    CHEVELLÈ
-                  </span>
-                </div>
-
-                <div className="relative h-[calc(100%-7rem)] overflow-hidden">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeStep}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                      className="absolute inset-0"
-                    >
-                      <PhoneScreen step={activeStep} />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                <div className="absolute right-0 bottom-0 left-0 flex h-14 items-center justify-around border-t border-white/5 bg-black">
-                  {appScreens.map(({ label, step }) => (
-                    <button
-                      key={label}
-                      type="button"
-                      onClick={() => goToStep(step)}
-                      className="flex flex-col items-center gap-1"
-                      aria-label={`Show ${label} screen`}
-                      aria-current={activeStep === step ? "step" : undefined}
-                    >
-                      <motion.div
-                        animate={{
-                          scale: activeStep === step ? 1.4 : 1,
-                          backgroundColor:
-                            activeStep === step
-                              ? "rgba(212,175,55,0.9)"
-                              : "rgba(212,175,55,0.25)",
-                        }}
-                        className="h-1 w-1 rounded-full"
-                      />
-                      <span
-                        className={`text-[8px] transition-colors ${activeStep === step ? "text-gold/80" : "text-white/30"}`}
-                      >
-                        {label}
-                      </span>
-                    </button>
-                  ))}
-                </div>
+                <AppPhoneVideo />
               </div>
             </div>
 

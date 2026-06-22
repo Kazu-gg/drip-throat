@@ -1,16 +1,6 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { Hero } from "@/components/sections/Hero";
-import { FeaturedCollections } from "@/components/sections/FeaturedCollections";
-import { WhyChevelle } from "@/components/sections/WhyChevelle";
-import { Bestsellers } from "@/components/sections/Bestsellers";
-import { CuratedEdits } from "@/components/sections/CuratedEdits";
-import { TrustSection } from "@/components/sections/TrustSection";
-import { AppPromo } from "@/components/sections/AppPromo";
-import { CustomerReviews } from "@/components/sections/CustomerReviews";
-import { InstagramWall } from "@/components/sections/InstagramWall";
-import { Newsletter } from "@/components/sections/Newsletter";
-import { FAQ } from "@/components/sections/FAQ";
+import { CampaignExperience } from "@/components/campaign/CampaignExperience";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { homePageSchemas } from "@/lib/structured-data";
 
@@ -19,18 +9,8 @@ export default function Home() {
     <>
       <StructuredData data={homePageSchemas()} />
       <Navbar />
-      <main id="main-content">
-        <Hero />
-        <FeaturedCollections />
-        <CuratedEdits />
-        <WhyChevelle />
-        <Bestsellers />
-        <AppPromo />
-        <TrustSection />
-        <CustomerReviews />
-        <InstagramWall />
-        <FAQ />
-        <Newsletter />
+      <main id="main-content" className="relative bg-[var(--campaign-bg,#050505)] text-[var(--campaign-text,#f5f5f5)] transition-colors duration-1000">
+        <CampaignExperience />
       </main>
       <Footer />
     </>

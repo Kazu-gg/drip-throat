@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCampaignTheme } from "@/components/campaign/CampaignThemeProvider";
+import { MobileCollectionUniverse } from "@/components/campaign/MobileCollectionUniverse";
 import {
   getCampaignCollections,
   type CampaignTheme,
@@ -126,7 +127,7 @@ function UniverseRow({
   );
 }
 
-export function CollectionUniverse() {
+function DesktopCollectionUniverse() {
   const {
     activeId,
     activeCategory,
@@ -145,7 +146,7 @@ export function CollectionUniverse() {
   return (
     <section
       id="universe"
-      className="relative z-10 min-h-screen py-24 sm:py-32"
+      className="relative z-10 hidden min-h-screen py-24 md:block sm:py-32"
       onMouseLeave={resetTheme}
       aria-labelledby="universe-heading"
     >
@@ -219,5 +220,14 @@ export function CollectionUniverse() {
         </div>
       </div>
     </section>
+  );
+}
+
+export function CollectionUniverse() {
+  return (
+    <>
+      <MobileCollectionUniverse />
+      <DesktopCollectionUniverse />
+    </>
   );
 }

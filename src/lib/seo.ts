@@ -4,9 +4,9 @@ export const SITE_NAME = "Chevellè";
 export const SITE_TAGLINE = "Curated Elegance";
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.chevelle.fashion";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.chevelle.in";
 
-export const CONTACT_EMAIL = "hello@chevelle.fashion";
+export const CONTACT_EMAIL = "support@chevelle.in";
 
 export const SOCIAL = {
   instagram: "https://www.instagram.com/chevelleindia",
@@ -15,9 +15,9 @@ export const SOCIAL = {
 
 /** Default social sharing copy */
 export const OG_DEFAULTS = {
-  title: "Chevellè — Premium Luxury Fashion | Curated Elegance",
+  title: "Chevellè — Curated Elegance",
   description:
-    "Premium luxury fashion, curated for weddings, festivals, and everyday elegance. Shop Women, Men & Accessories.",
+    "Premium curated fashion for women, men, and accessories. Luxury Indian elegance — weddings, festivals, and everyday refinement.",
 };
 
 export const PRIMARY_KEYWORDS = [
@@ -42,15 +42,18 @@ export const TARGET_KEYWORDS = [...PRIMARY_KEYWORDS, ...SECONDARY_KEYWORDS, "Che
 
 /** Exact page titles per SEO spec */
 export const PAGE_TITLES = {
-  home: "Chevellè — Premium Luxury Fashion | Curated Elegance",
-  collections: "Shop Women, Men & Accessories | Chevellè",
-  blog: "Luxury Fashion Blog | Chevellè",
-  products: "Premium Luxury Fashion | Chevellè",
-  download: "Download the App | Chevellè",
+  home: "Chevellè — Curated Elegance",
+  collections: "Shop Collections | Chevellè",
+  blog: "Journal | Chevellè",
+  products: "Shop All | Chevellè",
+  download: "Get the App | Chevellè",
   login: "Sign In | Chevellè",
   signup: "Create Account | Chevellè",
   verifyEmail: "Verify Email | Chevellè",
   checkout: "Checkout | Chevellè",
+  privacy: "Privacy Policy | Chevellè",
+  terms: "Terms & Conditions | Chevellè",
+  faq: "FAQ | Chevellè",
   // Women
   sarees: "Sarees | Women | Chevellè",
   lehengas: "Lehengas | Women | Chevellè",
@@ -75,14 +78,14 @@ export const PAGE_TITLES = {
 } as const;
 
 export const META_DESCRIPTIONS = {
-  home: "Premium luxury fashion, curated for weddings, festivals, and everyday elegance. Shop Women, Men & Accessories — exactly as in the Chevellè app.",
+  home: "Chevellè — curated elegance for women, men, and accessories. Premium Indian luxury fashion with secure checkout and refined, app-like shopping.",
   collections:
-    "Browse Chevellè categories — Women, Men & Accessories with the same subcategories as the app. Premium Indian luxury fashion.",
-  blog: "Expert luxury fashion guides, styling tips & inspiration from Chevellè — India's curated luxury fashion brand.",
+    "Browse Chevellè collections — New Arrivals, Best Sellers, Wedding Edit, Festive Edit, and more. Women, men, and accessories.",
+  blog: "Style notes and luxury fashion guidance from Chevellè — refined curation for modern Indian elegance.",
   products:
-    "Shop Chevellè bestsellers across Women, Men & Accessories. Curated luxury fashion with secure checkout & order tracking.",
+    "Shop Chevellè — curated luxury fashion across women, men, and accessories. Secure Razorpay checkout and order tracking.",
   download:
-    "The Chevellè app is coming soon. Hang tight — premium luxury fashion on iOS and Android is almost here.",
+    "Get Chevellè on your phone. Browse collections, track orders, and shop curated luxury fashion — iOS and Android coming soon.",
   login:
     "Sign in to your Chevellè account to shop premium luxury fashion and access secure checkout.",
   signup:

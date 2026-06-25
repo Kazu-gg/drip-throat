@@ -3,27 +3,29 @@
 import Link from "next/link";
 import { useState } from "react";
 import { SOCIAL, CONTACT_EMAIL } from "@/lib/seo";
-import { APP_DOWNLOAD_PATH } from "@/lib/routes";
+import { APP_DOWNLOAD_PATH, LEGAL_ROUTES } from "@/lib/routes";
+import { curatedEdits } from "@/lib/data";
 
 const shopLinks = [
-  { label: "Women", href: "/collections?category=women" },
-  { label: "Men", href: "/collections?category=men" },
-  { label: "Accessories", href: "/collections?category=accessories" },
-  { label: "All Products", href: "/products" },
+  ...curatedEdits.map((e) => ({ label: e.name, href: e.href })),
+  { label: "Women", href: "/collections/women" },
+  { label: "Men", href: "/collections/men" },
+  { label: "Unisex", href: "/collections/unisex" },
+  { label: "Accessories", href: "/collections/accessories" },
 ];
 
 const companyLinks = [
-  { label: "About Us", href: "#values" },
+  { label: "About", href: "#values" },
   { label: "Experience", href: "#experience" },
-  { label: "Blog", href: "/blog" },
-  { label: "Download App", href: APP_DOWNLOAD_PATH },
+  { label: "Journal", href: "/blog" },
+  { label: "Get the App", href: APP_DOWNLOAD_PATH },
 ];
 
 const helpLinks = [
-  { label: "FAQ", href: "#faq" },
+  { label: "FAQ", href: LEGAL_ROUTES.faq },
   { label: "Support", href: `mailto:${CONTACT_EMAIL}` },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Terms & Conditions", href: "#" },
+  { label: "Privacy Policy", href: LEGAL_ROUTES.privacy },
+  { label: "Terms & Conditions", href: LEGAL_ROUTES.terms },
 ];
 
 function FooterAccordion({
@@ -36,11 +38,11 @@ function FooterAccordion({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-white/5 lg:border-0">
+    <div className="border-b border-[var(--border-subtle)] lg:border-0">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between py-4 font-body text-xs tracking-[0.25em] text-white/50 uppercase lg:pointer-events-none lg:cursor-default lg:py-0"
+        className="flex w-full items-center justify-between py-4 font-body text-xs tracking-[0.25em] text-[var(--campaign-text)]/50 uppercase lg:pointer-events-none lg:cursor-default lg:py-0"
         aria-expanded={open}
       >
         {title}
@@ -55,7 +57,7 @@ function FooterAccordion({
           <li key={link.label}>
             <Link
               href={link.href}
-              className="font-body text-sm text-white/35 transition-colors hover:text-gold"
+              className="font-body text-sm text-[var(--campaign-text)]/35 transition-colors hover:text-gold"
             >
               {link.label}
             </Link>
@@ -72,11 +74,11 @@ function FooterNewsletter() {
 
   return (
     <div className="lg:col-span-4">
-      <h4 className="font-body text-xs tracking-[0.25em] text-white/50 uppercase">
+      <h4 className="font-body text-xs tracking-[0.25em] text-[var(--campaign-text)]/50 uppercase">
         Newsletter
       </h4>
-      <p className="mt-3 max-w-sm font-body text-sm text-white/35">
-        Get style updates and exclusive offers straight to your inbox.
+      <p className="mt-3 max-w-sm font-body text-sm text-[var(--campaign-text)]/35">
+        Style notes and new arrivals — curated, never cluttered.
       </p>
       {done ? (
         <p className="mt-5 font-body text-sm text-gold">Thank you for subscribing.</p>
@@ -94,7 +96,7 @@ function FooterNewsletter() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email address"
-            className="w-full border border-white/10 bg-[#0a0a0a] py-4 pr-14 pl-4 font-body text-sm text-white placeholder-white/30 focus:border-gold/40 focus:outline-none"
+            className="w-full border border-[var(--border-subtle)] bg-[var(--surface)] py-4 pr-14 pl-4 font-body text-sm text-[var(--campaign-text)] placeholder-[var(--campaign-text)]/30 focus:border-gold/40 focus:outline-none"
           />
           <button
             type="submit"
@@ -111,41 +113,39 @@ function FooterNewsletter() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/5 bg-black">
+    <footer className="border-t border-[var(--border-subtle)] bg-[var(--campaign-bg)]">
       <div className="section-padding !pb-10 !pt-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-3">
               <Link href="/">
-                <span className="font-accent text-2xl tracking-[0.22em] text-white">
+                <span className="font-accent text-2xl tracking-[0.22em] text-[var(--campaign-text)]">
                   CHEVELLÈ
                 </span>
               </Link>
               <p className="mt-1 font-body text-[9px] tracking-[0.35em] text-gold/60 uppercase">
                 Curated Elegance
               </p>
-              <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-white/35">
-                Premium luxury fashion, curated for weddings, festivals, and
-                everyday elegance.
+              <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-[var(--campaign-text)]/35">
+                Premium curated fashion for women, men, and accessories across
+                India.
               </p>
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="mt-4 inline-block font-body text-sm text-gold/80 transition-colors hover:text-gold"
+              >
+                {CONTACT_EMAIL}
+              </a>
               <div className="mt-6 flex gap-3">
-                {[
-                  { label: "Instagram", href: SOCIAL.instagram },
-                  { label: "Facebook", href: "#" },
-                  { label: "Pinterest", href: "#" },
-                  { label: "YouTube", href: "#" },
-                ].map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target={s.href.startsWith("http") ? "_blank" : undefined}
-                    rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="flex h-9 w-9 items-center justify-center border border-white/10 text-[10px] text-white/40 transition-colors hover:border-gold/40 hover:text-gold"
-                    aria-label={s.label}
-                  >
-                    {s.label[0]}
-                  </a>
-                ))}
+                <a
+                  href={SOCIAL.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-9 w-9 items-center justify-center border border-[var(--border-subtle)] text-[10px] text-[var(--campaign-text)]/40 transition-colors hover:border-gold/40 hover:text-gold"
+                  aria-label="Instagram"
+                >
+                  Ig
+                </a>
               </div>
             </div>
 
@@ -162,17 +162,23 @@ export function Footer() {
             <FooterNewsletter />
           </div>
 
-          <div className="mt-14 h-px bg-gradient-to-r from-gold/20 via-white/5 to-transparent" />
+          <div className="mt-14 h-px bg-gradient-to-r from-gold/20 via-[var(--border-subtle)] to-transparent" />
 
           <div className="mt-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <p className="font-body text-xs text-white/25">
+            <p className="font-body text-xs text-[var(--campaign-text)]/25">
               &copy; {new Date().getFullYear()} Chevellè. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link href="#" className="font-body text-[10px] text-white/25 hover:text-white/45">
+              <Link
+                href={LEGAL_ROUTES.privacy}
+                className="font-body text-[10px] text-[var(--campaign-text)]/25 hover:text-[var(--campaign-text)]/45"
+              >
                 Privacy Policy
               </Link>
-              <Link href="#" className="font-body text-[10px] text-white/25 hover:text-white/45">
+              <Link
+                href={LEGAL_ROUTES.terms}
+                className="font-body text-[10px] text-[var(--campaign-text)]/25 hover:text-[var(--campaign-text)]/45"
+              >
                 Terms & Conditions
               </Link>
             </div>

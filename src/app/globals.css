@@ -3,21 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --black: #050505;
+  --black: #0d0d0d;
+  --ivory: #f8f0eb;
   --gold: #d4af37;
   --gold-light: #e2c663;
   --gold-muted: rgba(212, 175, 55, 0.12);
   --gold-glow: rgba(212, 175, 55, 0.35);
-  --campaign-bg: #050505;
+  --campaign-bg: #0d0d0d;
   --campaign-accent: #d4af37;
   --campaign-secondary: #e2c663;
   --campaign-glow: rgba(212, 175, 55, 0.14);
   --campaign-particle: #d4af37;
   --campaign-text: #f5f5f5;
+  --surface: #141414;
+  --border-subtle: rgba(255, 255, 255, 0.08);
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
 }
 
 html {
@@ -45,46 +52,6 @@ body {
   transition:
     background-color 0.65s ease,
     color 0.65s ease;
-}
-
-html[data-gender-theme="women"] {
-  --gold: #d4a574;
-  --gold-light: #f0c9a8;
-  --gold-muted: rgba(196, 92, 122, 0.14);
-  --gold-glow: rgba(196, 92, 122, 0.38);
-  --campaign-bg: #100608;
-  --campaign-accent: #c45c7a;
-  --campaign-secondary: #8b1538;
-  --campaign-glow: rgba(139, 21, 56, 0.24);
-  --campaign-particle: #e8b4bc;
-  --campaign-text: #faf0f2;
-}
-
-html[data-gender-theme="men"] {
-  --gold: #9eb8a8;
-  --gold-light: #c8ddd2;
-  --gold-muted: rgba(45, 106, 79, 0.14);
-  --gold-glow: rgba(45, 106, 79, 0.32);
-  --campaign-bg: #030608;
-  --campaign-accent: #5a9a78;
-  --campaign-secondary: #2d6a4f;
-  --campaign-glow: rgba(45, 106, 79, 0.22);
-  --campaign-particle: #7eb89a;
-  --campaign-text: #eef4f1;
-}
-
-.gender-split-handle {
-  box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.35);
-  transition: box-shadow 0.35s ease, border-color 0.35s ease;
-}
-
-.gender-split-handle:hover,
-.gender-split-handle:focus-visible {
-  border-color: var(--gold);
-  box-shadow:
-    0 0 0 6px rgba(0, 0, 0, 0.35),
-    0 0 28px var(--gold-glow);
-  outline: none;
 }
 
 ::selection {
@@ -258,13 +225,6 @@ html[data-gender-theme="men"] {
   .luxury-compass-spin {
     animation: none;
   }
-}
-
-html.luxury-cursor-active,
-html.luxury-cursor-active body,
-html.luxury-cursor-active a,
-html.luxury-cursor-active button {
-  cursor: none !important;
 }
 
 .collection-world-active {
@@ -451,5 +411,112 @@ html.luxury-cursor-active button {
 .figma-btn-enter:hover span {
   background-color: var(--gold);
   border-color: var(--gold);
-  color: #050505;
+  color: #0d0d0d;
+}
+
+/* Figma shop UI */
+.shop-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold);
+  background-color: var(--gold);
+  color: #0d0d0d;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.shop-btn-primary:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold-light);
+  box-shadow: 0 0 24px var(--gold-glow);
+}
+
+.shop-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gold);
+  background-color: transparent;
+  color: var(--gold);
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+.shop-btn-outline:hover {
+  background-color: var(--gold);
+  color: #0d0d0d;
+}
+
+.shop-filter-heading {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.shop-filter-link {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 12px;
+  color: color-mix(in srgb, var(--campaign-text) 55%, transparent);
+  transition: color 0.25s ease;
+}
+
+.shop-filter-link:hover,
+.shop-filter-link.is-active {
+  color: var(--gold);
+}
+
+.shop-size-btn {
+  min-width: 3.5rem;
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--campaign-text) 60%, transparent);
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.shop-size-btn.is-active,
+.shop-size-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background-color: var(--gold-muted);
+}
+
+.shop-order-summary {
+  border: 1px solid var(--border-subtle);
+  background-color: var(--surface);
+}
+
+.shop-status-badge {
+  border: 1px solid var(--gold);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.shop-product-card {
+  transition: opacity 0.3s ease;
 }

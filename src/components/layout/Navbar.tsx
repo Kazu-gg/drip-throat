@@ -4,14 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useScrollY } from "@/hooks/useMousePosition";
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
+import { useCart } from "@/contexts/CartContext";
+import { AUTH_ROUTES } from "@/lib/routes";
 
 const navLinks = [
+  { label: "New In", href: "/products" },
+  { label: "Women", href: "/collections/women" },
+  { label: "Men", href: "/collections/men" },
+  { label: "Unisex", href: "/collections/unisex" },
   { label: "Collections", href: "/collections" },
-  { label: "Women", href: "/collections?category=women" },
-  { label: "Men", href: "/collections?category=men" },
-  { label: "Unisex", href: "/collections?category=accessories" },
-  { label: "Our World", href: "#explore" },
-  { label: "About Us", href: "#values" },
+  { label: "Our World", href: "/#explore" },
 ];
 
 function NavIcon({
@@ -26,7 +28,7 @@ function NavIcon({
   badge?: number;
 }) {
   const className =
-    "relative flex h-9 w-9 items-center justify-center text-white/55 transition-colors hover:text-gold";
+    "relative flex h-9 w-9 items-center justify-center text-[var(--campaign-text)]/55 transition-colors hover:text-gold";
   const inner = (
     <>
       {children}
@@ -54,31 +56,32 @@ function NavIcon({
 export function Navbar() {
   const scrollY = useScrollY();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { count } = useCart();
   const isScrolled = scrollY > 50;
 
   return (
     <>
       <motion.header
         initial={false}
-        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-700 ${
+        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "border-b border-white/5 bg-black/85 backdrop-blur-xl"
-            : "bg-transparent"
+            ? "border-b border-[var(--border-subtle)] bg-[var(--campaign-bg)]/92 backdrop-blur-xl"
+            : "bg-[var(--campaign-bg)]/40 backdrop-blur-sm"
         }`}
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-          <Link href="/" className="group relative z-50 shrink-0">
-            <span className="block font-accent text-lg tracking-[0.22em] text-gold sm:text-xl">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
+          <Link href="/" className="relative z-50 shrink-0">
+            <span className="font-accent text-lg tracking-[0.22em] text-gold sm:text-xl">
               CHEVELLÈ
             </span>
           </Link>
 
-          <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 xl:gap-7 lg:flex">
+          <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-4 xl:gap-6 lg:flex">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="font-body text-[10px] tracking-[0.22em] text-white/55 uppercase transition-colors hover:text-gold"
+                  className="font-body text-[10px] tracking-[0.2em] text-[var(--campaign-text)]/55 uppercase transition-colors hover:text-gold"
                 >
                   {link.label}
                 </Link>
@@ -86,14 +89,28 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="relative z-50 flex items-center gap-1 sm:gap-2">
-            <NavIcon label="Search">
+          <div className="relative z-50 flex items-center gap-0.5 sm:gap-1">
+            <NavIcon label="Search" href="/products">
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="11" cy="11" r="7" />
                 <path d="M20 20l-3-3" />
               </svg>
             </NavIcon>
-            <NavIcon label="Shopping bag" href="/checkout" badge={1}>
+
+            <NavIcon label="Account" href="/account">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M5 20c0-4 3-6 7-6s7 2 7 6" />
+              </svg>
+            </NavIcon>
+
+            <NavIcon label="Wishlist" href="/account?tab=wishlist">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3.5 1.5 4 2.5C10.5 6.5 12 5 14 5c3.5 0 5 4 3.5 7C19 16.5 12 21 12 21z" />
+              </svg>
+            </NavIcon>
+
+            <NavIcon label="Shopping bag" href="/cart" badge={count}>
               <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M6 7h15l-1.5 9h-12L6 7z" />
                 <path d="M9 7V5a3 3 0 016 0v2" />
@@ -103,25 +120,13 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
-              className="ml-2 flex items-center gap-2 font-body text-[9px] tracking-[0.28em] text-white/55 uppercase transition-colors hover:text-gold lg:ml-3"
-              aria-label="Toggle menu"
+              className="ml-1 flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
+              aria-label="Menu"
               aria-expanded={menuOpen}
             >
-              <span className="hidden sm:inline">Menu</span>
-              <span className="flex h-10 w-10 flex-col items-center justify-center gap-1.5">
-                <motion.span
-                  animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                  className="block h-px w-5 bg-current"
-                />
-                <motion.span
-                  animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-                  className="block h-px w-5 bg-current"
-                />
-                <motion.span
-                  animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                  className="block h-px w-5 bg-current"
-                />
-              </span>
+              <span className="block h-px w-5 bg-gold" />
+              <span className="block h-px w-5 bg-gold" />
+              <span className="block h-px w-5 bg-gold" />
             </button>
           </div>
         </nav>
@@ -133,25 +138,25 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/95 backdrop-blur-2xl"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[var(--campaign-bg)]/98 backdrop-blur-xl lg:hidden"
           >
-            <nav className="flex max-h-[80vh] flex-col items-center gap-6 overflow-y-auto px-6">
-              {navLinks.map((link, i) => (
-                <motion.div
+            <nav className="flex flex-col items-center gap-6">
+              {navLinks.map((link) => (
+                <Link
                   key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="font-display text-2xl font-light text-[var(--campaign-text)]/80 hover:text-gold"
                 >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="font-display text-2xl font-light tracking-wide text-white/80 hover:text-gold"
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
+                  {link.label}
+                </Link>
               ))}
+              <Link href="/account" onClick={() => setMenuOpen(false)} className="text-gold">
+                Account
+              </Link>
+              <Link href={AUTH_ROUTES.login} onClick={() => setMenuOpen(false)} className="text-sm tracking-widest uppercase">
+                Sign In
+              </Link>
             </nav>
           </motion.div>
         )}

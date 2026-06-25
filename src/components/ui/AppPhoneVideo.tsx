@@ -3,9 +3,24 @@
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import {
+  APP_DEMO_AVAILABLE,
   APP_DEMO_VIDEO,
   APP_DEMO_VIDEO_WEBM,
 } from "@/lib/app-media";
+
+function AppPreviewPlaceholder() {
+  return (
+    <div className="flex h-full flex-col items-center justify-center bg-black px-6 text-center">
+      <p className="font-body text-[10px] tracking-[0.25em] text-gold/60 uppercase">
+        App preview
+      </p>
+      <p className="mt-3 font-body text-xs leading-relaxed text-white/35">
+        Add your screen recording to{" "}
+        <code className="text-gold/50">public/videos/chevelle-app-demo.mp4</code>
+      </p>
+    </div>
+  );
+}
 
 export function AppPhoneVideo() {
   const reduceMotion = useReducedMotion();
@@ -14,6 +29,8 @@ export function AppPhoneVideo() {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
+    if (!APP_DEMO_AVAILABLE) return;
+
     const video = videoRef.current;
     if (!video || reduceMotion) return;
 
@@ -36,18 +53,8 @@ export function AppPhoneVideo() {
     video.addEventListener("error", () => setFailed(true));
   }, [reduceMotion]);
 
-  if (failed) {
-    return (
-      <div className="flex h-full flex-col items-center justify-center bg-black px-6 text-center">
-        <p className="font-body text-[10px] tracking-[0.25em] text-gold/60 uppercase">
-          App preview
-        </p>
-        <p className="mt-3 font-body text-xs leading-relaxed text-white/35">
-          Add your screen recording to{" "}
-          <code className="text-gold/50">public/videos/chevelle-app-demo.mp4</code>
-        </p>
-      </div>
-    );
+  if (!APP_DEMO_AVAILABLE || failed || reduceMotion) {
+    return <AppPreviewPlaceholder />;
   }
 
   return (

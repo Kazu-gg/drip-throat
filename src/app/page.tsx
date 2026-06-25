@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <StructuredData data={homePageSchemas()} />
       <Navbar />
-      <main id="main-content" className="relative bg-black text-white">
+      <main id="main-content" className="relative bg-[var(--campaign-bg)] text-[var(--campaign-text)]">
         <FigmaHomeExperience />
       </main>
       <Footer />

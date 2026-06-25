@@ -3,15 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { HERO_IMAGE, HERO_FALLBACK } from "@/lib/figma-home";
-
-const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
-  id: i,
-  left: `${8 + (i * 17) % 84}%`,
-  top: `${12 + (i * 23) % 72}%`,
-  delay: (i % 5) * 0.4,
-  size: i % 3 === 0 ? 2 : 1,
-}));
+import { HERO_IMAGE } from "@/lib/figma-home";
+import { APP_DOWNLOAD_PATH } from "@/lib/routes";
 
 export function FigmaHero() {
   return (
@@ -26,93 +19,50 @@ export function FigmaHero() {
           alt={HERO_IMAGE.alt}
           fill
           priority
-          className="object-cover object-top"
+          className="object-cover object-[center_22%] scale-[1.03] brightness-[0.95] saturate-[1.12] contrast-[1.04]"
           sizes="100vw"
-          onError={(e) => {
-            const img = e.currentTarget;
-            if (!img.src.includes("unsplash")) img.src = HERO_FALLBACK;
-          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-black/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/50" />
+        {/* Base warmth — ties photo into gold/black brand */}
+        <div className="absolute inset-0 bg-[#1a1208]/25 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gold/[0.08] via-transparent to-[#0d0d0d]/30" />
+        {/* Edge vignette for readability, centre stays luminous */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d]/75 via-[#0d0d0d]/20 to-[#0d0d0d]/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_45%,rgba(13,13,13,0.35)_0%,rgba(13,13,13,0.08)_55%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/15 to-[#0d0d0d]/45" />
       </div>
 
-      {PARTICLES.map((p) => (
-        <motion.span
-          key={p.id}
-          className="pointer-events-none absolute rounded-full bg-gold"
-          style={{
-            left: p.left,
-            top: p.top,
-            width: p.size,
-            height: p.size,
-          }}
-          animate={{ opacity: [0.15, 0.7, 0.15], scale: [1, 1.8, 1] }}
-          transition={{
-            duration: 3 + p.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: p.delay,
-          }}
-          aria-hidden
-        />
-      ))}
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center section-padding pt-28 pb-16 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-3xl"
+        >
+          <p className="text-shimmer font-accent text-[clamp(2.5rem,8vw,5rem)] leading-[1.05] tracking-[0.08em] opacity-75 drop-shadow-[0_4px_32px_rgba(0,0,0,0.25)]">
+            CURATED ELEGANCE.
+            <br />
+            TIMELESS YOU.
+          </p>
+          <p className="mx-auto mt-6 max-w-md font-body text-sm leading-relaxed text-[var(--campaign-text)]/70 sm:text-base">
+            Luxury fashion that speaks before you do.
+          </p>
 
-      <div className="relative z-10 flex flex-1 flex-col justify-end section-padding pb-14 pt-28 sm:pb-16">
-        <div className="mx-auto w-full max-w-7xl">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-3xl"
-          >
-            <h1 className="font-accent text-[clamp(3.5rem,12vw,7.5rem)] leading-[0.9] tracking-[0.12em] text-gold">
-              CHEVELLÈ
-            </h1>
-            <p className="mt-6 font-body text-[10px] tracking-[0.55em] text-gold/80 uppercase sm:text-xs">
-              Curated Elegance
-            </p>
-            <p className="mt-5 max-w-lg font-body text-sm leading-relaxed text-white/55 sm:text-base">
-              Where Indian luxury meets modern grace — curated for those who
-              wear elegance as identity.
-            </p>
-
-            <Link
-              href="#explore"
-              className="figma-btn-enter group mt-10 inline-flex items-center gap-4 font-body text-[10px] tracking-[0.35em] text-white uppercase"
-            >
-              Enter the World
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/50 text-gold transition-colors group-hover:bg-gold group-hover:text-black">
-                →
-              </span>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href="/collections" className="shop-btn-primary min-w-[220px] px-10 py-3.5">
+              Explore Collections
             </Link>
-          </motion.div>
-
-          <div className="mt-16 flex items-end justify-between gap-6">
-            <div className="hidden items-center gap-3 sm:flex">
-              <span className="font-body text-[9px] tracking-[0.35em] text-white/35 uppercase">
-                Scroll to Discover
-              </span>
-              <div className="flex h-9 w-5 items-start justify-center rounded-full border border-white/20 p-1">
-                <motion.span
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 1.6, repeat: Infinity }}
-                  className="block h-1.5 w-1 rounded-full bg-gold/70"
-                />
-              </div>
-            </div>
-            <button
-              type="button"
-              className="ml-auto flex items-center gap-2 font-body text-[9px] tracking-[0.32em] text-white/45 uppercase transition-colors hover:text-gold"
-              aria-label="Play brand film"
-            >
-              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/25">
-                ▶
-              </span>
-              Play Film
-            </button>
+            <Link href="/products" className="shop-btn-outline min-w-[220px] px-10 py-3.5">
+              Shop New In
+            </Link>
           </div>
-        </div>
+
+          <Link
+            href={APP_DOWNLOAD_PATH}
+            className="mt-6 inline-block font-body text-[10px] tracking-[0.28em] text-[var(--campaign-text)]/40 uppercase hover:text-gold"
+          >
+            Download App
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

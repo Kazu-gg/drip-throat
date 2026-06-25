@@ -56,7 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-IN" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen bg-black font-body text-white antialiased">
+      <body className="min-h-screen bg-[var(--campaign-bg)] font-body text-[var(--campaign-text)] antialiased">
         <ClientShell>{children}</ClientShell>
       </body>
     </html>

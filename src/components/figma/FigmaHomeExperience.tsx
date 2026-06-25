@@ -1,24 +1,21 @@
-import { GenderThemeProvider } from "@/contexts/GenderThemeContext";
-import { ScrollSpy } from "@/components/figma/ScrollSpy";
 import { FigmaHero } from "@/components/figma/FigmaHero";
-import { ChooseYourWorld } from "@/components/figma/ChooseYourWorld";
-import { GenderSplit } from "@/components/figma/GenderSplit";
-import { SignatureCollection } from "@/components/figma/SignatureCollection";
-import { WhyChevelleStats } from "@/components/figma/WhyChevelleStats";
+import { ExploreOurWorlds } from "@/components/figma/ExploreOurWorlds";
+import { CollectionsGrid } from "@/components/shop/CollectionsGrid";
+import { HomeFeaturedProducts } from "@/components/shop/HomeFeaturedProducts";
 import { PackagingExperience } from "@/components/figma/PackagingExperience";
 import { AppPromo } from "@/components/figma/AppPromo";
+import { FAQ } from "@/components/sections/FAQ";
 
 export function FigmaHomeExperience() {
   return (
-    <GenderThemeProvider>
-      <ScrollSpy />
+    <>
       <FigmaHero />
-      <ChooseYourWorld />
-      <GenderSplit />
-      <SignatureCollection />
-      <WhyChevelleStats />
+      <ExploreOurWorlds />
+      <CollectionsGrid />
+      <HomeFeaturedProducts />
       <PackagingExperience />
       <AppPromo />
-    </GenderThemeProvider>
+      <FAQ />
+    </>
   );
 }

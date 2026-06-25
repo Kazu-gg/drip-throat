@@ -1,0 +1,56 @@
+{
+  "hero": {
+    "src": "/images/hero/main.webp",
+    "width": 1365,
+    "height": 1080,
+    "bytes": 77404
+  },
+  "category-hero:women": {
+    "src": "/images/collections/women/hero/main.webp",
+    "width": 1620,
+    "height": 1080,
+    "bytes": 83048
+  },
+  "category-hero:men": {
+    "src": "/images/collections/men/hero/main.webp",
+    "width": 1620,
+    "height": 1080,
+    "bytes": 46032
+  },
+  "category-hero:unisex": {
+    "src": "/images/collections/unisex/hero/main.webp",
+    "width": 1620,
+    "height": 1080,
+    "bytes": 89060
+  },
+  "category-card:women": {
+    "src": "/images/collections/women/main.webp",
+    "width": 1200,
+    "height": 1600,
+    "bytes": 113536
+  },
+  "category-card:men": {
+    "src": "/images/collections/men/main.webp",
+    "width": 1200,
+    "height": 1600,
+    "bytes": 86944
+  },
+  "category:unisex": {
+    "src": "/images/collections/unisex/main.webp",
+    "width": 1200,
+    "height": 1600,
+    "bytes": 89790
+  },
+  "category:jackets": {
+    "src": "/images/collections/men/jackets/main.webp",
+    "width": 1200,
+    "height": 1600,
+    "bytes": 86944
+  },
+  "category:sarees": {
+    "src": "/images/collections/women/sarees/main.webp",
+    "width": 1200,
+    "height": 1600,
+    "bytes": 113536
+  }
+}

@@ -153,7 +153,7 @@ export const curatedEdits = [
     id: "best-sellers" as const,
     name: "Best Sellers",
     subtitle: "Most loved pieces",
-    href: "#bestsellers",
+    href: "/products",
     icon: "best-sellers" as const,
   },
   {
@@ -226,6 +226,6 @@ export const faqItems = [
   {
     question: "How do I shop at Chevellè?",
     answer:
-      "Browse chevelle.fashion by Women, Men & Accessories — exactly as in the app — or download the Chevellè Android app for faster shopping.",
+      "Browse chevelle.in by Women, Men & Accessories — or download the Chevellè app when available for a refined mobile experience.",
   },
 ] as const;

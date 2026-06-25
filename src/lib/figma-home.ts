@@ -1,4 +1,5 @@
 import { getCategoryImage } from "@/lib/category-images";
+import { optimizedSrc } from "@/lib/site-images";
 
 export const FIGMA_SECTIONS = [
   { id: "intro", num: "01", label: "Intro" },
@@ -66,9 +67,9 @@ export const FIGMA_STATS = [
 
 export const APP_BENEFITS = [
   "Early access to new collections",
-  "Exclusive app-only drops",
+  "Curated edits and member offers",
   "Order tracking in real time",
-  "Saved wishlists & faster checkout",
+  "Saved wishlists and faster checkout",
 ] as const;
 
 export const SIGNATURE_SLIDES = [
@@ -102,18 +103,18 @@ export const SIGNATURE_SLIDES = [
   },
 ] as const;
 
+export const HERO_FALLBACK =
+  "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1920&q=85";
+
 export function figmaImage(slug: string, fallbackAlt: string) {
   const entry = getCategoryImage(slug);
   return {
-    src: entry?.src ?? "/images/hero/main.webp",
+    src: entry?.src ?? HERO_FALLBACK,
     alt: entry?.alt ?? fallbackAlt,
   };
 }
 
 export const HERO_IMAGE = {
-  src: "/images/hero/main.webp",
+  src: optimizedSrc("hero", HERO_FALLBACK),
   alt: "Chevellè luxury fashion editorial",
 };
-
-export const HERO_FALLBACK =
-  "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1920&q=85";

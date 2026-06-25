@@ -86,7 +86,7 @@ export function AppPromo() {
             className="max-w-sm lg:justify-self-end"
           >
             <p className="font-body text-[10px] tracking-[0.35em] text-gold uppercase">
-              Exclusive App Benefits
+              App Benefits
             </p>
             <ul className="mt-5 space-y-3">
               {APP_BENEFITS.map((benefit) => (

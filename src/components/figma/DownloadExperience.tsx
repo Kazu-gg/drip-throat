@@ -44,12 +44,12 @@ export function DownloadExperience() {
             <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase">
               The Chevellè App
             </p>
-            <h1 className="mt-3 font-display text-3xl font-light leading-snug tracking-wide text-white uppercase sm:text-4xl">
-              Fashion in your hands
+            <h1 className="mt-3 font-display text-3xl font-light leading-snug tracking-wide text-[var(--campaign-text)] uppercase sm:text-4xl">
+              Get Chevellè on your phone
             </h1>
-            <p className="mt-5 font-body text-sm leading-relaxed text-white/50">
-              The mobile app is almost ready. Until launch, shop the full
-              collection on the web — same categories, same luxury experience.
+            <p className="mt-5 font-body text-sm leading-relaxed text-[var(--campaign-text)]/50">
+              The app is launching soon. Until then, continue on web for the full
+              curated collection — women, men, and accessories.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
@@ -65,7 +65,7 @@ export function DownloadExperience() {
               href="/collections"
               className="figma-btn-gold mt-8 inline-flex items-center justify-center px-8 py-3.5 font-body text-[10px] tracking-[0.28em] uppercase lg:mt-10"
             >
-              Shop on Web
+              Continue on Web
             </Link>
           </motion.div>
 
@@ -91,7 +91,7 @@ export function DownloadExperience() {
             className="max-w-sm text-center lg:justify-self-end lg:text-left"
           >
             <p className="font-body text-[10px] tracking-[0.35em] text-gold uppercase">
-              Exclusive App Benefits
+              App Benefits
             </p>
             <ul className="mt-5 space-y-3">
               {APP_BENEFITS.map((benefit) => (

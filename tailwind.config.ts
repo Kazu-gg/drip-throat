@@ -16,10 +16,10 @@ const config: Config = {
           charcoal: "#121212",
         },
         gold: {
-          DEFAULT: "#D4AF37",
-          light: "#E2C663",
+          DEFAULT: "var(--gold)",
+          light: "var(--gold-light)",
           dark: "#B8962E",
-          muted: "rgba(212, 175, 55, 0.12)",
+          muted: "var(--gold-muted)",
         },
       },
       fontFamily: {

@@ -56,10 +56,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-IN" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body
-        className="min-h-screen bg-black font-body text-white antialiased"
-        style={{ backgroundColor: "#050505", color: "#f5f5f5" }}
-      >
+      <body className="min-h-screen bg-black font-body text-white antialiased">
         <ClientShell>{children}</ClientShell>
       </body>
     </html>

@@ -25,12 +25,12 @@ export const categoryImages: Record<string, { src: string; alt: string }> = {
     alt: "Women shirts and tops",
   },
   kurtas: {
-    src: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&q=80",
-    alt: "Men kurta ethnic wear",
+    src: "https://images.unsplash.com/photo-1594938298605-cd8d743304c4?w=800&q=80",
+    alt: "Man in premium ethnic kurta",
   },
   "men-shirts": {
-    src: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80",
-    alt: "Premium men's formal shirt",
+    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+    alt: "Man in premium formal shirt",
   },
   "men-tshirts": {
     src: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80",

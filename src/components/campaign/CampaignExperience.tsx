@@ -5,7 +5,7 @@ import { AmbientLayer } from "@/components/campaign/AmbientLayer";
 import { CinematicHero } from "@/components/campaign/CinematicHero";
 import { CollectionUniverse } from "@/components/campaign/CollectionUniverse";
 import { FashionRunway } from "@/components/campaign/FashionRunway";
-import { InteractiveShowroom } from "@/components/campaign/InteractiveShowroom";
+import { SpotlightCarousel } from "@/components/campaign/SpotlightCarousel";
 import { FabricReveal } from "@/components/campaign/FabricReveal";
 import { LuxuryBestsellers } from "@/components/campaign/LuxuryBestsellers";
 import { Storytelling } from "@/components/campaign/Storytelling";
@@ -19,7 +19,7 @@ export function CampaignExperience() {
       <CinematicHero />
       <CollectionUniverse />
       <FashionRunway />
-      <InteractiveShowroom />
+      <SpotlightCarousel />
       <FabricReveal />
       <LuxuryBestsellers />
       <Storytelling />

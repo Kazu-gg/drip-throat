@@ -10,11 +10,9 @@ export function LuxuryCTA() {
       className="relative z-10 flex min-h-[80vh] items-center justify-center overflow-hidden py-24"
       aria-labelledby="cta-heading"
     >
-      <motion.div
-        className="pointer-events-none absolute h-[500px] w-[500px] rounded-full opacity-40 blur-3xl"
+      <div
+        className="pointer-events-none absolute h-[500px] w-[500px] rounded-full opacity-30 blur-3xl"
         style={{ background: "var(--campaign-glow)" }}
-        animate={{ scale: [1, 1.15, 1], x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="section-padding relative z-10 mx-auto max-w-5xl text-center">
@@ -27,7 +25,7 @@ export function LuxuryCTA() {
         >
           Your next
           <br />
-          <span className="text-shimmer">statement piece</span>
+          <span className="text-[var(--campaign-accent)]">statement piece</span>
           <br />
           awaits.
         </motion.h2>

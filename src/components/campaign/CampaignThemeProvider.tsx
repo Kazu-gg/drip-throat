@@ -2,14 +2,13 @@
 
 import {
   createContext,
-  Suspense,
   useCallback,
   useContext,
   useEffect,
   useState,
   type ReactNode,
 } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   parseMainCategoryId,
   SHOP_CATEGORY_PARAM,
@@ -18,6 +17,7 @@ import {
 import {
   applyCampaignTheme,
   DEFAULT_THEME_ID,
+  getCampaignCollections,
   getCampaignTheme,
   noirTheme,
   type CampaignTheme,
@@ -36,22 +36,31 @@ const CampaignThemeContext = createContext<CampaignThemeContextValue | null>(
   null
 );
 
-function CampaignThemeProviderInner({ children }: { children: ReactNode }) {
+function readCategoryFromUrl(): MainCategoryId {
+  if (typeof window === "undefined") return "women";
+  const params = new URLSearchParams(window.location.search);
+  return parseMainCategoryId(params.get(SHOP_CATEGORY_PARAM));
+}
+
+export function CampaignThemeProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const categoryFromUrl = parseMainCategoryId(
-    searchParams.get(SHOP_CATEGORY_PARAM)
-  );
 
   const [activeId, setActiveId] = useState(DEFAULT_THEME_ID);
   const [theme, setTheme] = useState<CampaignTheme>(noirTheme);
   const [activeCategory, setActiveCategoryState] =
-    useState<MainCategoryId>(categoryFromUrl);
+    useState<MainCategoryId>("women");
+
+  // Sync category from URL on load + browser back/forward (no useSearchParams / no blank Suspense)
+  useEffect(() => {
+    setActiveCategoryState(readCategoryFromUrl());
+  }, [pathname]);
 
   useEffect(() => {
-    setActiveCategoryState(categoryFromUrl);
-  }, [categoryFromUrl]);
+    const onPopState = () => setActiveCategoryState(readCategoryFromUrl());
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   const setThemeById = useCallback((id: string) => {
     setActiveId(id);
@@ -66,9 +75,19 @@ function CampaignThemeProviderInner({ children }: { children: ReactNode }) {
   const setActiveCategory = useCallback(
     (id: MainCategoryId) => {
       setActiveCategoryState(id);
-      resetTheme();
 
-      const params = new URLSearchParams(searchParams.toString());
+      const collections = getCampaignCollections(id);
+      const first = collections[0];
+      if (first) {
+        setActiveId(first.id);
+        setTheme(first);
+      } else {
+        resetTheme();
+      }
+
+      const params = new URLSearchParams(
+        typeof window !== "undefined" ? window.location.search : ""
+      );
       if (id === "women") {
         params.delete(SHOP_CATEGORY_PARAM);
       } else {
@@ -80,8 +99,18 @@ function CampaignThemeProviderInner({ children }: { children: ReactNode }) {
         scroll: false,
       });
     },
-    [pathname, resetTheme, router, searchParams]
+    [pathname, resetTheme, router]
   );
+
+  // When category loads from URL, ensure activeId matches that category's collections
+  useEffect(() => {
+    const collections = getCampaignCollections(activeCategory);
+    const inList = collections.some((c) => c.id === activeId);
+    if (collections[0] && !inList) {
+      setActiveId(collections[0].id);
+      setTheme(collections[0]);
+    }
+  }, [activeCategory, activeId]);
 
   useEffect(() => {
     applyCampaignTheme(theme);
@@ -100,14 +129,6 @@ function CampaignThemeProviderInner({ children }: { children: ReactNode }) {
     >
       {children}
     </CampaignThemeContext.Provider>
-  );
-}
-
-export function CampaignThemeProvider({ children }: { children: ReactNode }) {
-  return (
-    <Suspense fallback={null}>
-      <CampaignThemeProviderInner>{children}</CampaignThemeProviderInner>
-    </Suspense>
   );
 }
 

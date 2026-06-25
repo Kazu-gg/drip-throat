@@ -2,18 +2,54 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollY } from "@/hooks/useMousePosition";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { AuthNav } from "@/components/auth/AuthNav";
-import { isAuthEnabled } from "@/lib/auth";
-import { APP_DOWNLOAD_PATH, AUTH_ROUTES } from "@/lib/routes";
 
 const navLinks = [
   { label: "Collections", href: "/collections" },
-  { label: "Products", href: "/products" },
-  { label: "Blog", href: "/blog" },
-  { label: "About", href: "#why" },
+  { label: "Women", href: "/collections?category=women" },
+  { label: "Men", href: "/collections?category=men" },
+  { label: "Unisex", href: "/collections?category=accessories" },
+  { label: "Our World", href: "#explore" },
+  { label: "About Us", href: "#values" },
 ];
+
+function NavIcon({
+  children,
+  label,
+  href,
+  badge,
+}: {
+  children: ReactNode;
+  label: string;
+  href?: string;
+  badge?: number;
+}) {
+  const className =
+    "relative flex h-9 w-9 items-center justify-center text-white/55 transition-colors hover:text-gold";
+  const inner = (
+    <>
+      {children}
+      {badge != null && badge > 0 && (
+        <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-gold font-body text-[8px] font-medium text-black">
+          {badge}
+        </span>
+      )}
+    </>
+  );
+  if (href) {
+    return (
+      <Link href={href} className={className} aria-label={label}>
+        {inner}
+      </Link>
+    );
+  }
+  return (
+    <button type="button" className={className} aria-label={label}>
+      {inner}
+    </button>
+  );
+}
 
 export function Navbar() {
   const scrollY = useScrollY();
@@ -24,64 +60,70 @@ export function Navbar() {
     <>
       <motion.header
         initial={false}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-700 ${
           isScrolled
-            ? "border-b border-white/5 bg-black/80 backdrop-blur-xl"
+            ? "border-b border-white/5 bg-black/85 backdrop-blur-xl"
             : "bg-transparent"
         }`}
       >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 md:px-12 lg:px-16">
-          <Link href="/" className="group relative z-50">
-            <span className="font-accent text-xl tracking-[0.25em] text-white transition-colors duration-500 group-hover:text-gold sm:text-2xl">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
+          <Link href="/" className="group relative z-50 shrink-0">
+            <span className="block font-accent text-lg tracking-[0.22em] text-gold sm:text-xl">
               CHEVELLÈ
             </span>
-            <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-500 group-hover:w-full" />
           </Link>
 
-          <ul className="hidden items-center gap-10 md:flex">
+          <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 xl:gap-7 lg:flex">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="group relative font-body text-xs tracking-[0.2em] text-white/60 uppercase transition-colors duration-300 hover:text-gold"
+                  className="font-body text-[10px] tracking-[0.22em] text-white/55 uppercase transition-colors hover:text-gold"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-1/2 h-px w-0 -translate-x-1/2 bg-gold transition-all duration-300 group-hover:w-full" />
                 </Link>
               </li>
             ))}
           </ul>
 
-          <div className="hidden items-center gap-4 md:flex">
-            <AuthNav />
-            <Link
-              href={APP_DOWNLOAD_PATH}
-              className="border border-gold/30 px-6 py-2.5 font-body text-xs tracking-[0.15em] text-gold uppercase transition-all duration-500 hover:border-gold hover:bg-gold/10"
-            >
-              Download the App
-            </Link>
-          </div>
+          <div className="relative z-50 flex items-center gap-1 sm:gap-2">
+            <NavIcon label="Search">
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M20 20l-3-3" />
+              </svg>
+            </NavIcon>
+            <NavIcon label="Shopping bag" href="/checkout" badge={1}>
+              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M6 7h15l-1.5 9h-12L6 7z" />
+                <path d="M9 7V5a3 3 0 016 0v2" />
+              </svg>
+            </NavIcon>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-            aria-label="Toggle menu"
-          >
-            <motion.span
-              animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="block h-px w-6 bg-gold"
-            />
-            <motion.span
-              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="block h-px w-6 bg-gold"
-            />
-            <motion.span
-              animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="block h-px w-6 bg-gold"
-            />
-          </button>
+            <button
+              type="button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="ml-2 flex items-center gap-2 font-body text-[9px] tracking-[0.28em] text-white/55 uppercase transition-colors hover:text-gold lg:ml-3"
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+            >
+              <span className="hidden sm:inline">Menu</span>
+              <span className="flex h-10 w-10 flex-col items-center justify-center gap-1.5">
+                <motion.span
+                  animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+                  className="block h-px w-5 bg-current"
+                />
+                <motion.span
+                  animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  className="block h-px w-5 bg-current"
+                />
+                <motion.span
+                  animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+                  className="block h-px w-5 bg-current"
+                />
+              </span>
+            </button>
+          </div>
         </nav>
       </motion.header>
 
@@ -91,59 +133,25 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/95 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/95 backdrop-blur-2xl"
           >
-            <nav className="flex flex-col items-center gap-8">
+            <nav className="flex max-h-[80vh] flex-col items-center gap-6 overflow-y-auto px-6">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ delay: i * 0.05 }}
                 >
                   <Link
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="font-display text-3xl font-light tracking-wider text-white/80 transition-colors hover:text-gold"
+                    className="font-display text-2xl font-light tracking-wide text-white/80 hover:text-gold"
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="mt-4 flex flex-col items-center gap-4"
-              >
-                {isAuthEnabled() && (
-                  <>
-                    <Link
-                      href={AUTH_ROUTES.login}
-                      onClick={() => setMenuOpen(false)}
-                      className="font-body text-sm tracking-[0.15em] text-white/50 uppercase hover:text-gold"
-                    >
-                      Sign In
-                    </Link>
-                    <Link
-                      href={AUTH_ROUTES.signup}
-                      onClick={() => setMenuOpen(false)}
-                      className="border border-white/15 px-8 py-3 font-body text-xs tracking-[0.2em] text-white/60 uppercase"
-                    >
-                      Sign Up
-                    </Link>
-                  </>
-                )}
-                <Link
-                  href={APP_DOWNLOAD_PATH}
-                  onClick={() => setMenuOpen(false)}
-                  className="inline-block border border-gold px-8 py-3 font-body text-xs tracking-[0.2em] text-gold uppercase"
-                >
-                  Download the App
-                </Link>
-              </motion.div>
             </nav>
           </motion.div>
         )}

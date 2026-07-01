@@ -11,6 +11,11 @@ const LANDING_PAGES = ["women", "men", "unisex", "accessories"] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE_URL.replace(/\/$/, "");
+
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return [{ url: base, lastModified: new Date() }];
+  }
+
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [

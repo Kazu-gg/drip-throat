@@ -11,6 +11,8 @@ import {
 } from "react";
 import { getProductBySlug, type Product } from "@/lib/products";
 
+import { calculatePlatformFee } from "@/lib/platform-fees";
+
 export type CartLine = {
   slug: string;
   quantity: number;
@@ -21,6 +23,8 @@ export type CartLine = {
 type CartContextValue = {
   lines: CartLine[];
   count: number;
+  platformFee: number;
+  /** @deprecated Use platformFee — product prices are not charged */
   subtotal: number;
   addItem: (slug: string, opts?: { size?: string; color?: string }) => void;
   removeItem: (slug: string) => void;
@@ -34,6 +38,7 @@ const STORAGE_KEY = "chevelle-cart";
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
+  const [productCache, setProductCache] = useState<Record<string, Product>>({});
 
   useEffect(() => {
     try {
@@ -46,6 +51,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
+  }, [lines]);
+
+  useEffect(() => {
+    const uncached = lines.map((l) => l.slug).filter((s) => !productCache[s]);
+    if (!uncached.length) return;
+
+    import("@/lib/supabase/queries/products").then(({ fetchProductBySlug }) =>
+      import("@/lib/supabase/mappers/product").then(({ dbProductToProduct }) => {
+        Promise.all(uncached.map((slug) => fetchProductBySlug(slug))).then((results) => {
+          const entries: Record<string, Product> = {};
+          results.forEach((db, i) => {
+            if (db) entries[uncached[i]] = dbProductToProduct(db);
+          });
+          setProductCache((prev) => ({ ...prev, ...entries }));
+        });
+      })
+    );
   }, [lines]);
 
   const addItem = useCallback(
@@ -80,8 +102,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const clear = useCallback(() => setLines([]), []);
 
   const resolveProduct = useCallback(
-    (slug: string) => getProductBySlug(slug),
-    []
+    (slug: string) => productCache[slug] ?? getProductBySlug(slug),
+    [productCache]
   );
 
   const count = useMemo(
@@ -89,27 +111,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [lines]
   );
 
-  const subtotal = useMemo(
-    () =>
-      lines.reduce((sum, l) => {
-        const p = getProductBySlug(l.slug);
-        return sum + (p?.price ?? 0) * l.quantity;
-      }, 0),
-    [lines]
-  );
+  const platformFee = useMemo(() => calculatePlatformFee(count), [count]);
 
   const value = useMemo(
     () => ({
       lines,
       count,
-      subtotal,
+      platformFee,
+      subtotal: platformFee,
       addItem,
       removeItem,
       setQuantity,
       clear,
       resolveProduct,
     }),
-    [lines, count, subtotal, addItem, removeItem, setQuantity, clear, resolveProduct]
+    [lines, count, platformFee, addItem, removeItem, setQuantity, clear, resolveProduct]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

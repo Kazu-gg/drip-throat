@@ -19,7 +19,13 @@ export function organizationSchema(): JsonLd {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
-    alternateName: ["Chevelle Fashion", "Chevellè India"],
+    alternateName: [
+      "Chevellè India",
+      "Chevelle India",
+      "Chevelle Fashion",
+      "Chevellè Fashion India",
+      "chevelle.in",
+    ],
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
@@ -31,6 +37,10 @@ export function organizationSchema(): JsonLd {
     slogan: SITE_TAGLINE,
     email: CONTACT_EMAIL,
     sameAs: [SOCIAL.instagram, SOCIAL.twitter],
+    areaServed: {
+      "@type": "Country",
+      name: "India",
+    },
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "customer service",
@@ -41,13 +51,35 @@ export function organizationSchema(): JsonLd {
   };
 }
 
+export function onlineStoreSchema(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "OnlineStore",
+    "@id": `${SITE_URL}/#store`,
+    name: `${SITE_NAME} India`,
+    alternateName: ["Chevellè India", "Chevelle India"],
+    url: SITE_URL,
+    description: OG_DEFAULTS.description,
+    image: absoluteUrl("/opengraph-image"),
+    priceRange: "₹₹₹",
+    currenciesAccepted: "INR",
+    paymentAccepted: "Credit Card, Debit Card, UPI, Net Banking, Cash on Delivery",
+    areaServed: {
+      "@type": "Country",
+      name: "India",
+    },
+    brand: { "@id": `${SITE_URL}/#organization` },
+    parentOrganization: { "@id": `${SITE_URL}/#organization` },
+  };
+}
+
 export function websiteSchema(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
-    name: SITE_NAME,
-    alternateName: "Chevellè Fashion",
+    name: `${SITE_NAME} India`,
+    alternateName: ["Chevellè India", "Chevelle India", "Chevellè Fashion"],
     url: SITE_URL,
     description: OG_DEFAULTS.description,
     inLanguage: "en-IN",
@@ -56,9 +88,8 @@ export function websiteSchema(): JsonLd {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/collections?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/products`,
       },
-      "query-input": "required name=search_term_string",
     },
   };
 }
@@ -81,12 +112,6 @@ export function productSchema(product: Product): JsonLd {
       availability: "https://schema.org/InStock",
       url: absoluteUrl(`/products/${product.slug}`),
       seller: { "@id": `${SITE_URL}/#organization` },
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "1",
-      bestRating: "5",
     },
   };
 }
@@ -196,6 +221,7 @@ export function blogPostingSchema(post: BlogPost): JsonLd {
 export function homePageSchemas(): JsonLd[] {
   return [
     organizationSchema(),
+    onlineStoreSchema(),
     websiteSchema(),
     itemListSchema(),
     productListSchema(),

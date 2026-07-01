@@ -39,6 +39,8 @@ export type Product = {
   seoKeywords: string[];
   image: ProductImage;
   relatedSlugs: string[];
+  color?: string | null;
+  fabric?: string | null;
 };
 
 export const products: Product[] = [

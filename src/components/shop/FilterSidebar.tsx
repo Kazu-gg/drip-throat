@@ -10,6 +10,8 @@ type FilterSidebarProps = {
   maxPrice: number;
   parentId?: MainCategoryId;
   filterCategories?: Collection[];
+  availableColors?: string[];
+  availableMaterials?: string[];
 };
 
 export function FilterSidebar({
@@ -18,12 +20,22 @@ export function FilterSidebar({
   maxPrice,
   parentId,
   filterCategories,
+  availableColors,
+  availableMaterials,
 }: FilterSidebarProps) {
   const categories =
     filterCategories ??
     (parentId
       ? collections.filter((c) => c.parentId === parentId)
       : collections.slice(0, 8));
+
+  const colorOptions = availableColors?.length
+    ? availableColors
+    : FILTER_COLORS.map((c) => c.id);
+  const materialOptions = availableMaterials?.length
+    ? availableMaterials
+    : [...FILTER_MATERIALS];
+  const useColorSwatches = !availableColors?.length;
 
   return (
     <aside className="shop-filter-sidebar space-y-8" aria-label="Filters">
@@ -54,56 +66,61 @@ export function FilterSidebar({
       </div>
 
       <div>
-        <h3 className="shop-filter-heading">Price</h3>
-        <div className="mt-3 space-y-3">
-          <input
-            type="range"
-            min={0}
-            max={maxPrice}
-            step={500}
-            value={filters.maxPrice}
-            onChange={(e) => onChange({ maxPrice: Number(e.target.value) })}
-            className="w-full accent-[var(--gold)]"
-            aria-label="Maximum price"
-          />
-          <p className="font-body text-xs text-[var(--campaign-text)]/50">
-            Up to ₹{filters.maxPrice.toLocaleString("en-IN")}
-          </p>
-        </div>
-      </div>
-
-      <div>
         <h3 className="shop-filter-heading">Color</h3>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {FILTER_COLORS.map((c) => {
-            const active = filters.colors.includes(c.id);
-            return (
-              <button
-                key={c.id}
-                type="button"
-                onClick={() =>
-                  onChange({
-                    colors: active
-                      ? filters.colors.filter((x) => x !== c.id)
-                      : [...filters.colors, c.id],
-                  })
-                }
-                className={`h-7 w-7 rounded-full border-2 transition-transform ${
-                  active ? "scale-110 border-gold" : "border-transparent"
-                }`}
-                style={{ backgroundColor: c.hex }}
-                aria-label={c.label}
-                aria-pressed={active}
-              />
-            );
-          })}
-        </div>
+        {useColorSwatches ? (
+          <div className="mt-3 flex flex-wrap gap-2">
+            {FILTER_COLORS.map((c) => {
+              const active = filters.colors.includes(c.id);
+              return (
+                <button
+                  key={c.id}
+                  type="button"
+                  onClick={() =>
+                    onChange({
+                      colors: active
+                        ? filters.colors.filter((x) => x !== c.id)
+                        : [...filters.colors, c.id],
+                    })
+                  }
+                  className={`h-7 w-7 rounded-full border-2 transition-transform ${
+                    active ? "scale-110 border-gold" : "border-transparent"
+                  }`}
+                  style={{ backgroundColor: c.hex }}
+                  aria-label={c.label}
+                  aria-pressed={active}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <ul className="mt-3 space-y-2">
+            {colorOptions.map((c) => (
+              <li key={c}>
+                <label className="flex cursor-pointer items-center gap-2 font-body text-xs text-[var(--campaign-text)]/60 capitalize">
+                  <input
+                    type="checkbox"
+                    checked={filters.colors.includes(c)}
+                    onChange={() =>
+                      onChange({
+                        colors: filters.colors.includes(c)
+                          ? filters.colors.filter((x) => x !== c)
+                          : [...filters.colors, c],
+                      })
+                    }
+                    className="accent-[var(--gold)]"
+                  />
+                  {c}
+                </label>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div>
         <h3 className="shop-filter-heading">Material</h3>
         <ul className="mt-3 space-y-2">
-          {FILTER_MATERIALS.map((m) => (
+          {materialOptions.map((m) => (
             <li key={m}>
               <label className="flex cursor-pointer items-center gap-2 font-body text-xs text-[var(--campaign-text)]/60">
                 <input

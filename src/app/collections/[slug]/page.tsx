@@ -8,7 +8,6 @@ import {
   getMainCategoryForCollection,
   getSubcategoriesByParent,
 } from "@/lib/data";
-import { getProductsByCollection } from "@/lib/products";
 import { getCollectionWorld } from "@/lib/collection-worlds";
 import {
   collectionPageSchema,
@@ -20,6 +19,9 @@ import { CategoryIcon } from "@/components/ui/CategoryIcon";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CollectionWorld } from "@/components/experience/CollectionWorld";
+import type { Product } from "@/lib/products";
+import { dbProductsToProducts } from "@/lib/supabase/mappers/product";
+import { fetchProductsForWebsiteSlug } from "@/lib/supabase/queries/products";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -45,7 +47,16 @@ export default async function CollectionPage({ params }: PageProps) {
   const siblingCategories = getSubcategoriesByParent(collection.parentId).filter(
     (c) => c.id !== collection.id
   );
-  const collectionProducts = getProductsByCollection(collection.id);
+
+  let collectionProducts: Product[] = [];
+  try {
+    const dbProducts = await fetchProductsForWebsiteSlug(slug);
+    collectionProducts = dbProductsToProducts(dbProducts);
+    console.log("[CollectionPage] collectionProducts:", collectionProducts.length, collectionProducts);
+  } catch (err) {
+    console.error(`[CollectionPage] failed to fetch products for ${slug}:`, err);
+  }
+
   const world = getCollectionWorld(slug);
 
   return (
@@ -168,7 +179,7 @@ export default async function CollectionPage({ params }: PageProps) {
                             className="font-body text-sm"
                             style={{ color: `${world.accent}cc` }}
                           >
-                            {product.priceDisplay}
+                            Platform fee at checkout
                           </p>
                         </Link>
                       </article>

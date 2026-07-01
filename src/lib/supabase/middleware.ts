@@ -1,6 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { AUTH_ROUTES } from "@/lib/routes";
+import { AUTH_ROUTES, SHOP_ROUTES } from "@/lib/routes";
 import {
   isAuthEnabled,
   isEmailVerified,
@@ -15,6 +15,7 @@ export async function updateSession(request: NextRequest) {
     if (
       pathname === AUTH_ROUTES.login ||
       pathname === AUTH_ROUTES.signup ||
+      pathname === AUTH_ROUTES.verify ||
       pathname === AUTH_ROUTES.verifyEmail ||
       pathname.startsWith(AUTH_ROUTES.callback)
     ) {
@@ -57,14 +58,22 @@ export async function updateSession(request: NextRequest) {
   const { search } = request.nextUrl;
   const next = sanitizeNextPath(pathname + search);
 
-  if (pathname.startsWith(AUTH_ROUTES.checkout)) {
+  const requiresAuth =
+    pathname.startsWith(AUTH_ROUTES.checkout) ||
+    pathname.startsWith(SHOP_ROUTES.account) ||
+    pathname.startsWith("/orders");
+
+  if (requiresAuth) {
     if (!user) {
       const url = request.nextUrl.clone();
       url.pathname = AUTH_ROUTES.login;
       url.searchParams.set("next", next);
       return NextResponse.redirect(url);
     }
-    if (!isEmailVerified(user)) {
+    if (
+      pathname.startsWith(AUTH_ROUTES.checkout) &&
+      !isEmailVerified(user)
+    ) {
       const url = request.nextUrl.clone();
       url.pathname = AUTH_ROUTES.verifyEmail;
       url.searchParams.set("next", next);
@@ -74,10 +83,11 @@ export async function updateSession(request: NextRequest) {
 
   if (
     user &&
-    isEmailVerified(user) &&
     (pathname === AUTH_ROUTES.login || pathname === AUTH_ROUTES.signup)
   ) {
-    return NextResponse.redirect(new URL("/", request.url));
+    const url = request.nextUrl.clone();
+    url.pathname = sanitizeNextPath(request.nextUrl.searchParams.get("next"));
+    return NextResponse.redirect(url);
   }
 
   return supabaseResponse;

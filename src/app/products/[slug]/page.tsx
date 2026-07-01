@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-import { products, getProductBySlug, getRelatedProducts } from "@/lib/products";
+import type { Product } from "@/lib/products";
 import { buildMetadata, productTitle, metaDescription, OG_DEFAULTS } from "@/lib/seo";
 import { productSchema, breadcrumbSchema } from "@/lib/structured-data";
 import { StructuredData } from "@/components/seo/StructuredData";
@@ -10,17 +9,17 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ProductDetailView } from "@/components/shop/ProductDetailView";
 import { getCollectionBySlug } from "@/lib/data";
+import { fetchProductBySlug } from "@/lib/supabase/queries/products";
+import { dbProductToProduct } from "@/lib/supabase/mappers/product";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
-  if (!product) return {};
+
+  const db = await fetchProductBySlug(slug);
+  if (!db) return {};
+  const product = dbProductToProduct(db);
 
   return buildMetadata({
     title: productTitle(product.name),
@@ -35,11 +34,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
-  if (!product) notFound();
 
+  const db = await fetchProductBySlug(slug);
+  if (!db) notFound();
+
+  const product = dbProductToProduct(db);
   const collection = getCollectionBySlug(product.collectionId);
-  const related = getRelatedProducts(product.relatedSlugs);
+
+  const related: Product[] = [];
 
   return (
     <>

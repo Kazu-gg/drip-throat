@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { BuyButton } from "@/components/auth/BuyButton";
 import type { Product } from "@/lib/products";
+import { PLATFORM_FEE_PER_ITEM } from "@/lib/platform-fees";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -75,7 +76,9 @@ export function ProductExhibit({
           <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.5rem,8vw,5.5rem)] font-light leading-[1.05] tracking-wide text-white">
             {product.name}
           </h1>
-          <p className="mt-6 font-body text-xl text-gold">{product.priceDisplay}</p>
+          <p className="mt-6 font-body text-xl text-gold">
+            ₹{PLATFORM_FEE_PER_ITEM} platform fee at checkout
+          </p>
         </div>
       </div>
 

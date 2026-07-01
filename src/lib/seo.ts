@@ -15,18 +15,23 @@ export const SOCIAL = {
 
 /** Default social sharing copy */
 export const OG_DEFAULTS = {
-  title: "Chevellè — Curated Elegance",
+  title: "Chevellè India — Luxury Fashion Online",
   description:
-    "Premium curated fashion for women, men, and accessories. Luxury Indian elegance — weddings, festivals, and everyday refinement.",
+    "Chevellè India — premium curated fashion for women, men, and accessories. Designer sarees, lehengas, kurtas, and luxury ethnic wear with secure checkout.",
 };
 
 export const PRIMARY_KEYWORDS = [
-  "Luxury Fashion India",
   "Chevellè",
+  "Chevellè India",
+  "Chevelle India",
+  "Chevelle fashion India",
+  "Chevellè fashion",
+  "Luxury Fashion India",
   "Premium Ethnic Wear",
-  "Women's Fashion Online",
+  "Women's Fashion Online India",
   "Men's Fashion India",
   "Luxury Accessories India",
+  "Designer ethnic wear India",
 ];
 
 export const SECONDARY_KEYWORDS = [
@@ -38,11 +43,17 @@ export const SECONDARY_KEYWORDS = [
   "Curated Elegance",
 ];
 
-export const TARGET_KEYWORDS = [...PRIMARY_KEYWORDS, ...SECONDARY_KEYWORDS, "Chevellè"];
+export const TARGET_KEYWORDS = [
+  ...PRIMARY_KEYWORDS,
+  ...SECONDARY_KEYWORDS,
+  "Chevellè online",
+  "shop Chevellè",
+  "www.chevelle.in",
+];
 
 /** Exact page titles per SEO spec */
 export const PAGE_TITLES = {
-  home: "Chevellè — Curated Elegance",
+  home: "Chevellè India | Luxury Fashion Online — Curated Elegance",
   collections: "Shop Collections | Chevellè",
   blog: "Journal | Chevellè",
   products: "Shop All | Chevellè",
@@ -50,6 +61,7 @@ export const PAGE_TITLES = {
   login: "Sign In | Chevellè",
   signup: "Create Account | Chevellè",
   verifyEmail: "Verify Email | Chevellè",
+  verify: "Enter Verification Code | Chevellè",
   checkout: "Checkout | Chevellè",
   privacy: "Privacy Policy | Chevellè",
   terms: "Terms & Conditions | Chevellè",
@@ -78,7 +90,7 @@ export const PAGE_TITLES = {
 } as const;
 
 export const META_DESCRIPTIONS = {
-  home: "Chevellè — curated elegance for women, men, and accessories. Premium Indian luxury fashion with secure checkout and refined, app-like shopping.",
+  home: "Chevellè India — shop luxury fashion online. Designer sarees, lehengas, kurtas, co-ords, and accessories. Premium ethnic wear with secure Razorpay checkout.",
   collections:
     "Browse Chevellè collections — New Arrivals, Best Sellers, Wedding Edit, Festive Edit, and more. Women, men, and accessories.",
   blog: "Style notes and luxury fashion guidance from Chevellè — refined curation for modern Indian elegance.",
@@ -92,6 +104,8 @@ export const META_DESCRIPTIONS = {
     "Create a Chevellè account. Verify your email to unlock checkout for curated luxury fashion.",
   verifyEmail:
     "Verify your email to complete your Chevellè account and continue to secure checkout.",
+  verify:
+    "Enter the 6-digit verification code sent to your email to activate your Chevellè account.",
 } as const;
 
 export { APP_DOWNLOAD_PATH } from "@/lib/routes";

@@ -199,6 +199,11 @@ export const trustItems = [
 
 export const faqItems = [
   {
+    question: "What is Chevellè India?",
+    answer:
+      "Chevellè India (chevelle.in) is a curated luxury fashion brand offering designer sarees, lehengas, kurtas, co-ords, and accessories for women and men — with secure online checkout and order tracking.",
+  },
+  {
     question: "What is Chevellè?",
     answer:
       "Chevellè is a curated luxury fashion brand in India — shop Women, Men & Accessories with the same category structure as the Chevellè app.",

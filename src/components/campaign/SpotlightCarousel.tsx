@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { products } from "@/lib/products";
+import { PLATFORM_FEE_PER_ITEM } from "@/lib/platform-fees";
 
 export function SpotlightCarousel() {
   const items = products.slice(0, 5);
@@ -127,7 +128,7 @@ export function SpotlightCarousel() {
 
         {active && (
           <p className="mt-6 text-center font-body text-sm text-[var(--campaign-accent)]">
-            {active.priceDisplay}
+            ₹{PLATFORM_FEE_PER_ITEM} platform fee per item
           </p>
         )}
       </div>

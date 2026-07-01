@@ -16,7 +16,15 @@ export default function AccountPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[var(--campaign-bg)] pt-24 pb-20">
+      <main className="account-page relative min-h-screen overflow-hidden bg-[var(--campaign-bg)] pt-24 pb-20">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-80"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 70%)",
+          }}
+          aria-hidden
+        />
         <Suspense fallback={null}>
           <AccountDashboard />
         </Suspense>

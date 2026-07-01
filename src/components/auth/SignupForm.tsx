@@ -49,9 +49,7 @@ export function SignupForm() {
       return;
     }
 
-    router.push(
-      `${AUTH_ROUTES.verifyEmail}?next=${encodeURIComponent(next)}&email=${encodeURIComponent(email)}`
-    );
+    router.push(`${AUTH_ROUTES.verify}?email=${encodeURIComponent(email)}`);
     router.refresh();
   }
 
@@ -131,7 +129,7 @@ export function SignupForm() {
 
       <p className="font-body text-xs leading-relaxed text-white/35">
         By signing up, you agree to verify your email before purchasing. We&apos;ll
-        send a confirmation link to your inbox.
+        send a 6-digit code to your inbox.
       </p>
     </form>
   );

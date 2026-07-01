@@ -24,7 +24,7 @@ export default function SignupPage() {
       <AuthLayout
         label="Join Chevellè"
         title="Create Account"
-        subtitle="Sign up with your email. We'll send a verification link before you can checkout."
+        subtitle="Sign up with your email. We'll send a 6-digit verification code before you can checkout."
         footer={
           <Suspense fallback={null}>
             <SignupFooter />

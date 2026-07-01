@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { SeoImage } from "@/components/seo/SeoImage";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { NavIconHeart } from "@/components/ui/NavIcons";
 import type { Product } from "@/lib/products";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -24,7 +25,7 @@ export function ProductCard({ product }: { product: Product }) {
             type="button"
             onClick={(e) => {
               e.preventDefault();
-              toggle(product.slug);
+              toggle(product.slug, product.id);
             }}
             className={`absolute top-3 right-3 flex h-8 w-8 items-center justify-center border transition-colors ${
               wished
@@ -34,13 +35,12 @@ export function ProductCard({ product }: { product: Product }) {
             aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
             aria-pressed={wished}
           >
-            ♥
+            <NavIconHeart className="h-4 w-4" filled={wished} />
           </button>
         </div>
         <h3 className="mt-4 font-body text-[11px] tracking-[0.22em] text-[var(--campaign-text)] uppercase transition-colors group-hover:text-gold">
           {product.name}
         </h3>
-        <p className="mt-1.5 font-display text-lg text-gold">{product.priceDisplay}</p>
       </Link>
     </article>
   );

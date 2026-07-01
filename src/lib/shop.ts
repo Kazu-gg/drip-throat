@@ -63,6 +63,32 @@ export function formatInr(amount: number) {
   return `₹${amount.toLocaleString("en-IN")}`;
 }
 
+export function getFilterOptionsFromProducts(products: Product[]) {
+  const colors = [
+    ...new Set(
+      products.flatMap((p) =>
+        p.color
+          ? String(p.color)
+              .split(",")
+              .map((c) => c.trim().toLowerCase())
+              .filter(Boolean)
+          : []
+      )
+    ),
+  ].sort();
+
+  const materials = [
+    ...new Set(
+      products
+        .map((p) => p.fabric)
+        .filter((f): f is string => !!f)
+        .map((f) => f.trim())
+    ),
+  ].sort();
+
+  return { colors, materials };
+}
+
 export function filterProducts(products: Product[], filters: ShopFilters): Product[] {
   let result = [...products];
 
@@ -84,6 +110,20 @@ export function filterProducts(products: Product[], filters: ShopFilters): Produ
   result = result.filter(
     (p) => p.price >= filters.minPrice && p.price <= filters.maxPrice
   );
+
+  if (filters.colors.length) {
+    result = result.filter((p) => {
+      const productColor = String(p.color ?? "").toLowerCase();
+      return filters.colors.some((c) => productColor.includes(c.toLowerCase()));
+    });
+  }
+
+  if (filters.materials.length) {
+    result = result.filter((p) => {
+      const productFabric = String(p.fabric ?? "").toLowerCase();
+      return filters.materials.some((m) => productFabric.includes(m.toLowerCase()));
+    });
+  }
 
   if (filters.sort === "price-asc") result.sort((a, b) => a.price - b.price);
   if (filters.sort === "price-desc") result.sort((a, b) => b.price - a.price);

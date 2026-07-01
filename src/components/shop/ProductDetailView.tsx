@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 import { SeoImage } from "@/components/seo/SeoImage";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
+import { NavIconHeart } from "@/components/ui/NavIcons";
 import { AUTH_ROUTES } from "@/lib/routes";
+import { PLATFORM_FEE_PER_ITEM } from "@/lib/platform-fees";
 import type { Product } from "@/lib/products";
 
 const SIZES = ["Free Size", "S", "M", "L", "XL"] as const;
@@ -87,7 +89,9 @@ export function ProductDetailView({
         <h1 className="mt-3 font-display text-3xl font-light tracking-wide text-[var(--campaign-text)] sm:text-4xl">
           {product.name}
         </h1>
-        <p className="mt-4 font-display text-2xl text-gold">{product.priceDisplay}</p>
+        <p className="mt-4 font-body text-sm text-[var(--campaign-text)]/50">
+          Platform fee of ₹{PLATFORM_FEE_PER_ITEM} per item applies at checkout
+        </p>
         <p className="mt-2 font-body text-sm text-gold/70">★★★★★ 4.9</p>
 
         <div className="mt-8">
@@ -136,15 +140,18 @@ export function ProductDetailView({
 
         <button
           type="button"
-          onClick={() => toggle(product.slug)}
-          className="mt-4 font-body text-[10px] tracking-[0.25em] text-[var(--campaign-text)]/50 uppercase hover:text-gold"
+          onClick={() => toggle(product.slug, product.id)}
+          className="mt-4 self-center inline-flex items-center justify-center gap-2.5 font-body text-[10px] tracking-[0.25em] text-gold uppercase transition-opacity hover:opacity-80"
+          aria-pressed={wished}
         >
-          {wished ? "♥ Saved to Wishlist" : "♡ Add to Wishlist"}
+          <NavIconHeart className="h-4 w-4" filled={wished} />
+          {wished ? "Saved to Wishlist" : "Add to Wishlist"}
         </button>
 
         <div className="mt-10 space-y-2 border-t border-[var(--border-subtle)] pt-8 font-body text-sm text-[var(--campaign-text)]/55">
           <p>• Premium curated piece with signature Chevellè finishing</p>
-          <p>• Secure checkout via Razorpay — UPI, cards, or Cash on Delivery</p>
+          <p>• Platform fee only at checkout — product price settled with the boutique</p>
+          <p>• Secure payment via Razorpay — UPI, cards, net banking</p>
           <p>• Complimentary luxury packaging on every order</p>
           <p>• Easy returns within 7 days of delivery</p>
         </div>

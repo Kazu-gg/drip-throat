@@ -3,8 +3,13 @@ import { SITE_URL } from "@/lib/seo";
 import { collections } from "@/lib/data";
 import { products } from "@/lib/products";
 import { blogPosts } from "@/lib/blog";
+import { fetchProductSitemapEntries } from "@/lib/supabase/queries/products";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600;
+
+const LANDING_PAGES = ["women", "men", "unisex", "accessories"] as const;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = SITE_URL.replace(/\/$/, "");
   const now = new Date();
 
@@ -14,13 +19,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}/collections`,
       lastModified: now,
       changeFrequency: "daily",
-      priority: 0.9,
+      priority: 0.95,
     },
     {
       url: `${base}/products`,
       lastModified: now,
       changeFrequency: "daily",
-      priority: 0.9,
+      priority: 0.95,
     },
     {
       url: `${base}/download`,
@@ -29,22 +34,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${base}/cart`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.4,
-    },
-    {
-      url: `${base}/account`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.4,
-    },
-    {
       url: `${base}/faq`,
       lastModified: now,
       changeFrequency: "monthly",
-      priority: 0.5,
+      priority: 0.6,
     },
     {
       url: `${base}/privacy`,
@@ -66,6 +59,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const landingPages = LANDING_PAGES.map((id) => ({
+    url: `${base}/collections/${id}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.9,
+  }));
+
   const collectionPages = collections.map((c) => ({
     url: `${base}/collections/${c.id}`,
     lastModified: now,
@@ -73,12 +73,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  const productPages = products.map((p) => ({
-    url: `${base}/products/${p.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly" as const,
-    priority: 0.8,
-  }));
+  const dbProducts = await fetchProductSitemapEntries();
+  const slugToDate = new Map<string, Date>();
+
+  for (const p of products) {
+    slugToDate.set(p.slug, now);
+  }
+
+  for (const entry of dbProducts) {
+    const date = entry.lastModified ? new Date(entry.lastModified) : now;
+    const existing = slugToDate.get(entry.slug);
+    if (!existing || date > existing) {
+      slugToDate.set(entry.slug, date);
+    }
+  }
+
+  const productPages: MetadataRoute.Sitemap = [...slugToDate.entries()].map(
+    ([slug, lastModified]) => ({
+      url: `${base}/products/${slug}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
+    })
+  );
 
   const blogPages = blogPosts.map((post) => ({
     url: `${base}/blog/${post.slug}`,
@@ -87,5 +104,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
-  return [...staticPages, ...collectionPages, ...productPages, ...blogPages];
+  return [
+    ...staticPages,
+    ...landingPages,
+    ...collectionPages,
+    ...productPages,
+    ...blogPages,
+  ];
 }

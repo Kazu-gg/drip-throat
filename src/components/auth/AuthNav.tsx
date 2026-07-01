@@ -1,79 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
-import { createClient } from "@/lib/supabase/client";
-import { isAuthEnabled, isEmailVerified, isSupabaseConfigured } from "@/lib/auth";
+import { isAuthEnabled } from "@/lib/auth";
+import { useAuth } from "@/contexts/AuthContext";
 import { AUTH_ROUTES } from "@/lib/routes";
 
 export function AuthNav() {
-  const router = useRouter();
-  const [email, setEmail] = useState<string | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (!isAuthEnabled() || !isSupabaseConfigured()) {
-      setReady(true);
-      return;
-    }
-
-    const supabase = createClient();
-    if (!supabase) {
-      setReady(true);
-      return;
-    }
-
-    let cancelled = false;
-
-    void (async () => {
-      const { data } = await supabase.auth.getUser();
-      if (cancelled) return;
-      const user = data.user;
-      if (user?.email && isEmailVerified(user)) {
-        setEmail(user.email);
-      }
-      setReady(true);
-    })();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(
-      (_event: AuthChangeEvent, session: Session | null) => {
-        const user = session?.user ?? null;
-        setEmail(user?.email && isEmailVerified(user) ? user.email : null);
-        setReady(true);
-      }
-    );
-
-    return () => {
-      cancelled = true;
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  async function signOut() {
-    const supabase = createClient();
-    if (supabase) {
-      await supabase.auth.signOut();
-    }
-    setEmail(null);
-    router.push("/");
-    router.refresh();
-  }
+  const { user, ready, signOut } = useAuth();
 
   if (!isAuthEnabled()) return null;
 
-  if (email) {
+  if (user) {
     return (
       <div className="hidden items-center gap-3 md:flex">
         <span className="max-w-[140px] truncate font-body text-[10px] tracking-[0.1em] text-white/40">
-          {email}
+          {user.email}
         </span>
         <button
           type="button"
-          onClick={signOut}
+          onClick={() => void signOut()}
           className="font-body text-[10px] tracking-[0.15em] text-white/50 uppercase transition-colors hover:text-gold"
         >
           Sign out

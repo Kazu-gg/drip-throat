@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
 import { products, type Product } from "@/lib/products";
+import { PLATFORM_FEE_PER_ITEM } from "@/lib/platform-fees";
 
 function FlipProductCard({
   product,
@@ -35,7 +36,7 @@ function FlipProductCard({
         }}
         role="button"
         tabIndex={0}
-        aria-label={`${product.name}, ${product.priceDisplay}. ${flipped ? "Showing details" : "Flip for details"}`}
+        aria-label={`${product.name}. ${flipped ? "Showing details" : "Flip for details"}`}
         aria-pressed={flipped}
       >
         <div className={`flip-inner ${showBack ? "is-flipped" : ""}`}>
@@ -58,7 +59,7 @@ function FlipProductCard({
                 {product.name}
               </p>
               <p className="mt-2 font-body text-sm text-white/70">
-                {product.priceDisplay}
+                ₹{PLATFORM_FEE_PER_ITEM} platform fee
               </p>
             </div>
             <div className="pointer-events-none absolute top-4 right-4 rounded-full border border-white/20 bg-black/50 px-3 py-1 font-body text-[8px] tracking-[0.25em] text-white/60 uppercase backdrop-blur-sm">
@@ -88,7 +89,10 @@ function FlipProductCard({
 
             <div>
               <p className="font-display text-2xl text-[var(--campaign-accent)]">
-                {product.priceDisplay}
+                ₹{PLATFORM_FEE_PER_ITEM}
+              </p>
+              <p className="mt-1 font-body text-[10px] tracking-[0.2em] text-white/40 uppercase">
+                Platform fee per item
               </p>
               <Link
                 href={`/products/${product.slug}`}
@@ -107,7 +111,7 @@ function FlipProductCard({
         <div className="mt-4 flex items-start justify-between gap-3 px-1">
           <p className="font-display text-lg font-light text-white">{product.name}</p>
           <p className="font-body text-sm text-[var(--campaign-accent)]">
-            {product.priceDisplay}
+            ₹{PLATFORM_FEE_PER_ITEM} platform fee
           </p>
         </div>
       )}

@@ -5,6 +5,14 @@ import { useScrollY } from "@/hooks/useMousePosition";
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { AuthNav } from "@/components/auth/AuthNav";
+import {
+  NavIconBag,
+  NavIconHeart,
+  NavIconSearch,
+  NavIconUser,
+} from "@/components/ui/NavIcons";
 import { AUTH_ROUTES } from "@/lib/routes";
 
 const navLinks = [
@@ -28,12 +36,12 @@ function NavIcon({
   badge?: number;
 }) {
   const className =
-    "relative flex h-9 w-9 items-center justify-center text-[var(--campaign-text)]/55 transition-colors hover:text-gold";
+    "relative flex h-10 w-10 items-center justify-center text-[var(--campaign-text)]/60 transition-colors duration-300 hover:text-gold";
   const inner = (
     <>
       {children}
       {badge != null && badge > 0 && (
-        <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-gold font-body text-[8px] font-medium text-black">
+        <span className="absolute -top-0.5 -right-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-gold px-1 font-body text-[9px] font-medium leading-none text-black">
           {badge}
         </span>
       )}
@@ -57,6 +65,7 @@ export function Navbar() {
   const scrollY = useScrollY();
   const [menuOpen, setMenuOpen] = useState(false);
   const { count } = useCart();
+  const { user, signOut } = useAuth();
   const isScrolled = scrollY > 50;
 
   return (
@@ -89,32 +98,23 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="relative z-50 flex items-center gap-0.5 sm:gap-1">
+          <div className="relative z-50 flex items-center gap-0 sm:gap-0.5">
+            <AuthNav />
+
             <NavIcon label="Search" href="/products">
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3-3" />
-              </svg>
+              <NavIconSearch />
             </NavIcon>
 
             <NavIcon label="Account" href="/account">
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M5 20c0-4 3-6 7-6s7 2 7 6" />
-              </svg>
+              <NavIconUser />
             </NavIcon>
 
             <NavIcon label="Wishlist" href="/account?tab=wishlist">
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5 6 5c2 0 3.5 1.5 4 2.5C10.5 6.5 12 5 14 5c3.5 0 5 4 3.5 7C19 16.5 12 21 12 21z" />
-              </svg>
+              <NavIconHeart />
             </NavIcon>
 
             <NavIcon label="Shopping bag" href="/cart" badge={count}>
-              <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M6 7h15l-1.5 9h-12L6 7z" />
-                <path d="M9 7V5a3 3 0 016 0v2" />
-              </svg>
+              <NavIconBag />
             </NavIcon>
 
             <button
@@ -154,9 +154,25 @@ export function Navbar() {
               <Link href="/account" onClick={() => setMenuOpen(false)} className="text-gold">
                 Account
               </Link>
-              <Link href={AUTH_ROUTES.login} onClick={() => setMenuOpen(false)} className="text-sm tracking-widest uppercase">
-                Sign In
-              </Link>
+              {user ? (
+                <>
+                  <p className="text-sm text-white/50">{user.email}</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void signOut();
+                      setMenuOpen(false);
+                    }}
+                    className="text-sm tracking-widest uppercase text-white/70"
+                  >
+                    Sign out
+                  </button>
+                </>
+              ) : (
+                <Link href={AUTH_ROUTES.login} onClick={() => setMenuOpen(false)} className="text-sm tracking-widest uppercase">
+                  Sign In
+                </Link>
+              )}
             </nav>
           </motion.div>
         )}

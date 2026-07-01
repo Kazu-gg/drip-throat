@@ -19,11 +19,6 @@ export default function CheckoutPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-[var(--campaign-bg)] pt-24 pb-20">
-        <div className="section-padding !pb-0">
-          <h1 className="mx-auto max-w-7xl font-display text-3xl font-light text-[var(--campaign-text)]">
-            Checkout
-          </h1>
-        </div>
         <CheckoutView />
       </main>
       <Footer />

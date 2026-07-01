@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { products } from "@/lib/products";
+import { PLATFORM_FEE_PER_ITEM } from "@/lib/platform-fees";
 
 export function InteractiveShowroom() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,7 +86,7 @@ export function InteractiveShowroom() {
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black p-5">
                       <p className="font-display text-xl text-white">{product.name}</p>
                       <p className="text-sm text-[var(--campaign-accent)]">
-                        {product.priceDisplay}
+                        ₹{PLATFORM_FEE_PER_ITEM} platform fee
                       </p>
                     </div>
                   </div>

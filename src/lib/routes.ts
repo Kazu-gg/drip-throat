@@ -17,6 +17,7 @@ export const SHOP_ROUTES = {
 export const AUTH_ROUTES = {
   login: "/login",
   signup: "/signup",
+  verify: "/verify",
   verifyEmail: "/verify-email",
   checkout: "/checkout",
   callback: "/auth/callback",

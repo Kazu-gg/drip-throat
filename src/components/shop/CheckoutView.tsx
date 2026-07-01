@@ -21,6 +21,7 @@ import { SHOP_ROUTES } from "@/lib/routes";
 import { placeOrder } from "@/lib/supabase/queries/orders";
 
 const STEPS = ["Information", "Shipping", "Payment"] as const;
+type CheckoutStep = (typeof STEPS)[number];
 
 type ShippingDetails = {
   email: string;
@@ -66,7 +67,7 @@ export function CheckoutView() {
   const { lines, count, platformFee, resolveProduct, clear } = useCart();
   const { user } = useAuth();
   const router = useRouter();
-  const [step, setStep] = useState<(typeof STEPS)[number]>("Information");
+  const [step, setStep] = useState<CheckoutStep>("Information");
   const [paying, setPaying] = useState(false);
   const [payError, setPayError] = useState<string | null>(null);
   const [shipping, setShipping] = useState<ShippingDetails>(() => defaultShippingDetails(user));
@@ -215,7 +216,7 @@ export function CheckoutView() {
         <div className="min-w-0 space-y-10">
           {(step === "Information" || step === "Shipping") && (
             <>
-              {payError && step !== "Payment" ? (
+              {payError ? (
                 <p className="font-body text-sm text-red-400" role="alert">
                   {payError}
                 </p>

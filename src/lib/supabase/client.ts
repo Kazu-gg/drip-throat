@@ -3,6 +3,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 let browserClient: SupabaseClient | undefined;
 
+/** Clear the singleton after sign-out so the next sign-in gets a fresh client. */
+export function resetBrowserClient() {
+  browserClient = undefined;
+}
+
 function hasSupabaseEnv(): boolean {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&

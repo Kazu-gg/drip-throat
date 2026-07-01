@@ -2,13 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { sanitizeNextPath } from "@/lib/auth";
 import { AUTH_ROUTES } from "@/lib/routes";
 
 export function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const next = sanitizeNextPath(searchParams.get("next"));
 
@@ -42,13 +41,11 @@ export function LoginForm() {
     }
 
     if (data.user && !data.user.email_confirmed_at) {
-      router.push(`${AUTH_ROUTES.verifyEmail}?next=${encodeURIComponent(next)}`);
-      router.refresh();
+      window.location.assign(`${AUTH_ROUTES.verifyEmail}?next=${encodeURIComponent(next)}`);
       return;
     }
 
-    router.push(next);
-    router.refresh();
+    window.location.assign(next);
   }
 
   return (

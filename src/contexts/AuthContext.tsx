@@ -12,7 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import type { Session, User } from "@supabase/supabase-js";
 import { isAuthEnabled, isSupabaseConfigured } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/client";
+import { createClient, resetBrowserClient } from "@/lib/supabase/client";
 
 type AuthContextValue = {
   user: User | null;
@@ -91,13 +91,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = useCallback(async () => {
     const supabase = createClient();
     if (supabase) {
-      await supabase.auth.signOut();
+      await supabase.auth.signOut({ scope: "local" });
     }
+    resetBrowserClient();
     setSession(null);
     setUser(null);
-    router.push("/");
-    router.refresh();
-  }, [router]);
+    // Full navigation so middleware and cookies stay in sync after logout
+    window.location.assign("/");
+  }, []);
 
   const value = useMemo(
     () => ({ user, session, ready, signOut }),

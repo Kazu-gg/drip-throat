@@ -17,6 +17,7 @@
   --campaign-text: #f5f5f5;
   --surface: #141414;
   --border-subtle: rgba(255, 255, 255, 0.08);
+  --scroll-motion-blur: 0px;
 }
 
 * {
@@ -43,6 +44,17 @@ html.lenis body {
 
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 768px) {
+    main,
+    footer {
+      filter: blur(var(--scroll-motion-blur));
+      will-change: transform;
+      transform: translateZ(0);
+    }
+  }
 }
 
 body {

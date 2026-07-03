@@ -2,6 +2,7 @@
 
 import { GoogleAnalytics } from "@/components/seo/Analytics";
 import { MotionProvider } from "@/components/providers/MotionProvider";
+import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
@@ -11,6 +12,7 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
       <CartProvider>
         <WishlistProvider>
           <MotionProvider>
+            <SmoothScroll />
             <GoogleAnalytics />
             {children}
           </MotionProvider>

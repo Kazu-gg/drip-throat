@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Chevellè | Curated Elegance";
+export const alt = "Dripthroat | Curated Elegance";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -11,7 +11,7 @@ type OgTemplateProps = {
 };
 
 export function OgTemplate({
-  title = "CHEVELLÈ",
+  title = "DRIPTHROAT",
   subtitle = "Curated Elegance",
 }: OgTemplateProps) {
   return (
@@ -23,7 +23,7 @@ export function OgTemplate({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        background: "#050505",
+        background: "#12150a",
         position: "relative",
       }}
     >
@@ -32,7 +32,7 @@ export function OgTemplate({
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(ellipse at 50% 30%, rgba(212,175,55,0.18) 0%, transparent 60%)",
+            "radial-gradient(ellipse at 50% 30%, rgba(168,179,138,0.18) 0%, transparent 60%)",
         }}
       />
       <div
@@ -40,7 +40,7 @@ export function OgTemplate({
           fontSize: title.length > 20 ? 48 : 64,
           fontWeight: 400,
           letterSpacing: "0.15em",
-          color: "#D4AF37",
+          color: "#A8B38A",
           marginBottom: 16,
           textAlign: "center",
           padding: "0 48px",
@@ -73,11 +73,11 @@ export function OgTemplate({
           position: "absolute",
           bottom: 36,
           fontSize: 13,
-          color: "rgba(212,175,55,0.55)",
+          color: "rgba(168,179,138,0.55)",
           letterSpacing: "0.25em",
         }}
       >
-        chevelle.fashion
+        dripthroat.fashion
       </div>
     </div>
   );

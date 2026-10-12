@@ -102,7 +102,7 @@ export function AppPromo() {
             className="absolute inset-0 m-auto h-[400px] w-[400px] rounded-full opacity-30"
             style={{
               background:
-                "radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)",
+                "radial-gradient(circle, rgba(168,179,138,0.15) 0%, transparent 70%)",
             }}
           />
 

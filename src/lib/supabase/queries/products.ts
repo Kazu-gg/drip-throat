@@ -1,11 +1,9 @@
 // Ported from drippy-project/src/lib/catalog-search.ts
+// Falls back to static catalog when Supabase env is not configured (mock/dev).
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+import { products as staticProducts, type Product } from "@/lib/products";
+import { isSupabaseConfigured } from "@/lib/auth";
 
 export type DbProduct = {
   id: string;
@@ -60,12 +58,68 @@ const COMPOSITE_SLUG_MAP: Record<string, string[]> = {
   "shirts-tshirt": ["women-shirts", "women-t-shirts"],
 };
 
+let supabaseSingleton: SupabaseClient | null | undefined;
+
+function getSupabase(): SupabaseClient | null {
+  if (supabaseSingleton !== undefined) return supabaseSingleton;
+  if (!isSupabaseConfigured()) {
+    supabaseSingleton = null;
+    return null;
+  }
+  supabaseSingleton = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  return supabaseSingleton;
+}
+
+function isMockCatalog(): boolean {
+  return (
+    process.env.NEXT_PUBLIC_USE_MOCK === "true" || !isSupabaseConfigured()
+  );
+}
+
+export function toSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 export function toDbSlug(websiteSlug: string): string {
   return SLUG_MAP[websiteSlug] ?? websiteSlug;
 }
 
 export function toDbSlugs(websiteSlug: string): string[] {
   return COMPOSITE_SLUG_MAP[websiteSlug] ?? [toDbSlug(websiteSlug)];
+}
+
+function productToDb(p: Product): DbProduct {
+  return {
+    id: p.id,
+    name: p.name,
+    description: p.description,
+    price: p.price,
+    image_url: p.image.src,
+    store_id: "mock-store",
+    in_stock: true,
+    variants: null,
+    collection: p.collectionId,
+    fabric: p.fabric ?? null,
+    color: p.color ?? null,
+    category_id: p.collectionId,
+    sku: p.slug,
+    categories: {
+      id: p.collectionId,
+      name: p.category,
+      slug: p.collectionId,
+      parent: null,
+    },
+  };
+}
+
+function mockAllProducts(limit = 200): DbProduct[] {
+  return staticProducts.slice(0, limit).map(productToDb);
 }
 
 function mapRow(row: Record<string, unknown>): DbProduct {
@@ -104,6 +158,7 @@ function mapRow(row: Record<string, unknown>): DbProduct {
 }
 
 async function categoryIdsFromCategoryRow(
+  supabase: SupabaseClient,
   catData: { id: string; parent_id: string | null } | null,
   catError: unknown
 ): Promise<string[]> {
@@ -132,11 +187,14 @@ async function categoryIdsForDbSlug(
     .limit(1)
     .maybeSingle();
 
-  return categoryIdsFromCategoryRow(catData, catError);
+  return categoryIdsFromCategoryRow(supabase, catData, catError);
 }
 
 /** Fetch all products for the shop catalog */
 export async function fetchAllProducts(limit = 200): Promise<DbProduct[]> {
+  if (isMockCatalog()) return mockAllProducts(limit);
+
+  const supabase = getSupabase()!;
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_SELECT)
@@ -152,6 +210,15 @@ export async function fetchProductsByCategorySlug(
   dbSlug: string,
   limit = 80
 ): Promise<DbProduct[]> {
+  if (isMockCatalog()) {
+    const websiteSlug =
+      Object.entries(SLUG_MAP).find(([, v]) => v === dbSlug)?.[0] ?? dbSlug;
+    return mockAllProducts(limit).filter(
+      (p) => p.collection === websiteSlug || p.sku === websiteSlug
+    );
+  }
+
+  const supabase = getSupabase()!;
   const { data: catData, error: catError } = await supabase
     .from("categories")
     .select(CATEGORY_SELECT)
@@ -161,7 +228,7 @@ export async function fetchProductsByCategorySlug(
 
   console.log("[products] slug:", dbSlug, "category found:", catData, "error:", catError);
 
-  const categoryIds = await categoryIdsFromCategoryRow(catData, catError);
+  const categoryIds = await categoryIdsFromCategoryRow(supabase, catData, catError);
   if (!categoryIds.length) return [];
 
   const { data, error } = await supabase
@@ -182,6 +249,11 @@ export async function fetchProductsForWebsiteSlug(
   websiteSlug: string,
   limit = 80
 ): Promise<DbProduct[]> {
+  if (isMockCatalog()) {
+    return mockAllProducts(limit).filter((p) => p.collection === websiteSlug);
+  }
+
+  const supabase = getSupabase()!;
   const dbSlugs = toDbSlugs(websiteSlug);
   if (dbSlugs.length === 1) {
     return fetchProductsByCategorySlug(dbSlugs[0], limit);
@@ -213,6 +285,11 @@ export async function fetchProductsByCollection(
   collection: string,
   limit = 60
 ): Promise<DbProduct[]> {
+  if (isMockCatalog()) {
+    return mockAllProducts(limit).filter((p) => p.collection === collection);
+  }
+
+  const supabase = getSupabase()!;
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_SELECT)
@@ -226,6 +303,14 @@ export async function fetchProductsByCollection(
 
 /** Fetch a single product by its derived slug or UUID */
 export async function fetchProductBySlug(slug: string): Promise<DbProduct | null> {
+  if (isMockCatalog()) {
+    const match = staticProducts.find(
+      (p) => p.slug === slug || p.id === slug || toSlug(p.name) === slug
+    );
+    return match ? productToDb(match) : null;
+  }
+
+  const supabase = getSupabase()!;
   const uuidPattern =
     /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -257,6 +342,18 @@ export async function fetchProductBySlug(slug: string): Promise<DbProduct | null
 
 /** Search products by text */
 export async function searchProducts(query: string): Promise<DbProduct[]> {
+  if (isMockCatalog()) {
+    const q = query.toLowerCase();
+    return mockAllProducts().filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        (p.description ?? "").toLowerCase().includes(q) ||
+        (p.fabric ?? "").toLowerCase().includes(q) ||
+        (p.color ?? "").toLowerCase().includes(q)
+    );
+  }
+
+  const supabase = getSupabase()!;
   const pattern = `%${query}%`;
 
   const [byName, byDesc, byFabric, byColor] = await Promise.all([
@@ -278,13 +375,6 @@ export async function searchProducts(query: string): Promise<DbProduct[]> {
   return [...productMap.values()];
 }
 
-export function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
 export type ProductSitemapEntry = {
   slug: string;
   lastModified: string | null;
@@ -294,6 +384,14 @@ export type ProductSitemapEntry = {
 export async function fetchProductSitemapEntries(
   limit = 500
 ): Promise<ProductSitemapEntry[]> {
+  if (isMockCatalog()) {
+    return mockAllProducts(limit).map((p) => ({
+      slug: p.sku ? toSlug(p.sku) : toSlug(p.name),
+      lastModified: null,
+    }));
+  }
+
+  const supabase = getSupabase()!;
   const { data, error } = await supabase
     .from("products")
     .select("name, sku, updated_at, created_at")

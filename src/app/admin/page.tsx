@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { AdminCommercePanel } from "@/components/shop/AdminCommercePanel";
 import { buildMetadata } from "@/lib/seo";
 import { SHOP_ROUTES } from "@/lib/routes";
 import { formatInr } from "@/lib/shop";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Admin | Chevellè",
-  description: "Chevellè admin dashboard.",
+  title: "Admin | Dripthroat",
+  description: "Dripthroat admin dashboard.",
   path: SHOP_ROUTES.admin,
   noIndex: true,
 });
@@ -23,14 +24,16 @@ export default function AdminPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-[var(--campaign-bg)] pt-24 pb-20">
+      <main className="min-h-screen bg-[var(--campaign-bg)] pt-24 pb-20" data-testid="admin_page">
         <div className="mx-auto grid max-w-7xl gap-10 section-padding lg:grid-cols-[200px_1fr]">
           <aside className="hidden space-y-2 lg:block">
-            {["Overview", "Orders", "Products", "Customers"].map((item, i) => (
+            {["Overview", "Orders", "Products", "Marketing", "Customers"].map((item) => (
               <p
                 key={item}
                 className={`py-2 pl-3 font-body text-[10px] tracking-[0.22em] uppercase ${
-                  i === 0 ? "border-l-2 border-gold text-gold" : "text-[var(--campaign-text)]/40"
+                  item === "Overview" || item === "Marketing"
+                    ? "border-l-2 border-gold text-gold"
+                    : "text-[var(--campaign-text)]/40"
                 }`}
               >
                 {item}
@@ -52,45 +55,16 @@ export default function AdminPage() {
               ))}
             </div>
 
-            <div className="shop-order-summary mt-8 p-6">
-              <h2 className="shop-filter-heading mb-4">Sales Overview</h2>
-              <div className="flex h-40 items-end gap-2">
-                {[40, 55, 48, 70, 62, 80, 74].map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 bg-gold/80"
-                    style={{ height: `${h}%` }}
-                    aria-hidden
-                  />
-                ))}
-              </div>
-            </div>
+            <AdminCommercePanel />
 
-            <div className="shop-order-summary mt-8 overflow-x-auto">
-              <table className="w-full min-w-[560px] text-left font-body text-sm">
-                <thead>
-                  <tr className="border-b border-[var(--border-subtle)] text-[10px] tracking-[0.2em] text-gold uppercase">
-                    <th className="p-4">Order ID</th>
-                    <th className="p-4">Customer</th>
-                    <th className="p-4">Total</th>
-                    <th className="p-4">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="text-[var(--campaign-text)]/60">
-                  <tr className="border-b border-[var(--border-subtle)]">
-                    <td className="p-4">CHV-2401</td>
-                    <td className="p-4">A. Sharma</td>
-                    <td className="p-4 text-gold">₹12,999</td>
-                    <td className="p-4">Processing</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4">CHV-2388</td>
-                    <td className="p-4">R. Mehta</td>
-                    <td className="p-4 text-gold">₹24,999</td>
-                    <td className="p-4">Delivered</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="shop-order-summary mt-8 p-6">
+              <h2 className="shop-filter-heading mb-4">Products</h2>
+              <p className="font-body text-sm text-[var(--campaign-text)]/50">
+                Product CRUD (name, price, sale price, images, stock, sizes, category, description,
+                fabric, FAQ, featured, SEO) is managed via the existing Supabase catalog. Use mock
+                catalog fields in src/lib/products.ts for local preview, or connect the live store
+                admin when credentials are available.
+              </p>
             </div>
           </div>
         </div>

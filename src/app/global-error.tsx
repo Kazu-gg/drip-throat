@@ -9,7 +9,7 @@ export default function GlobalError({
 }) {
   return (
     <html lang="en-IN">
-      <body style={{ margin: 0, background: "#050505", color: "#f5f5f5" }}>
+      <body style={{ margin: 0, background: "#12150a", color: "#f5f5f5" }}>
         <div
           style={{
             minHeight: "100vh",
@@ -22,24 +22,24 @@ export default function GlobalError({
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          <p style={{ letterSpacing: "0.35em", color: "#D4AF37", fontSize: "0.75rem" }}>
-            CHEVELLÈ
+          <p style={{ letterSpacing: "0.35em", color: "#A8B38A", fontSize: "0.75rem" }}>
+            DRIPTHROAT
           </p>
           <h1 style={{ fontWeight: 300, fontSize: "1.75rem", marginTop: "1rem" }}>
             Something went wrong
           </h1>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.875rem", maxWidth: "24rem", marginTop: "1rem" }}>
             Restart the dev server with a clean cache:{" "}
-            <code style={{ color: "#D4AF37" }}>npm run dev:clean</code>
+            <code style={{ color: "#A8B38A" }}>npm run dev:clean</code>
           </p>
           <button
             type="button"
             onClick={reset}
             style={{
               marginTop: "2rem",
-              border: "1px solid #D4AF37",
+              border: "1px solid #A8B38A",
               background: "transparent",
-              color: "#D4AF37",
+              color: "#A8B38A",
               padding: "0.75rem 2rem",
               cursor: "pointer",
               letterSpacing: "0.15em",

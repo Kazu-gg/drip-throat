@@ -11,7 +11,7 @@ export default function ThankYouPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 40%, rgba(212,175,55,0.15) 0%, transparent 55%)",
+              "radial-gradient(ellipse at 50% 40%, rgba(168,179,138,0.15) 0%, transparent 55%)",
           }}
         />
         <p className="relative z-10 font-display text-5xl font-light tracking-[0.2em] text-gold sm:text-6xl">

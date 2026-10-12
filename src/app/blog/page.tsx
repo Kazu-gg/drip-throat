@@ -42,7 +42,7 @@ export default function BlogPage() {
             </h1>
             <p className="mx-auto mt-6 max-w-2xl font-body text-base leading-relaxed text-white/50">
               Expert guides on saree trends, co-ord styling, wedding ethnic wear,
-              and building a premium wardrobe — from Chevellè, India&apos;s
+              and building a premium wardrobe — from Dripthroat, India&apos;s
               luxury fashion house.
             </p>
           </header>

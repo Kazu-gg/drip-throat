@@ -10,16 +10,16 @@ const config: Config = {
     extend: {
       colors: {
         black: {
-          DEFAULT: "#0d0d0d",
-          light: "#141414",
-          card: "#141414",
-          charcoal: "#1a1a1a",
+          DEFAULT: "#12150a",
+          light: "#1a1f10",
+          card: "#1a1f10",
+          charcoal: "#242c18",
         },
-        ivory: "#F8F0EB",
+        ivory: "#D4CEBE",
         gold: {
           DEFAULT: "var(--gold)",
           light: "var(--gold-light)",
-          dark: "#B8962E",
+          dark: "#8A9374",
           muted: "var(--gold-muted)",
         },
       },

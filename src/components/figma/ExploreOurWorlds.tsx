@@ -107,7 +107,7 @@ function WorldFlipCard({
         <div
           className="flip-face flip-back flex flex-col justify-between p-5 sm:p-6"
           style={{
-            background: `linear-gradient(160deg, ${world.tint}22 0%, #0d0d0d 45%, #141414 100%)`,
+            background: `linear-gradient(160deg, ${world.tint}22 0%, #12150a 45%, #1a1f10 100%)`,
             boxShadow: `inset 0 0 0 1px ${world.tint}55`,
           }}
         >

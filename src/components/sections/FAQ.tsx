@@ -14,7 +14,7 @@ export function FAQ() {
       <SectionHeading
         label="Your Questions"
         title="Frequently Asked Questions"
-        subtitle="Everything you need to know about shopping premium fashion at Chevellè."
+        subtitle="Everything you need to know about shopping premium fashion at Dripthroat."
       />
 
       <motion.dl

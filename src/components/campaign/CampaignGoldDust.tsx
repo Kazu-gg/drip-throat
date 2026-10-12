@@ -34,7 +34,7 @@ type CampaignGoldDustProps = {
 };
 
 export function CampaignGoldDust({
-  color = "#D4AF37",
+  color = "#A8B38A",
   count,
   className = "",
 }: CampaignGoldDustProps) {

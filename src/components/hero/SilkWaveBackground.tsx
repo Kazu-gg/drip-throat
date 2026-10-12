@@ -24,10 +24,10 @@ export function SilkWaveBackground() {
       >
         <defs>
           <linearGradient id="silk-gold" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#B8962E" stopOpacity="0" />
-            <stop offset="35%" stopColor="#D4AF37" stopOpacity="0.9" />
-            <stop offset="65%" stopColor="#E2C663" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#B8962E" stopOpacity="0" />
+            <stop offset="0%" stopColor="#8A9374" stopOpacity="0" />
+            <stop offset="35%" stopColor="#A8B38A" stopOpacity="0.9" />
+            <stop offset="65%" stopColor="#B6C38E" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#8A9374" stopOpacity="0" />
           </linearGradient>
         </defs>
 

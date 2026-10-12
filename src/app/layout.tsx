@@ -26,7 +26,7 @@ export const metadata: Metadata = {
       ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } }
       : {}),
   },
-  applicationName: "Chevellè India",
+  applicationName: "Dripthroat India",
   referrer: "origin-when-cross-origin",
   formatDetection: {
     email: false,
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    title: "Chevellè India",
+    title: "Dripthroat India",
     statusBarStyle: "black-translucent",
   },
   alternates: {

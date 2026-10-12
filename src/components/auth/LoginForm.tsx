@@ -121,7 +121,7 @@ export function LoginFooter() {
 
   return (
     <>
-      New to Chevellè?{" "}
+      New to Dripthroat?{" "}
       <Link
         href={`${AUTH_ROUTES.signup}?next=${next}`}
         className="text-gold transition-colors hover:text-gold-light"

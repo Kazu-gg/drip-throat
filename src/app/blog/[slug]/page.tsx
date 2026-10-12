@@ -114,7 +114,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
             <div className="mt-16 border-t border-white/10 pt-12">
               <h2 className="mb-8 font-display text-2xl font-light text-white">
-                More From Chevellè
+                More From Dripthroat
               </h2>
               <ul className="space-y-4">
                 {otherPosts.map((related) => (

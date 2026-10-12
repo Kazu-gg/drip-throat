@@ -29,7 +29,7 @@ export function DownloadExperience() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 20%, rgba(212,175,55,0.1) 0%, transparent 55%)",
+            "radial-gradient(ellipse at 50% 20%, rgba(168,179,138,0.1) 0%, transparent 55%)",
         }}
       />
 
@@ -42,10 +42,10 @@ export function DownloadExperience() {
             className="max-w-sm text-center lg:text-left"
           >
             <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase">
-              The Chevellè App
+              The Dripthroat App
             </p>
             <h1 className="mt-3 font-display text-3xl font-light leading-snug tracking-wide text-[var(--campaign-text)] uppercase sm:text-4xl">
-              Get Chevellè on your phone
+              Get Dripthroat on your phone
             </h1>
             <p className="mt-5 font-body text-sm leading-relaxed text-[var(--campaign-text)]/50">
               The app is launching soon. Until then, continue on web for the full

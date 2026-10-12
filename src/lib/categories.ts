@@ -87,7 +87,7 @@ export const subcategories: Subcategory[] = [
     "Sarees",
     "Timeless drapes",
     "saree",
-    "Explore Chevellè sarees — curated silk and designer drapes for weddings, festivals, and refined everyday elegance.",
+    "Explore Dripthroat sarees — curated silk and designer drapes for weddings, festivals, and refined everyday elegance.",
     ["Sarees", "designer sarees online", "premium ethnic wear"]
   ),
   sub(
@@ -96,7 +96,7 @@ export const subcategories: Subcategory[] = [
     "Lehengas",
     "Regal silhouettes",
     "lehenga",
-    "Chevellè lehengas — handpicked pieces for celebrations, weddings, and festive occasions.",
+    "Dripthroat lehengas — handpicked pieces for celebrations, weddings, and festive occasions.",
     ["Lehengas", "luxury lehenga India", "festive wear"]
   ),
   sub(
@@ -132,7 +132,7 @@ export const subcategories: Subcategory[] = [
     "Shirts / T-Shirt",
     "Shirts + T-Shirts",
     "womens-shirt",
-    "Women's shirts and t-shirts — contemporary essentials with a premium Chevellè finish.",
+    "Women's shirts and t-shirts — contemporary essentials with a premium Dripthroat finish.",
     ["Women Shirts", "women t-shirts India", "premium tops"]
   ),
   sub(
@@ -252,7 +252,7 @@ export type Collection = Subcategory & {
 
 export const collections: Collection[] = subcategories.map((cat) => ({
   ...cat,
-  imageAlt: `${cat.name} — ${cat.subtitle} by Chevellè`,
+  imageAlt: `${cat.name} — ${cat.subtitle} by Dripthroat`,
 }));
 
 export function getMainCategory(id: MainCategoryId): MainCategory | undefined {

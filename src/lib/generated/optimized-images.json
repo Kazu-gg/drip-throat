@@ -7,21 +7,21 @@
   },
   "category-hero:women": {
     "src": "/images/collections/women/hero/main.webp",
-    "width": 1620,
-    "height": 1080,
-    "bytes": 83048
+    "width": 1920,
+    "height": 844,
+    "bytes": 229750
   },
   "category-hero:men": {
     "src": "/images/collections/men/hero/main.webp",
-    "width": 1620,
-    "height": 1080,
-    "bytes": 46032
+    "width": 1920,
+    "height": 844,
+    "bytes": 216456
   },
   "category-hero:unisex": {
     "src": "/images/collections/unisex/hero/main.webp",
-    "width": 1620,
-    "height": 1080,
-    "bytes": 89060
+    "width": 1920,
+    "height": 844,
+    "bytes": 318614
   },
   "category-card:women": {
     "src": "/images/collections/women/main.webp",

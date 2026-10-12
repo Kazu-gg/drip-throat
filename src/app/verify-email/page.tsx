@@ -21,7 +21,7 @@ export default function VerifyEmailPage() {
       <AuthLayout
         label="Almost there"
         title="Verify Your Email"
-        subtitle="Check your inbox for the Chevellè verification link. Hang tight — it only takes a moment."
+        subtitle="Check your inbox for the Dripthroat verification link. Hang tight — it only takes a moment."
       >
         <Suspense fallback={<p className="text-white/50">Loading…</p>}>
           <VerifyEmailPanel />

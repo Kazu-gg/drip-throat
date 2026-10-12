@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import { UNISEX_LANDING } from "@/lib/category-landing";
 
 export const metadata: Metadata = buildMetadata({
-  title: `Unisex | Collections | Chevellè`,
+  title: `Unisex | Collections | Dripthroat`,
   description: UNISEX_LANDING.description,
   path: "/collections/unisex",
 });

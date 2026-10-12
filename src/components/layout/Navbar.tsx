@@ -14,6 +14,7 @@ import {
   NavIconUser,
 } from "@/components/ui/NavIcons";
 import { AUTH_ROUTES } from "@/lib/routes";
+import { DripthroatLogo } from "@/components/brand/DripthroatLogo";
 
 const navLinks = [
   { label: "New In", href: "/products" },
@@ -29,14 +30,16 @@ function NavIcon({
   label,
   href,
   badge,
+  onClick,
 }: {
   children: ReactNode;
   label: string;
   href?: string;
   badge?: number;
+  onClick?: () => void;
 }) {
   const className =
-    "relative flex h-10 w-10 items-center justify-center text-[var(--campaign-text)]/60 transition-colors duration-300 hover:text-gold";
+    "relative flex h-10 w-10 items-center justify-center text-[var(--campaign-text)]/70 transition-colors duration-300 hover:text-[var(--campaign-text)]";
   const inner = (
     <>
       {children}
@@ -47,6 +50,13 @@ function NavIcon({
       )}
     </>
   );
+  if (onClick) {
+    return (
+      <button type="button" className={className} aria-label={label} onClick={onClick} data-testid="navbar_cart_button">
+        {inner}
+      </button>
+    );
+  }
   if (href) {
     return (
       <Link href={href} className={className} aria-label={label}>
@@ -64,7 +74,7 @@ function NavIcon({
 export function Navbar() {
   const scrollY = useScrollY();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { count } = useCart();
+  const { count, openDrawer } = useCart();
   const { user, signOut } = useAuth();
   const isScrolled = scrollY > 50;
 
@@ -79,10 +89,15 @@ export function Navbar() {
         }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10">
-          <Link href="/" className="relative z-50 shrink-0">
-            <span className="font-accent text-lg tracking-[0.22em] text-gold sm:text-xl">
-              CHEVELLÈ
-            </span>
+          <Link
+            href="/"
+            className="group relative z-50 flex shrink-0 items-center transition-opacity hover:opacity-90"
+            aria-label="DRIPTHROAT Home"
+          >
+            <DripthroatLogo
+              className="h-6 sm:h-7 lg:h-8 w-auto text-[var(--campaign-text)] transition-colors duration-300 group-hover:text-gold"
+              data-testid="navbar_brand_logo"
+            />
           </Link>
 
           <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-4 xl:gap-6 lg:flex">
@@ -90,7 +105,7 @@ export function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="font-body text-[10px] tracking-[0.2em] text-[var(--campaign-text)]/55 uppercase transition-colors hover:text-gold"
+                  className="font-body text-[10px] tracking-[0.2em] text-[var(--campaign-text)]/70 uppercase transition-colors hover:text-[var(--campaign-text)]"
                 >
                   {link.label}
                 </Link>
@@ -113,7 +128,7 @@ export function Navbar() {
               <NavIconHeart />
             </NavIcon>
 
-            <NavIcon label="Shopping bag" href="/cart" badge={count}>
+            <NavIcon label="Shopping bag" badge={count} onClick={openDrawer}>
               <NavIconBag />
             </NavIcon>
 

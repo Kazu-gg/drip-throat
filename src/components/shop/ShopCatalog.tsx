@@ -105,6 +105,17 @@ export function ShopCatalog({
             {subtitle}
           </p>
         )}
+        <label className="mt-6 block max-w-md">
+          <span className="sr-only">Search products</span>
+          <input
+            type="search"
+            value={filters.search}
+            onChange={(e) => update({ search: e.target.value })}
+            placeholder="Search name, category, keywords…"
+            data-testid="shop_search_input"
+            className="w-full border border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 font-body text-sm text-[var(--campaign-text)] placeholder:text-[var(--campaign-text)]/35 focus:border-gold/40 focus:outline-none"
+          />
+        </label>
       </header>
 
       <div className="mb-6 flex items-center justify-between gap-4">
@@ -129,6 +140,8 @@ export function ShopCatalog({
             disabled={loading}
           >
             <option value="newest">Newest</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
           </select>
         </div>
       </div>

@@ -59,9 +59,10 @@ export async function updateSession(request: NextRequest) {
   const next = sanitizeNextPath(pathname + search);
 
   const requiresAuth =
-    pathname.startsWith(AUTH_ROUTES.checkout) ||
     pathname.startsWith(SHOP_ROUTES.account) ||
     pathname.startsWith("/orders");
+
+  // Checkout stays guest-accessible; payment/order placement handles optional auth.
 
   if (requiresAuth) {
     if (!user) {

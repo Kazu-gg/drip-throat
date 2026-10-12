@@ -45,7 +45,7 @@ export const features = [
     icon: "truck",
     title: "Order Tracking",
     description:
-      "Track every order from confirmation to delivery in the Chevellè app.",
+      "Track every order from confirmation to delivery in the Dripthroat app.",
   },
   {
     icon: "package",
@@ -63,7 +63,7 @@ export const reviews = [
     name: "Priya Sharma",
     location: "Mumbai",
     rating: 5,
-    text: "The quality exceeded my expectations. Every piece feels like it belongs in a luxury boutique. Chevellè has redefined online fashion for me.",
+    text: "The quality exceeded my expectations. Every piece feels like it belongs in a luxury boutique. Dripthroat has redefined online fashion for me.",
   },
   {
     id: 2,
@@ -84,7 +84,7 @@ export const reviews = [
     name: "Sneha Iyer",
     location: "Bangalore",
     rating: 5,
-    text: "The attention to detail is remarkable. I've shopped from many brands, but Chevellè stands in a league of its own.",
+    text: "The attention to detail is remarkable. I've shopped from many brands, but Dripthroat stands in a league of its own.",
   },
 ];
 
@@ -93,42 +93,42 @@ export const instagramPosts = [
     id: 1,
     image:
       "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&q=80&fm=webp",
-    alt: "Chevellè luxury saree fashion inspiration on Instagram",
+    alt: "Dripthroat luxury saree fashion inspiration on Instagram",
     likes: "2.4k",
   },
   {
     id: 2,
     image:
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80&fm=webp",
-    alt: "Lehenga style inspiration by Chevellè",
+    alt: "Lehenga style inspiration by Dripthroat",
     likes: "1.8k",
   },
   {
     id: 3,
     image:
       "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80&fm=webp",
-    alt: "Premium ethnic suit fashion by Chevellè India",
+    alt: "Premium ethnic suit fashion by Dripthroat India",
     likes: "3.1k",
   },
   {
     id: 4,
     image:
       "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500&q=80&fm=webp",
-    alt: "Men's kurta fashion inspiration Chevellè",
+    alt: "Men's kurta fashion inspiration Dripthroat",
     likes: "2.7k",
   },
   {
     id: 5,
     image:
       "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=500&q=80&fm=webp",
-    alt: "Luxury handbag accessory by Chevellè",
+    alt: "Luxury handbag accessory by Dripthroat",
     likes: "1.9k",
   },
   {
     id: 6,
     image:
       "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&q=80&fm=webp",
-    alt: "Premium co-ord set outfit inspiration Chevellè",
+    alt: "Premium co-ord set outfit inspiration Dripthroat",
     likes: "2.2k",
   },
 ];
@@ -199,38 +199,38 @@ export const trustItems = [
 
 export const faqItems = [
   {
-    question: "What is Chevellè India?",
+    question: "What is Dripthroat India?",
     answer:
-      "Chevellè India (chevelle.in) is a curated luxury fashion brand offering designer sarees, lehengas, kurtas, co-ords, and accessories for women and men — with secure online checkout and order tracking.",
+      "Dripthroat India (dripthroat.in) is a curated luxury fashion brand offering designer sarees, lehengas, kurtas, co-ords, and accessories for women and men — with secure online checkout and order tracking.",
   },
   {
-    question: "What is Chevellè?",
+    question: "What is Dripthroat?",
     answer:
-      "Chevellè is a curated luxury fashion brand in India — shop Women, Men & Accessories with the same category structure as the Chevellè app.",
+      "Dripthroat is a curated luxury fashion brand in India — shop Women, Men & Accessories with the same category structure as the Dripthroat app.",
   },
   {
-    question: "Does Chevellè deliver across India?",
+    question: "Does Dripthroat deliver across India?",
     answer:
-      "Yes. Chevellè offers fast, reliable delivery to cities and towns across India. Track your order in real time through our website or mobile app.",
+      "Yes. Dripthroat offers fast, reliable delivery to cities and towns across India. Track your order in real time through our website or mobile app.",
   },
   {
     question: "Where can I buy designer sarees online in India?",
     answer:
-      "Shop designer sarees online at Chevellè — India's premium fashion destination for luxury silk sarees, wedding sarees, and festive ethnic wear with secure checkout.",
+      "Shop designer sarees online at Dripthroat — India's premium fashion destination for luxury silk sarees, wedding sarees, and festive ethnic wear with secure checkout.",
   },
   {
     question: "What are the best luxury co-ord sets for women?",
     answer:
-      "Chevellè offers premium co-ord sets crafted in luxury fabrics with perfectly matched silhouettes — ideal for parties, brunches, and modern Indian fashion.",
+      "Dripthroat offers premium co-ord sets crafted in luxury fabrics with perfectly matched silhouettes — ideal for parties, brunches, and modern Indian fashion.",
   },
   {
-    question: "Is Chevellè good for wedding ethnic wear?",
+    question: "Is Dripthroat good for wedding ethnic wear?",
     answer:
-      "Absolutely. Chevellè curates lehengas, sarees, and salwar suits for weddings and celebrations with premium fabrics and craftsmanship.",
+      "Absolutely. Dripthroat curates lehengas, sarees, and salwar suits for weddings and celebrations with premium fabrics and craftsmanship.",
   },
   {
-    question: "How do I shop at Chevellè?",
+    question: "How do I shop at Dripthroat?",
     answer:
-      "Browse chevelle.in by Women, Men & Accessories — or download the Chevellè app when available for a refined mobile experience.",
+      "Browse dripthroat.in by Women, Men & Accessories — or download the Dripthroat app when available for a refined mobile experience.",
   },
 ] as const;

@@ -71,7 +71,7 @@ function FlipProductCard({
           <div
             className="flip-face flip-back flex flex-col justify-between overflow-hidden rounded-2xl p-6 ring-1 ring-[var(--campaign-accent)]/50"
             style={{
-              background: `linear-gradient(145deg, #0c0c0c 0%, #141414 50%, var(--campaign-bg) 100%)`,
+              background: `linear-gradient(145deg, #0c0c0c 0%, #1a1f10 50%, var(--campaign-bg) 100%)`,
               boxShadow: "0 0 48px color-mix(in srgb, var(--campaign-accent) 18%, transparent)",
             }}
           >

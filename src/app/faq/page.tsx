@@ -8,7 +8,7 @@ import { FAQ } from "@/components/sections/FAQ";
 export const metadata: Metadata = buildMetadata({
   title: PAGE_TITLES.faq,
   description:
-    "Frequently asked questions about shopping Chevellè — delivery, payments, returns, and account support for luxury Indian fashion.",
+    "Frequently asked questions about shopping Dripthroat — delivery, payments, returns, and account support for luxury Indian fashion.",
   path: LEGAL_ROUTES.faq,
 });
 

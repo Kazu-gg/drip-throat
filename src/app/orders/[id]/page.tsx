@@ -9,8 +9,8 @@ type PageProps = { params: Promise<{ id: string }> };
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
   return buildMetadata({
-    title: `Order ${id} | Chevellè`,
-    description: "Track your Chevellè order from placed to delivered.",
+    title: `Order ${id} | Dripthroat`,
+    description: "Track your Dripthroat order from placed to delivered.",
     path: `/orders/${id}`,
     noIndex: true,
   });

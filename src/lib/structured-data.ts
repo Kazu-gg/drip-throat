@@ -20,11 +20,10 @@ export function organizationSchema(): JsonLd {
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
     alternateName: [
-      "Chevellè India",
-      "Chevelle India",
-      "Chevelle Fashion",
-      "Chevellè Fashion India",
-      "chevelle.in",
+      "Dripthroat India",
+      "Dripthroat Fashion",
+      "Dripthroat Fashion India",
+      "dripthroat.in",
     ],
     url: SITE_URL,
     logo: {
@@ -57,7 +56,7 @@ export function onlineStoreSchema(): JsonLd {
     "@type": "OnlineStore",
     "@id": `${SITE_URL}/#store`,
     name: `${SITE_NAME} India`,
-    alternateName: ["Chevellè India", "Chevelle India"],
+    alternateName: ["Dripthroat India"],
     url: SITE_URL,
     description: OG_DEFAULTS.description,
     image: absoluteUrl("/opengraph-image"),
@@ -79,7 +78,7 @@ export function websiteSchema(): JsonLd {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: `${SITE_NAME} India`,
-    alternateName: ["Chevellè India", "Chevelle India", "Chevellè Fashion"],
+    alternateName: ["Dripthroat India", "Dripthroat Fashion"],
     url: SITE_URL,
     description: OG_DEFAULTS.description,
     inLanguage: "en-IN",
@@ -120,7 +119,7 @@ export function itemListSchema(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Chevellè Fashion Collections",
+    name: "Dripthroat Fashion Collections",
     numberOfItems: collections.length,
     itemListElement: collections.map((collection, index) => ({
       "@type": "ListItem",
@@ -135,7 +134,7 @@ export function productListSchema(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Chevellè Bestsellers",
+    name: "Dripthroat Bestsellers",
     itemListElement: products.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,

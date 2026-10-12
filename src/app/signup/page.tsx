@@ -22,7 +22,7 @@ export default function SignupPage() {
     <>
       <Navbar />
       <AuthLayout
-        label="Join Chevellè"
+        label="Join Dripthroat"
         title="Create Account"
         subtitle="Sign up with your email. We'll send a 6-digit verification code before you can checkout."
         footer={

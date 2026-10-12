@@ -5,6 +5,9 @@ export const LEGAL_ROUTES = {
   privacy: "/privacy",
   terms: "/terms",
   faq: "/faq",
+  shipping: "/shipping",
+  returns: "/returns",
+  contact: "/contact",
 } as const;
 
 export const SHOP_ROUTES = {

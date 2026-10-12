@@ -11,7 +11,7 @@ export default async function Image({ params }: Props) {
   const { slug } = await params;
   const collection = getCollectionBySlug(slug);
   return createOgImage({
-    title: collection?.name.toUpperCase() ?? "CHEVELLÈ",
+    title: collection?.name.toUpperCase() ?? "DRIPTHROAT",
     subtitle: collection?.subtitle ?? "Curated Elegance",
   });
 }

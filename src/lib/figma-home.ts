@@ -91,7 +91,7 @@ export const SIGNATURE_SLIDES = [
     id: "kurti-corset",
     title: "The Kurti Atelier",
     description:
-      "Structured ethnic silhouettes for the modern wardrobe — refined, versatile, unmistakably Chevellè.",
+      "Structured ethnic silhouettes for the modern wardrobe — refined, versatile, unmistakably Dripthroat.",
     slug: "kurti-corset",
   },
   {
@@ -116,5 +116,5 @@ export function figmaImage(slug: string, fallbackAlt: string) {
 
 export const HERO_IMAGE = {
   src: optimizedSrc("hero", HERO_FALLBACK),
-  alt: "Chevellè luxury fashion editorial",
+  alt: "Dripthroat luxury fashion editorial",
 };

@@ -1,31 +1,30 @@
 import type { Metadata } from "next";
 
-export const SITE_NAME = "Chevellè";
+export const SITE_NAME = "Dripthroat";
 export const SITE_TAGLINE = "Curated Elegance";
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.chevelle.in";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.dripthroat.in";
 
-export const CONTACT_EMAIL = "support@chevelle.in";
+export const CONTACT_EMAIL = "support@dripthroat.in";
 
 export const SOCIAL = {
-  instagram: "https://www.instagram.com/chevelleindia",
-  twitter: "https://twitter.com/chevellefashion",
+  instagram: "https://www.instagram.com/dripthroat",
+  twitter: "https://twitter.com/dripthroat",
 };
 
 /** Default social sharing copy */
 export const OG_DEFAULTS = {
-  title: "Chevellè India — Luxury Fashion Online",
+  title: "Dripthroat India — Luxury Fashion Online",
   description:
-    "Chevellè India — premium curated fashion for women, men, and accessories. Designer sarees, lehengas, kurtas, and luxury ethnic wear with secure checkout.",
+    "Dripthroat India — premium curated fashion for women, men, and accessories. Designer sarees, lehengas, kurtas, and luxury ethnic wear with secure checkout.",
 };
 
 export const PRIMARY_KEYWORDS = [
-  "Chevellè",
-  "Chevellè India",
-  "Chevelle India",
-  "Chevelle fashion India",
-  "Chevellè fashion",
+  "Dripthroat",
+  "Dripthroat India",
+  "Dripthroat fashion India",
+  "Dripthroat fashion",
   "Luxury Fashion India",
   "Premium Ethnic Wear",
   "Women's Fashion Online India",
@@ -46,66 +45,66 @@ export const SECONDARY_KEYWORDS = [
 export const TARGET_KEYWORDS = [
   ...PRIMARY_KEYWORDS,
   ...SECONDARY_KEYWORDS,
-  "Chevellè online",
-  "shop Chevellè",
-  "www.chevelle.in",
+  "Dripthroat online",
+  "shop Dripthroat",
+  "www.dripthroat.in",
 ];
 
 /** Exact page titles per SEO spec */
 export const PAGE_TITLES = {
-  home: "Chevellè India | Luxury Fashion Online — Curated Elegance",
-  collections: "Shop Collections | Chevellè",
-  blog: "Journal | Chevellè",
-  products: "Shop All | Chevellè",
-  download: "Get the App | Chevellè",
-  login: "Sign In | Chevellè",
-  signup: "Create Account | Chevellè",
-  verifyEmail: "Verify Email | Chevellè",
-  verify: "Enter Verification Code | Chevellè",
-  checkout: "Checkout | Chevellè",
-  privacy: "Privacy Policy | Chevellè",
-  terms: "Terms & Conditions | Chevellè",
-  faq: "FAQ | Chevellè",
+  home: "Dripthroat India | Luxury Fashion Online — Curated Elegance",
+  collections: "Shop Collections | Dripthroat",
+  blog: "Journal | Dripthroat",
+  products: "Shop All | Dripthroat",
+  download: "Get the App | Dripthroat",
+  login: "Sign In | Dripthroat",
+  signup: "Create Account | Dripthroat",
+  verifyEmail: "Verify Email | Dripthroat",
+  verify: "Enter Verification Code | Dripthroat",
+  checkout: "Checkout | Dripthroat",
+  privacy: "Privacy Policy | Dripthroat",
+  terms: "Terms & Conditions | Dripthroat",
+  faq: "FAQ | Dripthroat",
   // Women
-  sarees: "Sarees | Women | Chevellè",
-  lehengas: "Lehengas | Women | Chevellè",
-  "kurti-corset": "Kurti / Corset | Women | Chevellè",
-  "co-ord-set": "Co-ord Set | Women | Chevellè",
-  suit: "Suit | Women | Chevellè",
-  "shirts-tshirt": "Shirts / T-Shirt | Women | Chevellè",
+  sarees: "Sarees | Women | Dripthroat",
+  lehengas: "Lehengas | Women | Dripthroat",
+  "kurti-corset": "Kurti / Corset | Women | Dripthroat",
+  "co-ord-set": "Co-ord Set | Women | Dripthroat",
+  suit: "Suit | Women | Dripthroat",
+  "shirts-tshirt": "Shirts / T-Shirt | Women | Dripthroat",
   // Men
-  kurtas: "Kurtas | Men | Chevellè",
-  "men-shirts": "Shirts | Men | Chevellè",
-  "men-tshirts": "T-Shirts | Men | Chevellè",
-  jeans: "Jeans | Men | Chevellè",
-  pants: "Pants | Men | Chevellè",
-  jackets: "Jackets | Men | Chevellè",
+  kurtas: "Kurtas | Men | Dripthroat",
+  "men-shirts": "Shirts | Men | Dripthroat",
+  "men-tshirts": "T-Shirts | Men | Dripthroat",
+  jeans: "Jeans | Men | Dripthroat",
+  pants: "Pants | Men | Dripthroat",
+  jackets: "Jackets | Men | Dripthroat",
   // Accessories
-  handbags: "Handbags | Accessories | Chevellè",
-  jewellery: "Jewellery | Accessories | Chevellè",
-  watches: "Watches | Accessories | Chevellè",
-  sunglasses: "Sunglasses | Accessories | Chevellè",
-  wallets: "Wallets | Accessories | Chevellè",
-  belts: "Belts | Accessories | Chevellè",
+  handbags: "Handbags | Accessories | Dripthroat",
+  jewellery: "Jewellery | Accessories | Dripthroat",
+  watches: "Watches | Accessories | Dripthroat",
+  sunglasses: "Sunglasses | Accessories | Dripthroat",
+  wallets: "Wallets | Accessories | Dripthroat",
+  belts: "Belts | Accessories | Dripthroat",
 } as const;
 
 export const META_DESCRIPTIONS = {
-  home: "Chevellè India — shop luxury fashion online. Designer sarees, lehengas, kurtas, co-ords, and accessories. Premium ethnic wear with secure Razorpay checkout.",
+  home: "Dripthroat India — shop luxury fashion online. Designer sarees, lehengas, kurtas, co-ords, and accessories. Premium ethnic wear with secure Razorpay checkout.",
   collections:
-    "Browse Chevellè collections — New Arrivals, Best Sellers, Wedding Edit, Festive Edit, and more. Women, men, and accessories.",
-  blog: "Style notes and luxury fashion guidance from Chevellè — refined curation for modern Indian elegance.",
+    "Browse Dripthroat collections — New Arrivals, Best Sellers, Wedding Edit, Festive Edit, and more. Women, men, and accessories.",
+  blog: "Style notes and luxury fashion guidance from Dripthroat — refined curation for modern Indian elegance.",
   products:
-    "Shop Chevellè — curated luxury fashion across women, men, and accessories. Secure Razorpay checkout and order tracking.",
+    "Shop Dripthroat — curated luxury fashion across women, men, and accessories. Secure Razorpay checkout and order tracking.",
   download:
-    "Get Chevellè on your phone. Browse collections, track orders, and shop curated luxury fashion — iOS and Android coming soon.",
+    "Get Dripthroat on your phone. Browse collections, track orders, and shop curated luxury fashion — iOS and Android coming soon.",
   login:
-    "Sign in to your Chevellè account to shop premium luxury fashion and access secure checkout.",
+    "Sign in to your Dripthroat account to shop premium luxury fashion and access secure checkout.",
   signup:
-    "Create a Chevellè account. Verify your email to unlock checkout for curated luxury fashion.",
+    "Create a Dripthroat account. Verify your email to unlock checkout for curated luxury fashion.",
   verifyEmail:
-    "Verify your email to complete your Chevellè account and continue to secure checkout.",
+    "Verify your email to complete your Dripthroat account and continue to secure checkout.",
   verify:
-    "Enter the 6-digit verification code sent to your email to activate your Chevellè account.",
+    "Enter the 6-digit verification code sent to your email to activate your Dripthroat account.",
 } as const;
 
 export { APP_DOWNLOAD_PATH } from "@/lib/routes";
@@ -120,11 +119,11 @@ export function metaDescription(text: string, max = 160): string {
 }
 
 export function productTitle(productName: string): string {
-  return `${productName} | Chevellè`;
+  return `${productName} | Dripthroat`;
 }
 
 export function blogTitle(articleTitle: string): string {
-  return `${articleTitle} | Chevellè`;
+  return `${articleTitle} | Dripthroat`;
 }
 
 export function absoluteUrl(path = ""): string {
@@ -204,8 +203,8 @@ export function buildMetadata({
       title: ogTitle,
       description: ogDescription,
       images: [image],
-      creator: "@chevellefashion",
-      site: "@chevellefashion",
+      creator: "@dripthroat",
+      site: "@dripthroat",
     },
     robots: noIndex
       ? { index: false, follow: false }
@@ -245,7 +244,7 @@ export function collectionMetadata(
 ): Metadata {
   const title =
     PAGE_TITLES[collectionId as keyof typeof PAGE_TITLES] ??
-    `${collectionId} | Chevellè`;
+    `${collectionId} | Dripthroat`;
 
   return buildMetadata({
     title,

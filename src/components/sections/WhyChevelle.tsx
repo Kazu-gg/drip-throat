@@ -10,8 +10,8 @@ export function WhyChevelle() {
   return (
     <section id="why" className="section-padding relative border-t border-white/5">
       <SectionHeading
-        label="The Chevellè Promise"
-        title="Why Chevellè"
+        label="The Dripthroat Promise"
+        title="Why Dripthroat"
         subtitle="Premium luxury fashion, delivered with care."
       />
 

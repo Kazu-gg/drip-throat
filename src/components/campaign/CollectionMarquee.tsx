@@ -4,7 +4,7 @@ const MESSAGES = [
   "Complimentary styling consultation on every order",
   "Premium packaging · White-glove delivery across India",
   "New season: five worlds of Indian luxury",
-  "Chevellè — curated elegance, delivered with care",
+  "Dripthroat — curated elegance, delivered with care",
 ];
 
 export function CollectionMarquee() {

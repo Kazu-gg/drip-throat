@@ -12,7 +12,7 @@ export function OrderTrackingView({ orderId }: { orderId: string }) {
       <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase">Order Tracking</p>
       <h1 className="mt-2 font-display text-3xl text-[var(--campaign-text)]">{orderId}</h1>
       <p className="mt-2 font-body text-sm text-[var(--campaign-text)]/50">
-        Estimated delivery: 18 Jun 2026 · Courier: Chevellè Express
+        Estimated delivery: 18 Jun 2026 · Courier: Dripthroat Express
       </p>
 
       <ol className="mt-12 space-y-0">

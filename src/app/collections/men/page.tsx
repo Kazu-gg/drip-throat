@@ -8,7 +8,7 @@ import { getMainCategory } from "@/lib/categories";
 const main = getMainCategory("men")!;
 
 export const metadata: Metadata = buildMetadata({
-  title: `Men | Collections | Chevellè`,
+  title: `Men | Collections | Dripthroat`,
   description: main.description,
   path: "/collections/men",
 });

@@ -1,4 +1,5 @@
 import type { Product, ProductImage } from "@/lib/products";
+import { DEFAULT_PRODUCT_SIZES } from "@/lib/products";
 import type { DbProduct } from "@/lib/supabase/queries/products";
 import { toSlug } from "@/lib/supabase/queries/products";
 
@@ -70,19 +71,21 @@ export function dbProductToProduct(db: DbProduct): Product {
     price: db.price,
     priceDisplay: mapPriceDisplay(db.price),
     description: db.description ?? "",
-    seoDescription: db.description ?? `${db.name} — Chevellè`,
+    seoDescription: db.description ?? `${db.name} — Dripthroat`,
     seoKeywords: [
       db.name,
       mapCategory(db),
       db.fabric,
       db.color,
       "Indian ethnic wear",
-      "Chevellè",
+      "Dripthroat",
     ].filter((k): k is string => Boolean(k)),
     image: mapImage(db),
     relatedSlugs: [],
     color: db.color,
     fabric: db.fabric,
+    inStock: db.in_stock,
+    sizes: [...DEFAULT_PRODUCT_SIZES],
   };
 }
 

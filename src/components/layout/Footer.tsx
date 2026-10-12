@@ -5,6 +5,7 @@ import { useState } from "react";
 import { SOCIAL, CONTACT_EMAIL } from "@/lib/seo";
 import { APP_DOWNLOAD_PATH, LEGAL_ROUTES } from "@/lib/routes";
 import { curatedEdits } from "@/lib/data";
+import { DripthroatLogo } from "@/components/brand/DripthroatLogo";
 
 const shopLinks = [
   ...curatedEdits.map((e) => ({ label: e.name, href: e.href })),
@@ -23,7 +24,9 @@ const companyLinks = [
 
 const helpLinks = [
   { label: "FAQ", href: LEGAL_ROUTES.faq },
-  { label: "Support", href: `mailto:${CONTACT_EMAIL}` },
+  { label: "Shipping Policy", href: LEGAL_ROUTES.shipping },
+  { label: "Return / Exchange", href: LEGAL_ROUTES.returns },
+  { label: "Contact", href: LEGAL_ROUTES.contact },
   { label: "Privacy Policy", href: LEGAL_ROUTES.privacy },
   { label: "Terms & Conditions", href: LEGAL_ROUTES.terms },
 ];
@@ -118,10 +121,12 @@ export function Footer() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-3">
-              <Link href="/">
-                <span className="font-accent text-2xl tracking-[0.22em] text-[var(--campaign-text)]">
-                  CHEVELLÈ
-                </span>
+              <Link
+                href="/"
+                className="group inline-flex items-center transition-opacity hover:opacity-90"
+                aria-label="DRIPTHROAT Home"
+              >
+                <DripthroatLogo className="h-8 w-auto text-[var(--campaign-text)] transition-colors duration-300 group-hover:text-gold" />
               </Link>
               <p className="mt-1 font-body text-[9px] tracking-[0.35em] text-gold/60 uppercase">
                 Curated Elegance
@@ -166,7 +171,7 @@ export function Footer() {
 
           <div className="mt-8 flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="font-body text-xs text-[var(--campaign-text)]/25">
-              &copy; {new Date().getFullYear()} Chevellè. All rights reserved.
+              &copy; {new Date().getFullYear()} Dripthroat. All rights reserved.
             </p>
             <div className="flex gap-6">
               <Link

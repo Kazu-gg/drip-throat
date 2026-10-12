@@ -6,8 +6,8 @@ import { AccountDashboard } from "@/components/shop/AccountDashboard";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "My Account | Chevellè",
-  description: "Manage your Chevellè orders, wishlist, and saved addresses.",
+  title: "My Account | Dripthroat",
+  description: "Manage your Dripthroat orders, wishlist, and saved addresses.",
   path: "/account",
   noIndex: true,
 });
@@ -21,7 +21,7 @@ export default function AccountPage() {
           className="pointer-events-none absolute inset-x-0 top-0 h-80"
           style={{
             background:
-              "radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 70%)",
+              "radial-gradient(ellipse at 50% 0%, rgba(168,179,138,0.08) 0%, transparent 70%)",
           }}
           aria-hidden
         />

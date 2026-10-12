@@ -13,6 +13,11 @@ export async function GET(request: Request) {
 
   if (token_hash && type) {
     const supabase = await createClient();
+    if (!supabase) {
+      return NextResponse.redirect(
+        `${origin}${AUTH_ROUTES.login}?error=auth&next=${encodeURIComponent(next)}`
+      );
+    }
     const { error } = await supabase.auth.verifyOtp({
       token_hash,
       type: type as EmailOtpType,
@@ -25,6 +30,11 @@ export async function GET(request: Request) {
 
   if (code) {
     const supabase = await createClient();
+    if (!supabase) {
+      return NextResponse.redirect(
+        `${origin}${AUTH_ROUTES.login}?error=auth&next=${encodeURIComponent(next)}`
+      );
+    }
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {

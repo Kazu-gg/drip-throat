@@ -53,8 +53,8 @@ export function HeroCursorTrail({ dots }: { dots: TrailDot[] }) {
             marginLeft: -1.25,
             marginTop: -1.25,
             background:
-              "radial-gradient(circle, rgba(212,175,55,0.5) 0%, transparent 72%)",
-            boxShadow: "0 0 6px rgba(212,175,55,0.2)",
+              "radial-gradient(circle, rgba(168,179,138,0.5) 0%, transparent 72%)",
+            boxShadow: "0 0 6px rgba(168,179,138,0.2)",
             willChange: "transform, opacity",
           }}
           initial={{ opacity: 0.45, scale: 1 }}

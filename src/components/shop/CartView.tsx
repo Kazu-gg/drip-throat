@@ -6,9 +6,14 @@ import { SeoImage } from "@/components/seo/SeoImage";
 import { NavIconHeart } from "@/components/ui/NavIcons";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
-import { formatPlatformFee, platformFeeLineLabel } from "@/lib/platform-fees";
+import { FreeShippingProgressBar } from "@/components/shop/FreeShippingProgressBar";
+import { BuyTwoOffer } from "@/components/shop/BuyTwoOffer";
+import { getEffectiveUnitPrice } from "@/lib/cart-pricing";
+import { formatInr } from "@/lib/commerce-config";
+import { cartLineKey } from "@/lib/cart-types";
 import { FILTER_COLORS } from "@/lib/shop";
 import { AUTH_ROUTES, LEGAL_ROUTES } from "@/lib/routes";
+import { getProductSizes } from "@/lib/products";
 
 type CartTab = "bag" | "favourites";
 
@@ -35,6 +40,7 @@ function CartTabs({
       <button
         type="button"
         onClick={() => onChange("bag")}
+        data-testid="cart_tab_bag_button"
         className={`pb-4 font-body text-[11px] tracking-[0.28em] uppercase transition-colors ${
           active === "bag"
             ? "font-semibold text-[var(--campaign-text)]"
@@ -46,6 +52,7 @@ function CartTabs({
       <button
         type="button"
         onClick={() => onChange("favourites")}
+        data-testid="cart_tab_favourites_button"
         className={`flex items-center gap-2 pb-4 font-body text-[11px] tracking-[0.28em] uppercase transition-colors ${
           active === "favourites"
             ? "font-semibold text-[var(--campaign-text)]"
@@ -60,36 +67,93 @@ function CartTabs({
 }
 
 function OrderSummaryPanel({
-  itemCount,
-  platformFee,
   termsAccepted,
   onTermsChange,
 }: {
-  itemCount: number;
-  platformFee: number;
   termsAccepted: boolean;
   onTermsChange: (value: boolean) => void;
 }) {
+  const { totals, couponCode, setCouponCode } = useCart();
+  const [couponInput, setCouponInput] = useState(couponCode ?? "");
+
   return (
-    <aside className="cart-summary lg:sticky lg:top-28">
+    <aside className="cart-summary lg:sticky lg:top-28" data-testid="cart_order_summary">
       <h2 className="cart-summary-title">Order Summary</h2>
+
+      <div className="mb-5">
+        <FreeShippingProgressBar progress={totals.freeShipping} compact />
+      </div>
+
+      {totals.buyTwo.enabled ? (
+        <div className="mb-5">
+          <BuyTwoOffer progress={totals.buyTwo} />
+        </div>
+      ) : null}
 
       <dl className="cart-summary-lines">
         <div className="cart-summary-row">
-          <dt>{platformFeeLineLabel(itemCount)}</dt>
-          <dd>{formatPlatformFee(platformFee)}</dd>
+          <dt>Subtotal</dt>
+          <dd data-testid="cart_subtotal">{formatInr(totals.merchandiseSubtotal)}</dd>
+        </div>
+        {totals.buyTwoDiscount > 0 ? (
+          <div className="cart-summary-row">
+            <dt>Buy 2 offer</dt>
+            <dd data-testid="cart_buy_two_discount">−{formatInr(totals.buyTwoDiscount)}</dd>
+          </div>
+        ) : null}
+        {totals.couponDiscount > 0 ? (
+          <div className="cart-summary-row">
+            <dt>Coupon</dt>
+            <dd data-testid="cart_coupon_discount">−{formatInr(totals.couponDiscount)}</dd>
+          </div>
+        ) : null}
+        <div className="cart-summary-row">
+          <dt>Shipping</dt>
+          <dd data-testid="cart_shipping">
+            {totals.freeShipping.unlocked || totals.freeShipping.empty
+              ? "FREE"
+              : formatInr(totals.shipping)}
+          </dd>
         </div>
       </dl>
 
+      <form
+        className="mt-4 flex gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          setCouponCode(couponInput.trim() || null);
+        }}
+      >
+        <input
+          data-testid="cart_coupon_input"
+          value={couponInput}
+          onChange={(e) => setCouponInput(e.target.value)}
+          placeholder="Coupon code"
+          className="min-w-0 flex-1 border border-[var(--border-subtle)] bg-transparent px-3 py-2.5 font-body text-xs text-[var(--campaign-text)] placeholder:text-[var(--campaign-text)]/30 focus:border-gold/40 focus:outline-none"
+        />
+        <button
+          type="submit"
+          data-testid="cart_coupon_apply_button"
+          className="border border-gold px-3 py-2.5 font-body text-[10px] tracking-[0.18em] text-gold uppercase"
+        >
+          Apply
+        </button>
+      </form>
+      {totals.couponError ? (
+        <p className="mt-2 font-body text-xs text-red-400" role="alert" data-testid="cart_coupon_error">
+          {totals.couponError}
+        </p>
+      ) : null}
+      {totals.appliedCoupon ? (
+        <p className="mt-2 font-body text-xs text-gold" data-testid="cart_coupon_applied">
+          Applied {totals.appliedCoupon.code}
+        </p>
+      ) : null}
+
       <div className="cart-summary-total">
         <span>Total due</span>
-        <span>{formatPlatformFee(platformFee)}</span>
+        <span data-testid="cart_total">{formatInr(totals.total)}</span>
       </div>
-
-      <p className="mt-4 font-body text-[11px] leading-relaxed text-[var(--campaign-text)]/40">
-        Chevellè charges a platform fee only. Product prices are settled directly with the
-        boutique.
-      </p>
 
       <label className="cart-terms">
         <input
@@ -97,6 +161,7 @@ function OrderSummaryPanel({
           checked={termsAccepted}
           onChange={(e) => onTermsChange(e.target.checked)}
           className="cart-terms-checkbox"
+          data-testid="cart_terms_checkbox"
         />
         <span>
           I agree to the{" "}
@@ -107,11 +172,11 @@ function OrderSummaryPanel({
       </label>
 
       {termsAccepted ? (
-        <Link href={AUTH_ROUTES.checkout} className="cart-continue-btn">
+        <Link href={AUTH_ROUTES.checkout} className="cart-continue-btn" data-testid="cart_checkout_button">
           Continue
         </Link>
       ) : (
-        <button type="button" disabled className="cart-continue-btn is-disabled">
+        <button type="button" disabled className="cart-continue-btn is-disabled" data-testid="cart_checkout_button_disabled">
           Continue
         </button>
       )}
@@ -138,9 +203,11 @@ function CartLineItem({
 
   const wished = has(slug);
   const subtitle = [product.fabric, product.category].filter(Boolean).join(" · ") || product.category;
+  const unit = getEffectiveUnitPrice(product);
+  const key = cartLineKey({ slug, size, color });
 
   return (
-    <article className="cart-line">
+    <article className="cart-line" data-testid={`cart_line_${key}`}>
       <div className="cart-line-media">
         <div className="cart-line-image-wrap">
           <Link href={`/products/${product.slug}`} className="cart-line-image">
@@ -166,9 +233,10 @@ function CartLineItem({
         <div className="cart-line-controls">
           <button
             type="button"
-            onClick={() => removeItem(slug)}
+            onClick={() => removeItem(slug, { size, color })}
             className="cart-line-control-btn"
             aria-label={`Remove ${product.name}`}
+            data-testid={`cart_line_remove_${key}`}
           >
             ×
           </button>
@@ -182,29 +250,25 @@ function CartLineItem({
           <div className="cart-qty-stack">
             <button
               type="button"
-              onClick={() => setQuantity(slug, quantity + 1)}
+              onClick={() => setQuantity(slug, quantity + 1, { size, color })}
               className="cart-qty-btn"
               aria-label="Increase quantity"
+              data-testid={`cart_line_qty_inc_${key}`}
             >
               +
             </button>
             <span className="cart-qty-value">{quantity}</span>
             <button
               type="button"
-              onClick={() => setQuantity(slug, quantity - 1)}
+              onClick={() => setQuantity(slug, quantity - 1, { size, color })}
               className="cart-qty-btn"
               aria-label="Decrease quantity"
+              data-testid={`cart_line_qty_dec_${key}`}
             >
               −
             </button>
           </div>
-          <Link
-            href={`/products/${product.slug}`}
-            className="cart-line-edit"
-            aria-label="Edit item options"
-          >
-            ↻
-          </Link>
+          <p className="font-body text-xs text-gold">{formatInr(unit * quantity)}</p>
         </div>
       </div>
 
@@ -228,6 +292,7 @@ function FavouriteItem({ slug, onMovedToBag }: { slug: string; onMovedToBag?: ()
   if (!product) return null;
 
   const subtitle = [product.fabric, product.category].filter(Boolean).join(" · ") || product.category;
+  const sizes = getProductSizes(product);
 
   return (
     <article className="cart-line">
@@ -264,7 +329,7 @@ function FavouriteItem({ slug, onMovedToBag }: { slug: string; onMovedToBag?: ()
           <button
             type="button"
             onClick={() => {
-              addItem(slug);
+              addItem(slug, { size: sizes[0], openDrawer: true });
               onMovedToBag?.();
             }}
             className="cart-line-add"
@@ -289,7 +354,7 @@ function FavouriteItem({ slug, onMovedToBag }: { slug: string; onMovedToBag?: ()
 
 function EmptyBag() {
   return (
-    <div className="flex flex-col items-center py-20 text-center">
+    <div className="flex flex-col items-center py-20 text-center" data-testid="cart_empty">
       <p className="font-body text-sm text-[var(--campaign-text)]/50">Your bag is empty.</p>
       <Link href="/products" className="cart-continue-btn mt-8 px-12 py-3.5">
         Shop New In
@@ -312,13 +377,13 @@ function EmptyFavourites() {
 export function CartView() {
   const [tab, setTab] = useState<CartTab>("bag");
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const { lines, count, platformFee } = useCart();
+  const { lines } = useCart();
   const { slugs: wishlistSlugs, productsLoading } = useWishlist();
 
   const showSummary = tab === "bag" && lines.length > 0;
 
   return (
-    <div className="mx-auto max-w-7xl section-padding">
+    <div className="mx-auto max-w-7xl section-padding" data-testid="cart_page">
       <CartTabs active={tab} onChange={setTab} />
 
       <div
@@ -333,7 +398,7 @@ export function CartView() {
             ) : (
               <ul className="cart-lines">
                 {lines.map((line) => (
-                  <li key={line.slug}>
+                  <li key={cartLineKey(line)}>
                     <CartLineItem
                       slug={line.slug}
                       quantity={line.quantity}
@@ -363,8 +428,6 @@ export function CartView() {
 
         {showSummary ? (
           <OrderSummaryPanel
-            itemCount={count}
-            platformFee={platformFee}
             termsAccepted={termsAccepted}
             onTermsChange={setTermsAccepted}
           />

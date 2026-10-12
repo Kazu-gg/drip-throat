@@ -6,6 +6,9 @@ import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
+import { CartDrawer } from "@/components/shop/CartDrawer";
+import { PromoPopup } from "@/components/shop/PromoPopup";
+
 export function ClientShell({ children }: { children: React.ReactNode }) {
   return (
     <AuthProvider>
@@ -15,6 +18,8 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
             <SmoothScroll />
             <GoogleAnalytics />
             {children}
+            <CartDrawer />
+            <PromoPopup />
           </MotionProvider>
         </WishlistProvider>
       </CartProvider>

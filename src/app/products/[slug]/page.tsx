@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import type { Product } from "@/lib/products";
-import { buildMetadata, productTitle, metaDescription, OG_DEFAULTS } from "@/lib/seo";
+import {
+  getProductBySlug,
+  getRelatedProducts,
+  type Product,
+} from "@/lib/products";
+import { buildMetadata, productTitle, metaDescription } from "@/lib/seo";
 import { productSchema, breadcrumbSchema } from "@/lib/structured-data";
 import { StructuredData } from "@/components/seo/StructuredData";
 import { RelatedProducts } from "@/components/seo/RelatedProducts";
@@ -14,34 +18,37 @@ import { dbProductToProduct } from "@/lib/supabase/mappers/product";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
+async function resolveProduct(slug: string): Promise<Product | null> {
+  const db = await fetchProductBySlug(slug);
+  if (db) return dbProductToProduct(db);
+  return getProductBySlug(slug) ?? null;
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const product = await resolveProduct(slug);
+  if (!product) return {};
 
-  const db = await fetchProductBySlug(slug);
-  if (!db) return {};
-  const product = dbProductToProduct(db);
+  const title = product.seoTitle || productTitle(product.name);
 
   return buildMetadata({
-    title: productTitle(product.name),
+    title,
     description: metaDescription(product.seoDescription),
     path: `/products/${product.slug}`,
     keywords: product.seoKeywords,
     ogImage: product.image.src,
-    ogTitle: OG_DEFAULTS.title,
+    ogTitle: title,
     ogDescription: metaDescription(product.seoDescription),
   });
 }
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
+  const product = await resolveProduct(slug);
+  if (!product) notFound();
 
-  const db = await fetchProductBySlug(slug);
-  if (!db) notFound();
-
-  const product = dbProductToProduct(db);
   const collection = getCollectionBySlug(product.collectionId);
-
-  const related: Product[] = [];
+  const related = getRelatedProducts(product.relatedSlugs);
 
   return (
     <>

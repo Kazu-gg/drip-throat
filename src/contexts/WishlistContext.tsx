@@ -24,7 +24,7 @@ type WishlistContextValue = {
 };
 
 const WishlistContext = createContext<WishlistContextValue | null>(null);
-const STORAGE_KEY = "chevelle-wishlist";
+const STORAGE_KEY = "dripthroat-wishlist";
 
 type WishlistProductRow = {
   id: string;

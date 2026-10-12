@@ -26,11 +26,11 @@ export function Newsletter() {
             Exclusive Access
           </p>
           <h2 className="font-display text-3xl font-light tracking-wide text-white sm:text-4xl md:text-5xl">
-            Join The Inner Circle
+            Join the Dripthroat Circle
           </h2>
           <p className="mx-auto mt-4 max-w-md font-body text-sm leading-relaxed text-white/40 sm:text-base">
             Be the first to discover new collections, exclusive offers, and
-            behind-the-scenes glimpses of Chevellè.
+            behind-the-scenes glimpses of Dripthroat.
           </p>
           <div className="mx-auto mt-6 h-px w-16 bg-gradient-to-r from-transparent via-gold to-transparent" />
         </motion.div>
@@ -71,7 +71,7 @@ export function Newsletter() {
           )}
           <p className="mt-4 font-body text-[11px] text-white/25">
             By subscribing, you agree to receive marketing communications from
-            Chevellè. Unsubscribe anytime.
+            Dripthroat. Unsubscribe anytime.
           </p>
         </motion.form>
       </div>

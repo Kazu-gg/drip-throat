@@ -11,18 +11,19 @@ export function CategoryHero({ landingId }: { landingId: CategoryLandingId }) {
     optimizedDimensions(`category-hero:${landingId}`) ?? { width: 1920, height: 1080 };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#0d0d0d]">
+    <section className="relative w-full overflow-hidden bg-[#12150a]">
       <Image
         src={landing.imageSrc}
         alt={landing.imageAlt}
         width={dimensions.width}
         height={dimensions.height}
         priority
+        unoptimized
         className="h-auto w-full"
         sizes="100vw"
       />
       {/* Light edge fade only — keeps your uploaded banner colours true */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0d0d0d]/25 via-transparent to-[#0d0d0d]/20" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#12150a]/25 via-transparent to-[#12150a]/20" />
 
       <div className="absolute inset-x-0 top-0 z-10 mx-auto max-w-7xl section-padding pb-12 pt-28 sm:pt-32">
         <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase">

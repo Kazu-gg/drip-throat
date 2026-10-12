@@ -72,7 +72,7 @@ export function AppPhoneVideo() {
         muted
         playsInline
         preload="metadata"
-        aria-label="Chevellè mobile app demonstration"
+        aria-label="Dripthroat mobile app demonstration"
       >
         <source src={APP_DEMO_VIDEO_WEBM} type="video/webm" />
         <source src={APP_DEMO_VIDEO} type="video/mp4" />

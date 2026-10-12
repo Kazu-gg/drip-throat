@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 export const metadata: Metadata = buildMetadata({
   title: PAGE_TITLES.privacy,
   description:
-    "Chevellè privacy policy — how we collect, use, and protect your personal information when you shop luxury fashion at chevelle.in.",
+    "Dripthroat privacy policy — how we collect, use, and protect your personal information when you shop luxury fashion at dripthroat.in.",
   path: LEGAL_ROUTES.privacy,
 });
 
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
         </h1>
         <div className="mt-10 space-y-6 font-body text-sm leading-relaxed text-white/55">
           <p>
-            Chevellè (&quot;we&quot;, &quot;us&quot;) operates chevelle.in. This policy explains how
+            Dripthroat (&quot;we&quot;, &quot;us&quot;) operates dripthroat.in. This policy explains how
             we handle your information when you browse, create an account, or place an order.
           </p>
           <p>

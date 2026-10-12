@@ -100,7 +100,7 @@ export const categoryImages: Record<string, { src: string; alt: string }> = {
   },
   unisex: {
     src: optimizedSrc("category:unisex", FALLBACK.unisex),
-    alt: "Chevellè unisex fashion",
+    alt: "Dripthroat unisex fashion",
   },
 };
 

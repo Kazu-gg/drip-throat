@@ -20,7 +20,7 @@ export function Bestsellers() {
       <SectionHeading
         label="Most Loved"
         title="Selected Works"
-        subtitle="Museum-grade pieces from the Chevellè archive."
+        subtitle="Museum-grade pieces from the Dripthroat archive."
       />
 
       <GrabScroll className="gap-5 px-5 sm:gap-6 sm:px-8 md:px-12 lg:px-16 xl:px-24">

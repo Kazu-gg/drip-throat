@@ -85,7 +85,7 @@ export function RunwaySection() {
       >
         <div className="runway-panel flex h-full w-screen flex-shrink-0 flex-col justify-end px-8 pb-20 sm:px-16">
           <p className="font-display text-[clamp(3rem,12vw,9rem)] font-light leading-[0.9] tracking-tight text-white/10">
-            CHEVELLÈ
+            DRIPTHROAT
           </p>
           <p className="mt-6 max-w-md font-body text-sm leading-relaxed text-white/40">
             Scroll vertically. Move through the runway horizontally. Each piece is

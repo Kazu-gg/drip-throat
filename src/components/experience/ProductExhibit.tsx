@@ -97,7 +97,7 @@ export function ProductExhibit({
               {product.description}
             </p>
             <p className="mt-8 font-body text-base leading-[1.9] text-white/35 italic">
-              Each Chevellè piece is selected with the eye of an editor — not
+              Each Dripthroat piece is selected with the eye of an editor — not
               merchandised like inventory. This is fashion as cultural artifact.
             </p>
             <div className="mt-12 flex flex-col gap-4 sm:flex-row">

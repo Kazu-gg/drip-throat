@@ -18,7 +18,7 @@ const MANIFEST_PATH = path.join(ROOT, "src", "lib", "generated", "optimized-imag
 const IMAGE_EXT = new Set([".jpg", ".jpeg", ".png", ".webp"]);
 
 const PRESETS = {
-  hero: { width: 1920, height: 1080, webpQuality: 82, jpegQuality: 85, fit: "inside" },
+  hero: { width: 1920, height: 1080, webpQuality: 95, jpegQuality: 95, fit: "inside" },
   collection: { width: 1200, height: 1600, webpQuality: 80, jpegQuality: 82, fit: "cover" },
   product: { width: 1000, height: 1333, webpQuality: 80, jpegQuality: 82, fit: "cover" },
   blog: { width: 1200, height: 800, webpQuality: 80, jpegQuality: 82, fit: "cover" },
@@ -68,22 +68,12 @@ const WORLD_CARDS = [
     output: "collections/women",
     key: "category-card:women",
     legacyUploads: ["collections/women"],
-    fallback: {
-      output: "collections/women/hero",
-      upload: "hero-women",
-      legacyUploads: ["collections/women/hero"],
-    },
   },
   {
     upload: "card-men",
     output: "collections/men",
     key: "category-card:men",
     legacyUploads: ["collections/men"],
-    fallback: {
-      output: "collections/men/hero",
-      upload: "hero-men",
-      legacyUploads: ["collections/men/hero"],
-    },
   },
   {
     upload: "card-unisex",
@@ -210,10 +200,14 @@ async function optimizeOne(outputDir, sourcePath, preset) {
   const outDir = path.join(OUTPUT_ROOT, outputDir);
   await fs.mkdir(outDir, { recursive: true });
 
-  const pipeline = sharp(sourcePath).rotate().resize(preset.width, preset.height, {
-    fit: preset.fit ?? "cover",
-    position: preset.fit === "cover" ? "centre" : undefined,
-  });
+  const pipeline = sharp(sourcePath)
+    .rotate()
+    .resize(preset.width, preset.height, {
+      fit: preset.fit ?? "cover",
+      position: preset.fit === "cover" ? "centre" : undefined,
+      kernel: sharp.kernel.lanczos3,
+    })
+    .sharpen({ sigma: 0.8, m1: 0.5, m2: 2.0 });
 
   const webpPath = path.join(outDir, "main.webp");
   const jpegPath = path.join(outDir, "main.jpg");
@@ -261,7 +255,11 @@ async function main() {
     process.exit(1);
   }
 
-  const manifest = {};
+  const existingManifest = await fs
+    .readFile(MANIFEST_PATH, "utf8")
+    .then(JSON.parse)
+    .catch(() => ({}));
+  const manifest = { ...existingManifest };
   let processed = 0;
 
   processed = await processSlot(manifest, HOMEPAGE_HERO, PRESETS.hero, processed);

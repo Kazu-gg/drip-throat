@@ -13,9 +13,9 @@ export function GoldRays() {
       >
         <defs>
           <linearGradient id="ray-gold" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#D4AF37" stopOpacity="0" />
-            <stop offset="50%" stopColor="#D4AF37" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
+            <stop offset="0%" stopColor="#A8B38A" stopOpacity="0" />
+            <stop offset="50%" stopColor="#A8B38A" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#A8B38A" stopOpacity="0" />
           </linearGradient>
         </defs>
         {[0, 45, 90, 135].map((deg) => (

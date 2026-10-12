@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "dev:clean": "sh -c 'for p in 3000 3001 3002; do lsof -ti :$p | xargs kill -9 2>/dev/null; done; rm -rf .next node_modules/.cache && next dev'",
+    "dev": "next dev -p 3002",
+    "dev:clean": "sh -c 'lsof -ti :3002 | xargs kill -9 2>/dev/null; rm -rf .next node_modules/.cache && next dev -p 3002'",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3002",
     "lint": "next lint",
+    "test:commerce": "node scripts/verify-commerce.mjs",
     "optimize-images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
@@ -30,6 +31,7 @@
     "eslint": "^9.28.0",
     "eslint-config-next": "^15.3.3",
     "postcss": "^8.5.4",
+    "potrace": "^2.1.8",
     "sharp": "^0.35.2",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"

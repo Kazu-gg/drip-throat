@@ -40,7 +40,7 @@ export function AppPromo() {
             className="max-w-sm"
           >
             <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase">
-              The Chevellè App
+              The Dripthroat App
             </p>
             <h2
               id="app-heading"

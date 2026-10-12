@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { DRIPTHROAT_STAG_PATH } from "@/components/brand/DripthroatLogo";
 
 export const runtime = "edge";
 export const size = { width: 180, height: 180 };
@@ -14,20 +15,19 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#050505",
+          background: "#12150a",
           borderRadius: 36,
         }}
       >
-        <div
-          style={{
-            fontSize: 72,
-            color: "#D4AF37",
-            fontWeight: 400,
-            letterSpacing: "0.1em",
-          }}
+        <svg
+          viewBox="0 0 141.8 252.6"
+          width="100"
+          height="100"
+          fill="#A8B38A"
+          style={{ display: "flex" }}
         >
-          C
-        </div>
+          <path d={DRIPTHROAT_STAG_PATH} />
+        </svg>
       </div>
     ),
     { ...size }

@@ -50,7 +50,7 @@ export function FeaturedCollections() {
         </h2>
         <p className="mx-auto mt-5 max-w-lg font-body text-sm text-white/40">
           Women · Men · Accessories — each category a doorway into a different
-          universe of Chevellè.
+          universe of Dripthroat.
         </p>
       </MaskTextReveal>
 

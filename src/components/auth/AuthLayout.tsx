@@ -22,7 +22,7 @@ export function AuthLayout({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 20%, rgba(212,175,55,0.1) 0%, transparent 55%)",
+            "radial-gradient(ellipse at 50% 20%, rgba(168,179,138,0.1) 0%, transparent 55%)",
         }}
       />
 
@@ -53,7 +53,7 @@ export function AuthLayout({
             href="/"
             className="font-body text-xs tracking-[0.2em] text-white/30 uppercase transition-colors hover:text-gold"
           >
-            ← Back to Chevellè
+            ← Back to Dripthroat
           </Link>
         </p>
       </div>

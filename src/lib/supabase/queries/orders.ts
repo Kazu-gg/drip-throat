@@ -1,6 +1,6 @@
 "use client";
 
-import type { CartLine } from "@/contexts/CartContext";
+import type { CartLine } from "@/lib/cart-types";
 import type { Product } from "@/lib/products";
 import { dbProductToProduct } from "@/lib/supabase/mappers/product";
 import { createClient } from "@/lib/supabase/client";
@@ -25,7 +25,12 @@ export type PlaceOrderInput = {
   userId: string;
   lines: CartLine[];
   resolveProduct: (slug: string) => Product | undefined;
-  platformFee: number;
+  /** @deprecated Prefer orderTotal — kept for older callers */
+  platformFee?: number;
+  orderTotal?: number;
+  merchandiseSubtotal?: number;
+  discountTotal?: number;
+  deliveryCharge?: number;
   customerName: string;
   phone: string;
   address: string;
@@ -49,6 +54,7 @@ export async function placeOrder(input: PlaceOrderInput): Promise<PlaceOrderResu
     input.razorpayOrderId && input.razorpayPaymentId
       ? `Razorpay: order=${input.razorpayOrderId} payment=${input.razorpayPaymentId}`
       : null,
+    input.discountTotal ? `Discounts: ${input.discountTotal}` : null,
     "Source: chevelle-web",
   ]
     .filter(Boolean)
@@ -63,18 +69,27 @@ export async function placeOrder(input: PlaceOrderInput): Promise<PlaceOrderResu
       }
       if (!product) throw new Error(`Product not found: ${line.slug}`);
 
+      const unitPrice =
+        typeof product.salePrice === "number" && product.salePrice > 0
+          ? product.salePrice
+          : product.price;
+
       const variant = formatVariantLabel(line.color, line.size);
       return {
         product_id: product.id,
         product_name: variant ? `${product.name} (${variant})` : product.name,
-        unit_price: product.price,
+        unit_price: unitPrice,
         quantity: line.quantity,
         variant_key: variantKey(line.color, line.size),
       };
     })
   );
 
-  const catalogSubtotal = items.reduce((sum, item) => sum + item.unit_price * item.quantity, 0);
+  const catalogSubtotal =
+    input.merchandiseSubtotal ??
+    items.reduce((sum, item) => sum + item.unit_price * item.quantity, 0);
+  const delivery = input.deliveryCharge ?? 0;
+  const total = input.orderTotal ?? input.platformFee ?? catalogSubtotal + delivery;
 
   const { data: order, error: orderErr } = await supabase
     .from("orders")
@@ -82,9 +97,9 @@ export async function placeOrder(input: PlaceOrderInput): Promise<PlaceOrderResu
       user_id: input.userId,
       store_id: STORE_ID,
       subtotal: catalogSubtotal,
-      delivery_charge: 0,
-      platform_fee: input.platformFee,
-      total: input.platformFee,
+      delivery_charge: delivery,
+      platform_fee: input.platformFee ?? 0,
+      total,
       customer_name: input.customerName,
       phone: input.phone,
       address: input.address,

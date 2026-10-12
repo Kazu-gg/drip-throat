@@ -6,8 +6,8 @@ import { OrdersListView } from "@/components/shop/OrdersListView";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Your Orders | Chevellè",
-  description: "View your Chevellè order history.",
+  title: "Your Orders | Dripthroat",
+  description: "View your Dripthroat order history.",
   path: "/orders",
   noIndex: true,
 });

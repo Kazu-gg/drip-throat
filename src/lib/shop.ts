@@ -47,6 +47,7 @@ export type ShopFilters = {
   colors: string[];
   materials: string[];
   occasions: string[];
+  search: string;
   sort: "newest" | "price-asc" | "price-desc";
 };
 
@@ -56,6 +57,7 @@ export const DEFAULT_FILTERS: ShopFilters = {
   colors: [],
   materials: [],
   occasions: [],
+  search: "",
   sort: "newest",
 };
 
@@ -107,9 +109,31 @@ export function filterProducts(products: Product[], filters: ShopFilters): Produ
     result = result.filter((p) => ids.includes(p.collectionId));
   }
 
-  result = result.filter(
-    (p) => p.price >= filters.minPrice && p.price <= filters.maxPrice
-  );
+  result = result.filter((p) => {
+    const effective =
+      typeof p.salePrice === "number" && p.salePrice > 0 ? p.salePrice : p.price;
+    return effective >= filters.minPrice && effective <= filters.maxPrice;
+  });
+
+  if (filters.search.trim()) {
+    const q = filters.search.trim().toLowerCase();
+    result = result.filter((p) => {
+      const haystack = [
+        p.name,
+        p.category,
+        p.collectionId,
+        p.description,
+        p.fabric,
+        p.color,
+        ...(p.seoKeywords ?? []),
+        ...(p.keywords ?? []),
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(q);
+    });
+  }
 
   if (filters.colors.length) {
     result = result.filter((p) => {

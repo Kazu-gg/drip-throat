@@ -8,7 +8,7 @@ import { AUTH_ROUTES } from "@/lib/routes";
 export const metadata: Metadata = buildMetadata({
   title: PAGE_TITLES.checkout,
   description: metaDescription(
-    "Secure checkout for Chevellè — delivery address, Razorpay payment, and Cash on Delivery."
+    "Secure checkout for Dripthroat — delivery address, Razorpay payment, and Cash on Delivery."
   ),
   path: AUTH_ROUTES.checkout,
   noIndex: true,

@@ -10,7 +10,7 @@ const chapters = [
   {
     label: "Chapter I",
     title: "Designed for Celebrations",
-    body: "Every Chevellè piece is conceived for the moments that matter — weddings, festivals, and the quiet confidence of everyday elegance.",
+    body: "Every Dripthroat piece is conceived for the moments that matter — weddings, festivals, and the quiet confidence of everyday elegance.",
   },
   {
     label: "Chapter II",

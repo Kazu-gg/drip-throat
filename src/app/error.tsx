@@ -16,7 +16,7 @@ export default function Error({
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-black px-6 text-center">
       <p className="mb-2 font-accent text-xs tracking-[0.35em] text-gold uppercase">
-        Chevellè
+        Dripthroat
       </p>
       <h1 className="font-display text-3xl font-light text-white">
         Something went wrong

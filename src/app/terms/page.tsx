@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 export const metadata: Metadata = buildMetadata({
   title: PAGE_TITLES.terms,
   description:
-    "Chevellè terms and conditions for shopping premium curated fashion at chevelle.in — orders, payments, returns, and use of our website and app.",
+    "Dripthroat terms and conditions for shopping premium curated fashion at dripthroat.in — orders, payments, returns, and use of our website and app.",
   path: LEGAL_ROUTES.terms,
 });
 
@@ -23,7 +23,7 @@ export default function TermsPage() {
         </h1>
         <div className="mt-10 space-y-6 font-body text-sm leading-relaxed text-white/55">
           <p>
-            By using chevelle.in or the Chevellè app, you agree to these terms. Chevellè offers
+            By using dripthroat.in or the Dripthroat app, you agree to these terms. Dripthroat offers
             curated luxury fashion for women, men, and accessories across India.
           </p>
           <p>

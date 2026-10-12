@@ -26,6 +26,11 @@ function productImage(
   };
 }
 
+export type ProductFaqItem = {
+  question: string;
+  answer: string;
+};
+
 export type Product = {
   id: string;
   slug: string;
@@ -33,15 +38,85 @@ export type Product = {
   category: string;
   collectionId: string;
   price: number;
+  /** Optional discounted price; when set, used as effective unit price */
+  salePrice?: number | null;
   priceDisplay: string;
   description: string;
+  seoTitle?: string;
   seoDescription: string;
   seoKeywords: string[];
   image: ProductImage;
+  /** Additional gallery images; falls back to primary image */
+  gallery?: ProductImage[];
   relatedSlugs: string[];
   color?: string | null;
   fabric?: string | null;
+  sizes?: string[];
+  inStock?: boolean;
+  stockBySize?: Record<string, number>;
+  oversizedFit?: boolean;
+  featured?: boolean;
+  keywords?: string[];
+  shippingInfo?: string;
+  exchangeInfo?: string;
+  sizeGuide?: string;
+  faq?: ProductFaqItem[];
 };
+
+export const DEFAULT_PRODUCT_SIZES = ["S", "M", "L", "XL", "XXL"] as const;
+
+export const DEFAULT_PRODUCT_FAQ: ProductFaqItem[] = [
+  {
+    question: "What size should I choose?",
+    answer:
+      "Our pieces follow standard Indian sizing. If you are between sizes, size up for a relaxed streetwear look. Check the size guide on this page for exact measurements.",
+  },
+  {
+    question: "Is the T-shirt oversized?",
+    answer:
+      "Many of our tees are designed with an oversized fit for a modern streetwear silhouette. Look for the OVERSIZED FIT badge on the product page.",
+  },
+  {
+    question: "What is the fabric?",
+    answer:
+      "Fabric details are listed on each product. Most tees use premium cotton or cotton blends for breathability and durability.",
+  },
+  {
+    question: "How long does delivery take?",
+    answer:
+      "Orders typically ship within 1–2 business days. Delivery across India usually takes 3–7 business days depending on your pincode.",
+  },
+  {
+    question: "Do you offer COD?",
+    answer:
+      "Cash on Delivery may be available on eligible orders and pincodes. You can select COD at checkout when it is offered for your address.",
+  },
+  {
+    question: "Can I exchange my size?",
+    answer:
+      "Yes — easy size exchanges are available on unused items with original tags within the exchange window. See our Exchange Policy for details.",
+  },
+  {
+    question: "How can I track my order?",
+    answer:
+      "You will receive tracking details by email/SMS after dispatch. You can also track from your account orders page when signed in.",
+  },
+  {
+    question: "How can I contact you?",
+    answer:
+      "Email support@dripthroat.in or reach us via the Contact page. We typically respond within 24 hours on business days.",
+  },
+];
+
+export function getProductSizes(product: Product): string[] {
+  if (product.sizes?.length) return product.sizes;
+  return [...DEFAULT_PRODUCT_SIZES];
+}
+
+export function getProductFaq(product: Product): ProductFaqItem[] {
+  if (product.faq?.length) return product.faq;
+  return DEFAULT_PRODUCT_FAQ;
+}
 
 export const products: Product[] = [
   {
@@ -55,7 +130,7 @@ export const products: Product[] = [
     description:
       "A masterpiece of midnight silk with handwoven zari borders. This designer saree embodies understated luxury — perfect for evening galas, receptions, and festive celebrations.",
     seoDescription:
-      "Shop the Midnight Silk Saree by Chevellè — a luxury designer saree with handwoven zari borders. Premium silk ethnic wear with fast delivery across India.",
+      "Shop the Midnight Silk Saree by Dripthroat — a luxury designer saree with handwoven zari borders. Premium silk ethnic wear with fast delivery across India.",
     seoKeywords: [
       "designer sarees online",
       "silk saree",
@@ -65,8 +140,8 @@ export const products: Product[] = [
     image: productImage(
       "midnight-silk-saree",
       "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80&fm=webp",
-      "Luxury midnight silk designer saree with zari border by Chevellè",
-      "midnight-silk-saree-chevelle.webp",
+      "Luxury midnight silk designer saree with zari border by Dripthroat",
+      "midnight-silk-saree-dripthroat.webp",
       800,
       1067
     ),
@@ -83,7 +158,7 @@ export const products: Product[] = [
     description:
       "Regal embroidery meets contemporary silhouette in this bridal-ready lehenga. Crafted with premium fabric and intricate threadwork for weddings and grand celebrations.",
     seoDescription:
-      "Royal Embroidered Lehenga by Chevellè — luxury bridal lehenga with intricate embroidery. Designer ethnic wear for weddings. Premium fashion delivered across India.",
+      "Royal Embroidered Lehenga by Dripthroat — luxury bridal lehenga with intricate embroidery. Designer ethnic wear for weddings. Premium fashion delivered across India.",
     seoKeywords: [
       "designer lehengas",
       "bridal lehenga online",
@@ -93,8 +168,8 @@ export const products: Product[] = [
     image: productImage(
       "royal-embroidered-lehenga",
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80&fm=webp",
-      "Luxury royal embroidered bridal lehenga by Chevellè",
-      "royal-embroidered-lehenga-chevelle.webp",
+      "Luxury royal embroidered bridal lehenga by Dripthroat",
+      "royal-embroidered-lehenga-dripthroat.webp",
       800,
       1067
     ),
@@ -111,7 +186,7 @@ export const products: Product[] = [
     description:
       "Flowing ivory anarkali with delicate embellishments. A timeless ethnic suit that transitions effortlessly from festive gatherings to formal celebrations.",
     seoDescription:
-      "Ivory Anarkali Suit by Chevellè — premium women's ethnic suit with elegant embellishments. Luxury festive wear for weddings & celebrations across India.",
+      "Ivory Anarkali Suit by Dripthroat — premium women's ethnic suit with elegant embellishments. Luxury festive wear for weddings & celebrations across India.",
     seoKeywords: [
       "anarkali suit online",
       "women suits India",
@@ -121,8 +196,8 @@ export const products: Product[] = [
     image: productImage(
       "ivory-anarkali-suit",
       "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80&fm=webp",
-      "Premium ivory anarkali ethnic suit by Chevellè",
-      "ivory-anarkali-suit-chevelle.webp",
+      "Premium ivory anarkali ethnic suit by Dripthroat",
+      "ivory-anarkali-suit-dripthroat.webp",
       800,
       1067
     ),
@@ -139,7 +214,7 @@ export const products: Product[] = [
     description:
       "Effortlessly chic champagne co-ord set in premium fabric. The perfect luxury matching outfit for brunches, parties, and modern Indian fashion moments.",
     seoDescription:
-      "Champagne Co-Ord Set by Chevellè — trendy premium co-ord set for women. Luxury matching outfit for parties & casual elegance. Fast delivery India.",
+      "Champagne Co-Ord Set by Dripthroat — trendy premium co-ord set for women. Luxury matching outfit for parties & casual elegance. Fast delivery India.",
     seoKeywords: [
       "luxury co-ord sets",
       "trendy co-ord sets",
@@ -149,8 +224,8 @@ export const products: Product[] = [
     image: productImage(
       "champagne-co-ord-set",
       "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80&fm=webp",
-      "Premium champagne co-ord set for women by Chevellè",
-      "champagne-co-ord-set-chevelle.webp",
+      "Premium champagne co-ord set for women by Dripthroat",
+      "champagne-co-ord-set-dripthroat.webp",
       800,
       1067
     ),
@@ -167,7 +242,7 @@ export const products: Product[] = [
     description:
       "Refined ivory silk shirt with a relaxed premium fit. A contemporary essential for brunches, travel, and elevated everyday dressing.",
     seoDescription:
-      "Ivory Silk Shirt by Chevellè — premium women's shirt with silk finish. Luxury tops for everyday elegance. Shop women's fashion India.",
+      "Ivory Silk Shirt by Dripthroat — premium women's shirt with silk finish. Luxury tops for everyday elegance. Shop women's fashion India.",
     seoKeywords: [
       "women shirts online",
       "premium shirts women",
@@ -177,8 +252,8 @@ export const products: Product[] = [
     image: productImage(
       "ivory-silk-shirt",
       "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=800&q=80&fm=webp",
-      "Premium ivory silk shirt for women by Chevellè",
-      "ivory-silk-shirt-chevelle.webp",
+      "Premium ivory silk shirt for women by Dripthroat",
+      "ivory-silk-shirt-dripthroat.webp",
       800,
       1067
     ),
@@ -195,7 +270,7 @@ export const products: Product[] = [
     description:
       "Golden zari kurti blending festive opulence with everyday wearability. Premium kurti craftsmanship for celebrations, office elegance, and daily luxury.",
     seoDescription:
-      "Golden Zari Kurti by Chevellè — premium designer kurti with golden zari work. Luxury ethnic kurti for festive & everyday wear. Shop women's fashion India.",
+      "Golden Zari Kurti by Dripthroat — premium designer kurti with golden zari work. Luxury ethnic kurti for festive & everyday wear. Shop women's fashion India.",
     seoKeywords: [
       "premium kurtis",
       "designer kurti online",
@@ -205,8 +280,8 @@ export const products: Product[] = [
     image: productImage(
       "golden-zari-kurti",
       "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80&fm=webp",
-      "Premium golden zari designer kurti by Chevellè",
-      "golden-zari-kurti-chevelle.webp",
+      "Premium golden zari designer kurti by Dripthroat",
+      "golden-zari-kurti-dripthroat.webp",
       800,
       1067
     ),
@@ -223,13 +298,13 @@ export const products: Product[] = [
     description:
       "Rich emerald kurta with refined tailoring for weddings, pujas, and evening celebrations. Premium fabric with a structured yet comfortable fit.",
     seoDescription:
-      "Emerald Festive Kurta by Chevellè — designer men's kurta for weddings and festive occasions. Premium ethnic menswear India.",
+      "Emerald Festive Kurta by Dripthroat — designer men's kurta for weddings and festive occasions. Premium ethnic menswear India.",
     seoKeywords: ["men kurta online", "festive kurta men", "designer kurta India"],
     image: productImage(
       "emerald-festive-kurta",
       "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&q=80&fm=webp",
-      "Emerald festive kurta for men by Chevellè",
-      "emerald-festive-kurta-chevelle.webp",
+      "Emerald festive kurta for men by Dripthroat",
+      "emerald-festive-kurta-dripthroat.webp",
       800,
       1067
     ),
@@ -246,13 +321,13 @@ export const products: Product[] = [
     description:
       "Statement nehru jacket in deep onyx with a clean mandarin collar. Layer over kurtas or shirts for polished festive and formal looks.",
     seoDescription:
-      "Onyx Nehru Jacket by Chevellè — premium men's jacket for weddings and celebrations. Luxury menswear India.",
+      "Onyx Nehru Jacket by Dripthroat — premium men's jacket for weddings and celebrations. Luxury menswear India.",
     seoKeywords: ["nehru jacket men", "men jacket online", "festive jacket India"],
     image: productImage(
       "onyx-nehru-jacket",
       "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80&fm=webp",
-      "Onyx nehru jacket for men by Chevellè",
-      "onyx-nehru-jacket-chevelle.webp",
+      "Onyx nehru jacket for men by Dripthroat",
+      "onyx-nehru-jacket-dripthroat.webp",
       800,
       1067
     ),
@@ -269,13 +344,13 @@ export const products: Product[] = [
     description:
       "Crisp charcoal shirt cut for boardroom polish and evening ease. Premium cotton with a tailored silhouette.",
     seoDescription:
-      "Charcoal Formal Shirt by Chevellè — premium men's shirt for work and occasions. Shop luxury menswear India.",
+      "Charcoal Formal Shirt by Dripthroat — premium men's shirt for work and occasions. Shop luxury menswear India.",
     seoKeywords: ["men formal shirt", "premium shirt men", "office wear men India"],
     image: productImage(
       "charcoal-formal-shirt",
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&fm=webp",
-      "Charcoal formal shirt for men by Chevellè",
-      "charcoal-formal-shirt-chevelle.webp",
+      "Charcoal formal shirt for men by Dripthroat",
+      "charcoal-formal-shirt-dripthroat.webp",
       800,
       1067
     ),
@@ -288,21 +363,34 @@ export const products: Product[] = [
     category: "T-Shirts",
     collectionId: "men-tshirts",
     price: 1999,
-    priceDisplay: "₹1,999",
+    salePrice: 1499,
+    priceDisplay: "₹1,499",
     description:
-      "Elevated everyday tee in premium cotton with a refined fit. A Chevellè essential for off-duty luxury.",
+      "Elevated everyday tee in premium cotton with a refined oversized fit. A Dripthroat essential for off-duty street style.",
+    seoTitle: "Essential Black Oversized Tee | Dripthroat",
     seoDescription:
-      "Essential Black Tee by Chevellè — premium men's t-shirt. Luxury basics for everyday style India.",
-    seoKeywords: ["men t-shirt premium", "black tee men", "luxury basics men"],
+      "Essential Black Tee by Dripthroat — premium men's oversized t-shirt. Luxury streetwear basics for everyday style India.",
+    seoKeywords: ["men t-shirt premium", "black tee men", "oversized tee", "streetwear India"],
+    keywords: ["tee", "black", "oversized", "cotton", "streetwear"],
+    fabric: "100% Premium Cotton, 220 GSM",
+    oversizedFit: true,
+    featured: true,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    inStock: true,
+    shippingInfo:
+      "Ships within 1–2 business days. Free delivery unlocks at the configured cart threshold.",
+    exchangeInfo: "Easy size exchange on unused items with tags within 7 days of delivery.",
+    sizeGuide:
+      "Oversized fit. Chest (inches): S 40 | M 42 | L 44 | XL 46 | XXL 48. Length: S 28 | M 29 | L 30 | XL 31 | XXL 32.",
     image: productImage(
       "essential-black-tee",
       "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80&fm=webp",
-      "Essential black t-shirt for men by Chevellè",
-      "essential-black-tee-chevelle.webp",
+      "Essential black oversized t-shirt for men by Dripthroat",
+      "essential-black-tee-dripthroat.webp",
       800,
       1067
     ),
-    relatedSlugs: ["indigo-slim-jeans", "charcoal-formal-shirt"],
+    relatedSlugs: ["oversized-cotton-tee", "indigo-slim-jeans"],
   },
   {
     id: "11",
@@ -315,13 +403,13 @@ export const products: Product[] = [
     description:
       "Deep indigo denim with a modern slim cut. Versatile luxury denim for casual days and smart off-duty dressing.",
     seoDescription:
-      "Indigo Slim Jeans by Chevellè — premium men's denim. Designer jeans with fast delivery across India.",
+      "Indigo Slim Jeans by Dripthroat — premium men's denim. Designer jeans with fast delivery across India.",
     seoKeywords: ["men jeans online", "slim jeans men", "premium denim India"],
     image: productImage(
       "indigo-slim-jeans",
       "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=80&fm=webp",
-      "Indigo slim jeans for men by Chevellè",
-      "indigo-slim-jeans-chevelle.webp",
+      "Indigo slim jeans for men by Dripthroat",
+      "indigo-slim-jeans-dripthroat.webp",
       800,
       1067
     ),
@@ -338,13 +426,13 @@ export const products: Product[] = [
     description:
       "Impeccably tailored charcoal trousers with a clean drape. From formal gatherings to refined everyday wear.",
     seoDescription:
-      "Tailored Charcoal Trousers by Chevellè — premium men's trousers. Luxury formal pants India.",
+      "Tailored Charcoal Trousers by Dripthroat — premium men's trousers. Luxury formal pants India.",
     seoKeywords: ["men trousers online", "formal pants men", "tailored trousers India"],
     image: productImage(
       "tailored-charcoal-trousers",
       "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&q=80&fm=webp",
-      "Tailored charcoal trousers for men by Chevellè",
-      "tailored-charcoal-trousers-chevelle.webp",
+      "Tailored charcoal trousers for men by Dripthroat",
+      "tailored-charcoal-trousers-dripthroat.webp",
       800,
       1067
     ),
@@ -361,13 +449,13 @@ export const products: Product[] = [
     description:
       "Compact crossbody in structured leather — an everyday unisex carry with clean lines and premium hardware.",
     seoDescription:
-      "Studio Crossbody Bag by Chevellè — unisex luxury handbag. Premium bags for everyday style India.",
+      "Studio Crossbody Bag by Dripthroat — unisex luxury handbag. Premium bags for everyday style India.",
     seoKeywords: ["crossbody bag unisex", "luxury handbag India", "designer bag online"],
     image: productImage(
       "studio-crossbody-bag",
       "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80&fm=webp",
-      "Studio crossbody bag by Chevellè",
-      "studio-crossbody-bag-chevelle.webp",
+      "Studio crossbody bag by Dripthroat",
+      "studio-crossbody-bag-dripthroat.webp",
       800,
       1067
     ),
@@ -384,13 +472,13 @@ export const products: Product[] = [
     description:
       "Timeless aviator frames with UV protection — unisex eyewear for city days, travel, and off-duty polish.",
     seoDescription:
-      "Classic Aviator Shades by Chevellè — unisex designer sunglasses. Luxury eyewear India.",
+      "Classic Aviator Shades by Dripthroat — unisex designer sunglasses. Luxury eyewear India.",
     seoKeywords: ["aviator sunglasses unisex", "designer sunglasses India"],
     image: productImage(
       "classic-aviator-shades",
       "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=800&q=80&fm=webp",
-      "Classic aviator sunglasses by Chevellè",
-      "classic-aviator-shades-chevelle.webp",
+      "Classic aviator sunglasses by Dripthroat",
+      "classic-aviator-shades-dripthroat.webp",
       800,
       1067
     ),
@@ -407,13 +495,13 @@ export const products: Product[] = [
     description:
       "Slim leather wallet in deep noir — a unisex everyday essential with refined stitching and card slots.",
     seoDescription:
-      "Noir Leather Wallet by Chevellè — premium unisex wallet. Luxury leather goods India.",
+      "Noir Leather Wallet by Dripthroat — premium unisex wallet. Luxury leather goods India.",
     seoKeywords: ["leather wallet unisex", "premium wallet India"],
     image: productImage(
       "noir-leather-wallet",
       "https://images.unsplash.com/photo-1627123424574-724758594e93?w=800&q=80&fm=webp",
-      "Noir leather wallet by Chevellè",
-      "noir-leather-wallet-chevelle.webp",
+      "Noir leather wallet by Dripthroat",
+      "noir-leather-wallet-dripthroat.webp",
       800,
       1067
     ),
@@ -430,13 +518,13 @@ export const products: Product[] = [
     description:
       "Delicate gold-tone chain with a minimal clasp — unisex jewellery for layering or wearing solo.",
     seoDescription:
-      "Minimal Gold Chain by Chevellè — unisex fine jewellery. Luxury accessories India.",
+      "Minimal Gold Chain by Dripthroat — unisex fine jewellery. Luxury accessories India.",
     seoKeywords: ["gold chain unisex", "minimal jewellery India", "designer chain online"],
     image: productImage(
       "minimal-gold-chain",
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80&fm=webp",
-      "Minimal gold chain by Chevellè",
-      "minimal-gold-chain-chevelle.webp",
+      "Minimal gold chain by Dripthroat",
+      "minimal-gold-chain-dripthroat.webp",
       800,
       1067
     ),
@@ -449,17 +537,30 @@ export const products: Product[] = [
     category: "Shirts / T-Shirt",
     collectionId: "shirts-tshirt",
     price: 2199,
-    priceDisplay: "₹2,199",
+    salePrice: 1799,
+    priceDisplay: "₹1,799",
     description:
       "Relaxed oversized cotton tee with a soft drape — an easy unisex staple that pairs with denim, co-ords, and layered looks.",
+    seoTitle: "Oversized Cotton Tee | Dripthroat",
     seoDescription:
-      "Oversized Cotton Tee by Chevellè — women's & unisex everyday tee. Premium cotton tops India.",
-    seoKeywords: ["oversized tee women", "unisex t-shirt", "cotton tee India"],
+      "Oversized Cotton Tee by Dripthroat — women's & unisex everyday tee. Premium cotton streetwear tops India.",
+    seoKeywords: ["oversized tee women", "unisex t-shirt", "cotton tee India", "streetwear"],
+    keywords: ["tee", "oversized", "cotton", "unisex", "streetwear"],
+    fabric: "100% Soft Cotton, 200 GSM",
+    oversizedFit: true,
+    featured: true,
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    inStock: true,
+    shippingInfo:
+      "Ships within 1–2 business days. Free delivery unlocks at the configured cart threshold.",
+    exchangeInfo: "Easy size exchange on unused items with tags within 7 days of delivery.",
+    sizeGuide:
+      "Oversized unisex fit. Chest (inches): S 40 | M 42 | L 44 | XL 46 | XXL 48.",
     image: productImage(
       "oversized-cotton-tee",
       "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80&fm=webp",
-      "Oversized cotton tee by Chevellè",
-      "oversized-cotton-tee-chevelle.webp",
+      "Oversized cotton tee by Dripthroat",
+      "oversized-cotton-tee-dripthroat.webp",
       800,
       1067
     ),

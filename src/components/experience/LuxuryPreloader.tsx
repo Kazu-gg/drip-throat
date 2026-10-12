@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { LuxuryCompass } from "@/components/hero/LuxuryCompass";
+import { DRIPTHROAT_LOGO_PATH } from "@/components/brand/DripthroatLogo";
 
-const SESSION_KEY = "chevelle-intro-seen";
+const SESSION_KEY = "dripthroat-intro-seen";
 
 export function LuxuryPreloader() {
   const [visible, setVisible] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<SVGLineElement>(null);
-  const logoRef = useRef<SVGTextElement>(null);
+  const logoRef = useRef<SVGPathElement>(null);
   const compassWrapRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
 
@@ -74,7 +75,7 @@ export function LuxuryPreloader() {
       if (logo) {
         tl.fromTo(
           logo,
-          { strokeDashoffset: 1200, fillOpacity: 0 },
+          { strokeDashoffset: 2400, fillOpacity: 0 },
           {
             strokeDashoffset: 0,
             fillOpacity: 1,
@@ -152,7 +153,7 @@ export function LuxuryPreloader() {
             y1="20"
             x2="400"
             y2="20"
-            stroke="#D4AF37"
+            stroke="#A8B38A"
             strokeWidth="0.5"
             strokeDasharray="400"
             strokeDashoffset="400"
@@ -160,31 +161,29 @@ export function LuxuryPreloader() {
           />
         </svg>
 
-        <svg viewBox="0 0 720 100" className="h-16 w-72 sm:h-20 sm:w-96" aria-hidden>
+        <svg
+          viewBox="0 0 936.5 252.6"
+          className="h-16 w-72 sm:h-20 sm:w-96"
+          fillRule="evenodd"
+          aria-hidden
+        >
           <defs>
             <linearGradient id="preloader-gold" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#B8962E" />
-              <stop offset="50%" stopColor="#D4AF37" />
-              <stop offset="100%" stopColor="#E2C663" />
+              <stop offset="0%" stopColor="#8A9374" />
+              <stop offset="50%" stopColor="#A8B38A" />
+              <stop offset="100%" stopColor="#B6C38E" />
             </linearGradient>
           </defs>
-          <text
+          <path
             ref={logoRef}
-            x="50%"
-            y="72"
-            textAnchor="middle"
-            fontSize="52"
-            fontFamily="var(--font-cormorant), serif"
-            letterSpacing="0.28em"
+            d={DRIPTHROAT_LOGO_PATH}
             stroke="url(#preloader-gold)"
-            strokeWidth="0.6"
+            strokeWidth="0.8"
             fill="url(#preloader-gold)"
             fillOpacity="0"
-            strokeDasharray="1200"
-            strokeDashoffset="1200"
-          >
-            CHEVELLÈ
-          </text>
+            strokeDasharray="2400"
+            strokeDashoffset="2400"
+          />
         </svg>
 
         <div ref={compassWrapRef} className="mt-12 opacity-0">

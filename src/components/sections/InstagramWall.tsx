@@ -10,9 +10,9 @@ export function InstagramWall() {
   return (
     <section className="section-padding relative luxury-gradient">
       <SectionHeading
-        label="@chevelleindia"
+        label="@dripthroat"
         title="Follow Our Journey"
-        subtitle="A glimpse into the world of Chevellè — style, elegance, and inspiration."
+        subtitle="A glimpse into the world of Dripthroat — style, elegance, and inspiration."
       />
 
       <motion.div

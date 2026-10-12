@@ -36,7 +36,7 @@ export function Hero() {
     <section
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black"
       onMouseMove={handleMouseMove}
-      aria-label="Chevellè premium luxury fashion"
+      aria-label="Dripthroat premium luxury fashion"
     >
       <div className="absolute inset-0">
         <motion.div
@@ -45,7 +45,7 @@ export function Hero() {
         >
           <Image
             src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1920&q=80"
-            alt="Premium luxury women's fashion — sarees, lehengas and ethnic wear by Chevellè"
+            alt="Premium luxury women's fashion — sarees, lehengas and ethnic wear by Dripthroat"
             fill
             priority
             className="object-cover opacity-[0.22]"
@@ -71,7 +71,7 @@ export function Hero() {
         className="pointer-events-none absolute top-[38%] left-1/2 z-[2] h-[420px] w-[640px] -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
-            "radial-gradient(ellipse, rgba(212,175,55,0.07) 0%, transparent 68%)",
+            "radial-gradient(ellipse, rgba(168,179,138,0.07) 0%, transparent 68%)",
         }}
       />
 
@@ -105,7 +105,7 @@ export function Hero() {
           transition={{ delay: 2.45, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="font-display text-3xl leading-tight font-light tracking-wide text-white sm:text-4xl md:text-5xl lg:text-6xl"
         >
-          <span className="sr-only">Chevellè — Premium Luxury Fashion. </span>
+          <span className="sr-only">Dripthroat — Premium Luxury Fashion. </span>
           Premium Luxury Fashion,
           <br />
           <span className="text-white/70">Delivered With Care</span>

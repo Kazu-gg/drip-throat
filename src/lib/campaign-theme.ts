@@ -18,30 +18,30 @@ export type CampaignTheme = {
   parentId: MainCategoryId;
 };
 
-/** Shared gold & black palette — only collection images change on hover */
+/** Shared olive & sage palette — sampled from Dripthroat mockup */
 export const GOLD_BLACK: Pick<
   CampaignTheme,
   "bg" | "accent" | "secondary" | "glow" | "particle" | "text" | "palette"
 > = {
-  palette: "Noir & Gold",
-  bg: "#050505",
-  accent: "#D4AF37",
-  secondary: "#1A1610",
-  glow: "rgba(212,175,55,0.22)",
-  particle: "#D4AF37",
-  text: "#F5F5F5",
+  palette: "Olive & Sage",
+  bg: "#12150a",
+  accent: "#A8B38A",
+  secondary: "#1A1F10",
+  glow: "rgba(168,179,138,0.18)",
+  particle: "#A8B38A",
+  text: "#D4CEBE",
 };
 
 export const DEFAULT_THEME_ID = "noir";
 
 export const noirTheme: CampaignTheme = {
   id: "noir",
-  name: "Chevellè",
+  name: "Dripthroat",
   slug: "",
   ...GOLD_BLACK,
   image:
     "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1920&q=80",
-  alt: "Chevellè luxury fashion editorial",
+  alt: "Dripthroat luxury fashion editorial",
   parentId: "women",
 };
 

@@ -75,7 +75,7 @@ export function AccountDashboard() {
         <section className="account-card account-profile">
           <div className="account-profile-main">
             <div className="account-avatar" aria-hidden>
-              {profileInitials(displayName) || "C"}
+              {profileInitials(displayName) || "D"}
             </div>
             <div>
               <p className="account-profile-name">{displayName}</p>

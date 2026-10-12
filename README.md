@@ -1,6 +1,6 @@
-# Chevellè — Curated Elegance
+# Dripthroat — Curated Elegance
 
-Premium luxury fashion website for Chevellè. Built with Next.js, Tailwind CSS, and Framer Motion.
+Premium luxury fashion website for Dripthroat. Built with Next.js, Tailwind CSS, and Framer Motion.
 
 ## Getting Started
 
@@ -22,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 1. Hero — Full-screen cinematic entrance with gold shimmer logo
 2. Featured Collections — Sarees, Lehengas, Suits, Co-Ord Sets, Kurti, Western Wear
-3. Why Chevellè — Premium quality promise grid
+3. Why Dripthroat — Premium quality promise grid
 4. Bestsellers — Drag carousel with quick view
 5. App Promo — Phone mockup with download CTAs
 6. Customer Reviews — Luxury testimonial cards

@@ -19,16 +19,14 @@ export function FigmaHero() {
           alt={HERO_IMAGE.alt}
           fill
           priority
-          className="object-cover object-[center_22%] scale-[1.03] brightness-[0.95] saturate-[1.12] contrast-[1.04]"
+          className="object-cover object-[center_22%] scale-[1.03] brightness-[0.88] contrast-[1.05] saturate-[0.85]"
           sizes="100vw"
         />
-        {/* Base warmth — ties photo into gold/black brand */}
-        <div className="absolute inset-0 bg-[#1a1208]/25 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-br from-gold/[0.08] via-transparent to-[#0d0d0d]/30" />
-        {/* Edge vignette for readability, centre stays luminous */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d]/75 via-[#0d0d0d]/20 to-[#0d0d0d]/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_45%,rgba(13,13,13,0.35)_0%,rgba(13,13,13,0.08)_55%,transparent_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/15 to-[#0d0d0d]/45" />
+        {/* Olive grade — match mockup forest mood */}
+        <div className="absolute inset-0 bg-[#12150a]/45 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-[#2a3320]/20 mix-blend-color" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#12150a]/80 via-[#12150a]/35 to-[#12150a]/65" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#12150a] via-[#12150a]/25 to-[#12150a]/50" />
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center section-padding pt-28 pb-16 text-center">
@@ -38,27 +36,36 @@ export function FigmaHero() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl"
         >
-          <p className="text-shimmer font-accent text-[clamp(2.5rem,8vw,5rem)] leading-[1.05] tracking-[0.08em] opacity-75 drop-shadow-[0_4px_32px_rgba(0,0,0,0.25)]">
-            CURATED ELEGANCE.
+          <p className="font-accent text-[clamp(2.5rem,8vw,5rem)] leading-[1.05] tracking-[0.08em] text-[var(--campaign-text)] drop-shadow-[0_4px_32px_rgba(0,0,0,0.45)]">
+            WEAR LOUD.
             <br />
-            TIMELESS YOU.
+            STAY RAW.
           </p>
-          <p className="mx-auto mt-6 max-w-md font-body text-sm leading-relaxed text-[var(--campaign-text)]/70 sm:text-base">
-            Luxury fashion that speaks before you do.
+          <p className="mx-auto mt-6 max-w-md font-body text-sm leading-relaxed text-[var(--campaign-text)]/65 sm:text-base">
+            Streetwear for the unapologetic.
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/collections" className="shop-btn-primary min-w-[220px] px-10 py-3.5">
-              Explore Collections
+            <Link
+              href="/products"
+              className="shop-btn-primary min-w-[220px] rounded-none px-10 py-3.5"
+              data-testid="hero_shop_now_button"
+            >
+              Shop Now
             </Link>
-            <Link href="/products" className="shop-btn-outline min-w-[220px] px-10 py-3.5">
-              Shop New In
+            <Link
+              href="/collections"
+              className="shop-btn-outline min-w-[220px] rounded-none px-10 py-3.5"
+              data-testid="hero_explore_collection_button"
+            >
+              Explore Collection
             </Link>
           </div>
 
           <Link
             href={APP_DOWNLOAD_PATH}
-            className="mt-6 inline-block font-body text-[10px] tracking-[0.28em] text-[var(--campaign-text)]/40 uppercase hover:text-gold"
+            className="mt-6 inline-block font-body text-[10px] tracking-[0.28em] text-[var(--campaign-text)]/55 uppercase transition-colors hover:text-[var(--campaign-text)]"
+            data-testid="hero_download_app_link"
           >
             Download App
           </Link>

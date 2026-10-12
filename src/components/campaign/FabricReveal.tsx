@@ -35,7 +35,7 @@ export function FabricReveal() {
         >
           <Image
             src={outfitImage}
-            alt="Finished Chevellè outfit"
+            alt="Finished Dripthroat outfit"
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"
@@ -81,7 +81,7 @@ export function FabricReveal() {
             for every occasion
           </h2>
           <p className="mt-6 max-w-md font-body text-sm leading-relaxed text-white/45 lg:mx-0 mx-auto">
-            From handwoven silk to finished silhouette — experience how Chevellè
+            From handwoven silk to finished silhouette — experience how Dripthroat
             transforms fabric into wearable art. Drag to reveal the craft.
           </p>
           <Link

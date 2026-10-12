@@ -10,7 +10,7 @@ const THUMBNAIL_SLUGS = ["handbags", "jewellery", "sarees"] as const;
 
 export function PackagingExperience() {
   const [active, setActive] = useState(0);
-  const images = THUMBNAIL_SLUGS.map((slug) => figmaImage(slug, "Chevellè packaging"));
+  const images = THUMBNAIL_SLUGS.map((slug) => figmaImage(slug, "Dripthroat packaging"));
   const main = images[active];
 
   return (
@@ -48,7 +48,7 @@ export function PackagingExperience() {
               className="max-w-lg"
             >
               <p className="font-body text-[10px] tracking-[0.4em] text-gold uppercase">
-                The Chevellè Experience
+                The Dripthroat Experience
               </p>
               <h2
                 id="packaging-heading"
